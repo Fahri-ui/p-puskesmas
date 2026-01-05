@@ -13,7 +13,7 @@ class RoleMiddleware
     {
         // Pastikan user login
         if (!Auth::check()) {
-            return redirect()->route('login');
+            return redirect('/')->with('error', 'Anda belum melakukan login.');
         }
 
         $user = Auth::user();
@@ -23,7 +23,14 @@ class RoleMiddleware
             return $next($request);
         }
 
-        // Jika tidak punya akses
-        abort(403, 'Akses ditolak.');
+        // Jika tidak punya akses, redirect sesuai role
+        if ($user->role === 'SUPER_ADMIN') {
+            return redirect('/super-admin/dashboard')->with('error', 'Anda adalah SUPER ADMIN.');
+        } elseif ($user->role === 'ADMIN') {
+            return redirect('/admin/dashboard')->with('error', 'Anda adalah ADMIN.');
+        }
+
+        // Fallback
+        return redirect('/')->with('error', 'Akses ditolak.');
     }
 }

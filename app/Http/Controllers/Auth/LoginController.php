@@ -25,11 +25,24 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
+            
+            // Jika request AJAX, return JSON
+            if ($request->expectsJson()) {
+                $user = Auth::user();
+                $redirect = $user->role === 'SUPER_ADMIN' ? '/super-admin/dashboard' : '/admin/dashboard';
+                return response()->json(['redirect' => $redirect]);
+            }
+            
             return redirect()->intended('/admin/dashboard');
         }
 
+        // Jika request AJAX, return error JSON
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Email atau password salah'], 422);
+        }
+
         throw ValidationException::withMessages([
-            'email' => __('auth.failed'),
+            'email' => 'Email atau password salah',
         ]);
     }
 
