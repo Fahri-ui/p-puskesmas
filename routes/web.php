@@ -6,8 +6,10 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\SuperAdmin\SADashboardController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-
-
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\LayananController;
+use App\Http\Controllers\Admin\StafController;
+use App\Http\Controllers\Admin\KategoriBlogController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/', function () {return view('welcome');});
@@ -25,6 +27,10 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:ADMIN')->group(function () {
         Route::get('/admin/dashboard',[DashboardController::class,'index'])->name('admin.dashboard');
+        Route::get('/admin/blog',[BlogController::class,'index'])->name('admin.blog');
+        Route::get('/admin/layanan',[LayananController::class,'index'])->name('admin.layanan');
+        Route::get('/admin/staf',[StafController::class,'index'])->name('admin.staf');
+        Route::get('/admin/kategori-blog',[KategoriBlogController::class,'index'])->name('admin.kategori_blog');
     });
     Route::middleware('role:SUPER_ADMIN')->group(function(){
         Route::get('/super-admin/dashboard',[SADashboardController::class,'index'])->name('super_admin.dashboard');
