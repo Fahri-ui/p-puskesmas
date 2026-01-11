@@ -28,9 +28,20 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:ADMIN')->group(function () {
         Route::get('/admin/dashboard',[DashboardController::class,'index'])->name('admin.dashboard');
         Route::get('/admin/blog',[BlogController::class,'index'])->name('admin.blog');
+        Route::post('/admin/blog',[BlogController::class,'store'])->name('admin.blog.store');
+        Route::get('/admin/blog/{id}/edit',[BlogController::class,'edit'])->name('admin.blog.edit');
+        Route::put('/admin/blog/{id}',[BlogController::class,'update'])->name('admin.blog.update');
+        Route::delete('/admin/blog/{id}',[BlogController::class,'destroy'])->name('admin.blog.destroy');
         Route::get('/admin/layanan',[LayananController::class,'index'])->name('admin.layanan');
+        Route::post('/admin/layanan',[LayananController::class,'store'])->name('admin.layanan.store');
+        Route::put('/admin/layanan/{id}',[LayananController::class,'update'])->name('admin.layanan.update');
+        Route::delete('/admin/layanan/{id}',[LayananController::class,'destroy'])->name('admin.layanan.destroy');
+        Route::patch('/admin/layanan/{id}/toggle-status',[LayananController::class,'toggleStatus'])->name('admin.layanan.toggle-status');
         Route::get('/admin/staf',[StafController::class,'index'])->name('admin.staf');
         Route::get('/admin/kategori-blog',[KategoriBlogController::class,'index'])->name('admin.kategori_blog');
+        Route::post('/admin/kategori-blog',[KategoriBlogController::class,'store'])->name('admin.kategori_blog.store');
+        Route::put('/admin/kategori-blog/{id}',[KategoriBlogController::class,'update'])->name('admin.kategori_blog.update');
+        Route::delete('/admin/kategori-blog/{id}',[KategoriBlogController::class,'destroy'])->name('admin.kategori_blog.destroy');
     });
     Route::middleware('role:SUPER_ADMIN')->group(function(){
         Route::get('/super-admin/dashboard',[SADashboardController::class,'index'])->name('super_admin.dashboard');

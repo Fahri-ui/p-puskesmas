@@ -19,6 +19,8 @@
     @stack('styles')
 </head>
 <body class="bg-gray-50">
+    @include('components.flash-message')
+
     <div class="flex h-screen overflow-hidden">
         @include('layouts.admin.navbar')
 
