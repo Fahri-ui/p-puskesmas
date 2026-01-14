@@ -418,6 +418,8 @@
 
 @push('scripts')
 <script>
+    /* eslint-disable */
+    /* jshint ignore:start */
     // Pastikan DOM sudah dimuat sebelum menjalankan JavaScript
     document.addEventListener('DOMContentLoaded', function() {
         // Fungsi untuk membuka modal (add/edit)
@@ -497,7 +499,7 @@
                     svgPath = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>';
             }
 
-            return `<svg class="${iconClasses}" fill="none" stroke="currentColor" viewBox="0 0 24 24">${svgPath}</svg>`;
+            return '<svg class="' + iconClasses + '" fill="none" stroke="currentColor" viewBox="0 0 24 24">' + svgPath + '</svg>';
         }
 
         // Fungsi untuk update icon preview
@@ -657,4 +659,7 @@
         window.closeIconModal = closeIconModal;
         window.selectIcon = selectIcon;
     });
+    /* jshint ignore:end */
+    /* eslint-enable */
 </script>
+@endpush

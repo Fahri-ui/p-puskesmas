@@ -38,6 +38,12 @@ Route::middleware('auth')->group(function () {
         Route::delete('/admin/layanan/{id}',[LayananController::class,'destroy'])->name('admin.layanan.destroy');
         Route::patch('/admin/layanan/{id}/toggle-status',[LayananController::class,'toggleStatus'])->name('admin.layanan.toggle-status');
         Route::get('/admin/staf',[StafController::class,'index'])->name('admin.staf');
+        Route::post('/admin/staf',[StafController::class,'store'])->name('admin.staf.store');
+        Route::get('/admin/staf/{id}',[StafController::class,'show'])->name('admin.staf.show');
+        Route::get('/admin/staf/{id}/edit',[StafController::class,'edit'])->name('admin.staf.edit');
+        Route::put('/admin/staf/{id}',[StafController::class,'update'])->name('admin.staf.update');
+        Route::delete('/admin/staf/{id}',[StafController::class,'destroy'])->name('admin.staf.destroy');
+        Route::patch('/admin/staf/{id}/toggle-status',[StafController::class,'toggleStatus'])->name('admin.staf.toggle-status');
         Route::get('/admin/kategori-blog',[KategoriBlogController::class,'index'])->name('admin.kategori_blog');
         Route::post('/admin/kategori-blog',[KategoriBlogController::class,'store'])->name('admin.kategori_blog.store');
         Route::put('/admin/kategori-blog/{id}',[KategoriBlogController::class,'update'])->name('admin.kategori_blog.update');
