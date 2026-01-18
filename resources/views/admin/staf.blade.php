@@ -290,8 +290,7 @@
         </form>
     </div>
 </div>
-
-<!-- Modal Detail Staf (opsional, bisa dikembangkan) -->
+<!-- Modal Detail Staf -->
 <div id="detailStaf" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
     <div class="relative top-10 mx-auto p-5 border w-11/12 max-w-2xl shadow-lg rounded-lg bg-white">
         <div class="flex justify-between items-center pb-4 border-b">
@@ -302,13 +301,68 @@
                 </svg>
             </button>
         </div>
-        <div class="mt-4 text-gray-700">
-            <p>Detail staf akan ditampilkan di sini.</p>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-900">
+            <!-- Kolom Kiri -->
+            <div class="space-y-4">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Nama Lengkap</p>
+                    <p class="mt-1">dr. Rina Susanti</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">NIP</p>
+                    <p class="mt-1">198501012010012001</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Jabatan</p>
+                    <p class="mt-1">Dokter Umum</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Email</p>
+                    <p class="mt-1">rina.susanti@puskesmas.id</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Nomor Telepon</p>
+                    <p class="mt-1">0812-3456-7890</p>
+                </div>
+            </div>
+
+            <!-- Kolom Kanan -->
+            <div class="space-y-4">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Tanggal Lahir</p>
+                    <p class="mt-1">01 Januari 1985</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Jenis Kelamin</p>
+                    <p class="mt-1">Perempuan</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Status</p>
+                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 mt-1">Aktif</span>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Alamat</p>
+                    <p class="mt-1">Jl. Sehat No. 123, Kec. Binong, Kab. Subang</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Foto</p>
+                    <div class="mt-2 flex justify-center">
+                        <div class="h-24 w-24 bg-green-100 rounded-lg flex items-center justify-center text-green-700 font-semibold">DR</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-end">
+            <button type="button" onclick="closeModal('detailStaf')" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg">
+                Tutup
+            </button>
         </div>
     </div>
 </div>
 
-<!-- Modal Edit Staf (struktur mirip tambah) -->
+<!-- Modal Edit Staf -->
 <div id="editStaf" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
     <div class="relative top-10 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-lg bg-white">
         <div class="flex justify-between items-center pb-4 border-b">
@@ -319,15 +373,98 @@
                 </svg>
             </button>
         </div>
-        <div class="mt-4 text-gray-700">
-            <p>Form edit akan ditampilkan di sini.</p>
-        </div>
+
+        <form class="mt-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Kolom Kiri -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
+                        <input type="text" value="dr. Rina Susanti" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">NIP <span class="text-red-500">*</span></label>
+                        <input type="text" value="198501012010012001" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan <span class="text-red-500">*</span></label>
+                        <select required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option>Dokter Umum</option>
+                            <option>Dokter Gigi</option>
+                            <option>Perawat</option>
+                            <option>Bidan</option>
+                            <option>Apoteker</option>
+                            <option>Analis Kesehatan</option>
+                            <option>Staff Administrasi</option>
+                            <option>Staff Kebersihan</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
+                        <input type="email" value="rina.susanti@puskesmas.id" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon</label>
+                        <input type="tel" value="0812-3456-7890" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Lahir <span class="text-red-500">*</span></label>
+                        <input type="date" value="1985-01-01" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin <span class="text-red-500">*</span></label>
+                        <select required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option>Laki-laki</option>
+                            <option selected>Perempuan</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Status <span class="text-red-500">*</span></label>
+                        <select required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option>Aktif</option>
+                            <option>Tidak Aktif</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Alamat</label>
+                        <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">Jl. Sehat No. 123, Kec. Binong, Kab. Subang</textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Foto Staf</label>
+                        <input type="file" accept="image/*" onchange="previewImage(event)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <div class="mt-2 flex justify-center">
+                            <div class="h-24 w-24 bg-green-100 rounded-lg flex items-center justify-center text-green-700 font-semibold">DR</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-end space-x-3">
+                <button type="button" onclick="closeModal('editStaf')" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+                    Batal
+                </button>
+                <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">
+                    Simpan Perubahan
+                </button>
+            </div>
+        </form>
     </div>
 </div>
-
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     function openModal(modalId) {
         document.getElementById(modalId).classList.remove('hidden');
@@ -360,4 +497,4 @@
         }
     }
 </script>
-@endsection
+@endpush
