@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Staf;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Storage;
 use Exception;
 
 class StafController extends Controller
@@ -36,6 +35,7 @@ class StafController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'name' => 'required|string|max:255',
             'nip' => 'required|string|max:255|unique:staf,nip',
             'jabatan' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:staf,email',
@@ -50,7 +50,15 @@ class StafController extends Controller
         try {
             $fotoPath = null;
             if ($request->hasFile('foto')) {
-                $fotoPath = $request->file('foto')->store('staf', 'public');
+                $file = $request->file('foto');
+                $destinationPath = public_path('uploads/staf');
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+                $originalName = preg_replace('/[^A-Za-z0-9\-_.]/', '_', $file->getClientOriginalName());
+                $fileName = uniqid() . '_' . $originalName;
+                $file->move($destinationPath, $fileName);
+                $fotoPath = 'uploads/staf/' . $fileName;
             }
 
             Staf::create([
@@ -92,11 +100,23 @@ class StafController extends Controller
         try {
             $fotoPath = $staf->foto;
             if ($request->hasFile('foto')) {
-                // Hapus foto lama jika ada
-                if ($staf->foto && Storage::disk('public')->exists($staf->foto)) {
-                    Storage::disk('public')->delete($staf->foto);
+                // Hapus foto lama jika ada (disimpan sebagai path relatif e.g. uploads/staf/xxx)
+                if ($staf->foto) {
+                    $old = public_path($staf->foto);
+                    if (file_exists($old)) {
+                        @unlink($old);
+                    }
                 }
-                $fotoPath = $request->file('foto')->store('staf', 'public');
+
+                $file = $request->file('foto');
+                $destinationPath = public_path('uploads/staf');
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+                $originalName = preg_replace('/[^A-Za-z0-9\-_.]/', '_', $file->getClientOriginalName());
+                $fileName = uniqid() . '_' . $originalName;
+                $file->move($destinationPath, $fileName);
+                $fotoPath = 'uploads/staf/' . $fileName;
             }
 
             $staf->update([
@@ -123,9 +143,12 @@ class StafController extends Controller
         $staf = Staf::findOrFail($id);
 
         try {
-            // Hapus foto jika ada
-            if ($staf->foto && Storage::disk('public')->exists($staf->foto)) {
-                Storage::disk('public')->delete($staf->foto);
+            // Hapus foto jika ada (file berada di public/uploads/staf/...)
+            if ($staf->foto) {
+                $old = public_path($staf->foto);
+                if (file_exists($old)) {
+                    @unlink($old);
+                }
             }
 
             $staf->delete();

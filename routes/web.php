@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\StafController;
 use App\Http\Controllers\Admin\KategoriBlogController;
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () {return view('welcome');});
+    Route::get('/', function () {return view('welcome');})->name('welcome');
     Route::get('/login', [LoginController::class, 'showLoginForm']);
     Route::post('/login', [LoginController::class, 'login'])->name('login');
     Route::get('/forgot-password', [ForgotPasswordController::class, 'showForm']);
