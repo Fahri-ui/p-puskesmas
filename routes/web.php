@@ -10,9 +10,19 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\LayananController;
 use App\Http\Controllers\Admin\StafController;
 use App\Http\Controllers\Admin\KategoriBlogController;
+use App\Http\Controllers\Landing;
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () {return view('welcome');})->name('welcome');
+    // landing route
+    Route::get('/', [Landing\HomeController::class, 'index'])->name('welcome');
+    Route::get('/tentang-kami', [Landing\AboutController::class, 'index'])->name('about');
+    Route::get('/layanan', [Landing\ServiceController::class, 'index'])->name('services');
+    Route::get('/staf', [Landing\StafController::class, 'index'])->name('staf');
+    Route::get('/berita', [Landing\BlogController::class, 'index'])->name('blog');
+    Route::get('/berita/{slug}', [Landing\BlogController::class, 'show'])->name('blog.show');
+    Route::get('/kontak', [Landing\ContactController::class, 'index'])->name('contact');
+
+    // authentication routes
     Route::get('/login', [LoginController::class, 'showLoginForm']);
     Route::post('/login', [LoginController::class, 'login'])->name('login');
     Route::get('/forgot-password', [ForgotPasswordController::class, 'showForm']);
