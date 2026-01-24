@@ -1,11 +1,11 @@
 <nav id="navmenu" class="navmenu">
     <ul>
-        <li><a href="index.html" class="active">Beranda</a></li>
-        <li><a href="about.html">Tentang Kami</a></li>
-        <li><a href="services.html">Layanan</a></li>
-        <li><a href="doctors.html">Staf</a></li>
-        <li><a href="doctors.html">Berita</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><x-landing.navbar.nav-link href="{{ route('welcome')}}">Beranda</x-landing.navbar.nav-link></li>
+        <li><x-landing.navbar.nav-link href="{{ route('about')}}">Tentang Kami</x-landing.navbar.nav-link></li>
+        <li><x-landing.navbar.nav-link href="{{ route('service')}}">Layanan</x-landing.navbar.nav-link></li>
+        <li><x-landing.navbar.nav-link href="{{ route('staf')}}">Staf</x-landing.navbar.nav-link></li>
+        <li><x-landing.navbar.nav-link href="{{ route('blog')}}">Berita</x-landing.navbar.nav-link></li>
+        <li><x-landing.navbar.nav-link href="{{ route('contact')}}">Contact</x-landing.navbar.nav-link></li>
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
 </nav>
