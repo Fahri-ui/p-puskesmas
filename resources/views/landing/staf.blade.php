@@ -4,8 +4,7 @@
         <div class="breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#"><i class="bi bi-house"></i> Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Category</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('welcome')}}"><i class="bi bi-house"></i> Beranada</a></li>
                     <li class="breadcrumb-item active current">Doctors</li>
                 </ol>
             </nav>
@@ -43,7 +42,7 @@
                             <div class="doctor-experience">
                                 <span class="experience-badge">15+ Years Experience</span>
                             </div>
-                            <a href="appointment.html" class="btn-appointment">Book Appointment</a>
+                            <a href="{{ route('staf.show', 1) }}" class="btn-appointment">Selengkapnya</a>
                         </div>
                     </div>
                 </div><!-- End Doctor Card -->

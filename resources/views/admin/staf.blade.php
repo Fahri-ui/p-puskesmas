@@ -106,61 +106,66 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Staf</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIP</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jabatan</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kontak</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Urutan</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <!-- Baris contoh tetap seperti sebelumnya -->
+                    @forelse($staf as $index => $s)
                     <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $index + 1 }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
                                     <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-semibold">
-                                        DR
+                                        {{ strtoupper(substr($s->name,0,2)) }}
                                     </div>
                                 </div>
                                 <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">dr. Rina Susanti</div>
-                                    <div class="text-sm text-gray-500">Perempuan</div>
+                                    <div class="text-sm font-medium text-gray-900">{{ $s->name }}</div>
+                                    <div class="text-sm text-gray-500">{{ $s->bidang ?? '-' }}</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">198501012010012001</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dokter Umum</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $s->jabatan }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $s->email ?? '-' }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $s->urutan }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">0812-3456-7890</div>
-                            <div class="text-sm text-gray-500">rina.susanti@puskesmas.id</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                Aktif
+                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $s->status === 'Aktif' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                                {{ $s->status }}
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <button onclick="openModal('detailStaf')" class="text-blue-600 hover:text-blue-900 mr-3" title="Lihat Detail">
+                            <button onclick="openDetail({{ $s->id }})" class="text-blue-600 hover:text-blue-900 mr-3" title="Lihat Detail">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                 </svg>
                             </button>
-                            <button onclick="openModal('editStaf')" class="text-green-600 hover:text-green-900 mr-3" title="Edit">
+                            <button onclick="openEditStaf({{ $s->id }})" class="text-green-600 hover:text-green-900 mr-3" title="Edit">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                             </button>
-                            <button onclick="confirmDelete()" class="text-red-600 hover:text-red-900" title="Hapus">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                            </button>
+                            <form action="{{ route('admin.staf.destroy', $s->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus staf ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-900" title="Hapus">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                </button>
+                            </form>
                         </td>
                     </tr>
-                    <!-- Tambahkan baris lain jika perlu -->
+                    @empty
+                    <tr>
+                        <td colspan="7" class="px-6 py-8 text-center text-gray-500">Belum ada staf</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -199,7 +204,26 @@
             </button>
         </div>
 
-        <form class="mt-6">
+        <form class="mt-6" method="POST" action="{{ route('admin.staf.store') }}" enctype="multipart/form-data">
+            @csrf
+            @if ($errors->any())
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                    <div class="flex items-start space-x-3">
+                        <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.516 9.8A1.75 1.75 0 0116.986 16H3.014a1.75 1.75 0 01-1.273-2.101l5.516-9.8zM11 13a1 1 0 10-2 0 1 1 0 002 0zm-1-8a.75.75 0 00-.75.75v4.5c0 .414.336.75.75.75s.75-.336.75-.75v-4.5A.75.75 0 0010 5z" clip-rule="evenodd"/>
+                        </svg>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-red-900 mb-2">Periksa formulir:</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-red-800">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Kolom Kiri -->
                 <div class="space-y-4">
@@ -242,39 +266,39 @@
                 <!-- Kolom Kanan -->
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Lahir <span class="text-red-500">*</span></label>
-                        <input type="date" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Bidang</label>
+                        <input type="text" name="bidang" value="{{ old('bidang') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Contoh: Poliklinik Anak">
+                        @error('bidang')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin <span class="text-red-500">*</span></label>
-                        <select required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <option value="">Pilih Jenis Kelamin</option>
-                            <option>Laki-laki</option>
-                            <option>Perempuan</option>
-                        </select>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Urutan Tampilan <span class="text-red-500">*</span></label>
+                        <input type="number" name="urutan" min="0" value="{{ old('urutan', 0) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        @error('urutan')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Status <span class="text-red-500">*</span></label>
-                        <select required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <option value="">Pilih Status</option>
-                            <option selected>Aktif</option>
-                            <option>Tidak Aktif</option>
+                        <select name="status" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option value="Aktif" {{ old('status', 'Aktif') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                            <option value="Tidak Aktif" {{ old('status') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                         </select>
+                        @error('status')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Alamat</label>
-                        <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Alamat lengkap"></textarea>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
+                        <textarea name="deskripsi" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Deskripsi singkat layanan atau staf">{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Foto Staf</label>
-                        <input type="file" accept="image/*" onchange="previewImage(event)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <input type="file" name="foto" accept="image/*" onchange="previewImage(event)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
                         <div class="mt-2 flex justify-center">
                             <img id="fotoPreview" src="#" alt="Preview Foto" class="hidden h-24 w-24 object-cover rounded-lg border border-gray-300" />
                         </div>
+                        @error('foto')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
                     </div>
                 </div>
             </div>
@@ -374,23 +398,26 @@
             </button>
         </div>
 
-        <form class="mt-6">
+        <form id="editStafForm" class="mt-6" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Kolom Kiri -->
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
-                        <input type="text" value="dr. Rina Susanti" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <input id="edit_name" name="name" type="text" value="" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">NIP <span class="text-red-500">*</span></label>
-                        <input type="text" value="198501012010012001" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Bidang</label>
+                        <input id="edit_bidang" name="bidang" type="text" value="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Contoh: Poliklinik Anak">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan <span class="text-red-500">*</span></label>
-                        <select required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <select id="edit_jabatan" name="jabatan" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option value="">Pilih Jabatan</option>
                             <option>Dokter Umum</option>
                             <option>Dokter Gigi</option>
                             <option>Perawat</option>
@@ -404,48 +431,35 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
-                        <input type="email" value="rina.susanti@puskesmas.id" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <input id="edit_email" name="email" type="email" value="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="email@puskesmas.id">
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon</label>
-                        <input type="tel" value="0812-3456-7890" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Urutan Tampilan <span class="text-red-500">*</span></label>
+                        <input id="edit_urutan" name="urutan" type="number" min="0" value="0" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
                     </div>
                 </div>
 
                 <!-- Kolom Kanan -->
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Lahir <span class="text-red-500">*</span></label>
-                        <input type="date" value="1985-01-01" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Jenis Kelamin <span class="text-red-500">*</span></label>
-                        <select required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <option>Laki-laki</option>
-                            <option selected>Perempuan</option>
-                        </select>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
+                        <textarea id="edit_deskripsi" name="deskripsi" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"></textarea>
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Status <span class="text-red-500">*</span></label>
-                        <select required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <option>Aktif</option>
-                            <option>Tidak Aktif</option>
+                        <select id="edit_status" name="status" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option value="Aktif">Aktif</option>
+                            <option value="Tidak Aktif">Tidak Aktif</option>
                         </select>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Alamat</label>
-                        <textarea rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">Jl. Sehat No. 123, Kec. Binong, Kab. Subang</textarea>
-                    </div>
-
-                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Foto Staf</label>
-                        <input type="file" accept="image/*" onchange="previewImage(event)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <input id="edit_foto" type="file" name="foto" accept="image/*" onchange="previewImage(event)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
                         <div class="mt-2 flex justify-center">
-                            <div class="h-24 w-24 bg-green-100 rounded-lg flex items-center justify-center text-green-700 font-semibold">DR</div>
+                            <img id="editFotoPreview" src="#" alt="Preview Foto" class="hidden h-24 w-24 object-cover rounded-lg border border-gray-300" />
                         </div>
                     </div>
                 </div>
@@ -495,6 +509,59 @@
             // Di sini nanti bisa dipanggil AJAX atau form submit
             alert('Data staf berhasil dihapus.');
         }
+    }
+    
+    // Fetch data and open edit modal
+    function openEditStaf(id) {
+        fetch("{{ url('/admin/staf') }}/" + id)
+            .then(response => response.json())
+            .then(data => {
+                // Populate form
+                document.getElementById('edit_name').value = data.name || '';
+                document.getElementById('edit_jabatan').value = data.jabatan || '';
+                document.getElementById('edit_bidang').value = data.bidang || '';
+                document.getElementById('edit_deskripsi').value = data.deskripsi || '';
+                document.getElementById('edit_email').value = data.email || '';
+                document.getElementById('edit_urutan').value = data.urutan || 0;
+                document.getElementById('edit_status').value = data.status || 'Aktif';
+
+                // Set form action
+                const form = document.getElementById('editStafForm');
+                form.action = '{{ route("admin.staf.update", ":id") }}'.replace(':id', id);
+
+                // Preview foto jika ada
+                const editPreview = document.getElementById('editFotoPreview');
+                if (data.foto) {
+                    editPreview.src = '/' + data.foto.replace(/^\/+/, '');
+                    editPreview.classList.remove('hidden');
+                } else {
+                    editPreview.classList.add('hidden');
+                }
+
+                // Open modal
+                openModal('editStaf');
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Gagal memuat data staf.');
+            });
+    }
+
+    function openDetail(id) {
+        fetch("{{ url('/admin/staf') }}/" + id)
+            .then(response => response.json())
+            .then(data => {
+                // Fill detail modal contents
+                document.querySelector('#detailStaf .text-sm.font-medium + p')?.textContent = data.name || '';
+                // For simplicity, reload modal static fields by selecting elements directly
+                // Name
+                const nameEl = document.querySelector('#detailStaf div p.mt-1');
+                if (nameEl) nameEl.textContent = data.name || '';
+                // Jabatan
+                // other fields are in fixed positions; better to rebuild detail modal if needed
+                openModal('detailStaf');
+            })
+            .catch(err => { console.error(err); alert('Gagal memuat detail staf.'); });
     }
 </script>
 @endpush

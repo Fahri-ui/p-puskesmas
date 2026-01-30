@@ -11,4 +11,9 @@ class StafController extends Controller
     {
         return view('landing.staf');
     }
+
+    public function show($id)
+    {
+        return view('landing.staf-show', compact('id'));
+    }
 }

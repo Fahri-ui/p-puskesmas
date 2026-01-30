@@ -11,4 +11,9 @@ class BlogController extends Controller
     {
         return view('landing.blog');
     }
+
+    public function show($slug)
+    {
+        return view('landing.blog-show', compact('slug'));
+    }
 }

@@ -3,77 +3,66 @@
     <div class="container footer-top">
         <div class="row gy-4">
             <div class="col-lg-4 col-md-6 footer-about">
-                <a href="index.html" class="logo d-flex align-items-center">
-                    <span class="sitename">MediTrust</span>
+                <a href="{{ route('welcome') }}" class="logo d-flex align-items-center">
+                    <span class="sitename">Puskesmas Binong</span>
                 </a>
                 <div class="footer-contact pt-3">
-                    <p>A108 Adam Street</p>
-                    <p>New York, NY 535022</p>
-                    <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                    <p><strong>Email:</strong> <span>info@example.com</span></p>
+                    <p>[Alamat Lengkap Puskesmas Binong]</p>
+                    <p>Desa/Kecamatan Binong, Kabupaten Subang<br>Jawa Barat 41253</p>
+                    <p class="mt-3"><strong>Telepon:</strong> <span>(0260) XXXX-XXXX</span></p>
+                    <p><strong>Email:</strong> <span>[email resmi]</span></p>
                 </div>
                 <div class="social-links d-flex mt-4">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
+                    <!-- Ganti tautan jika akun media sosial sudah tersedia -->
+                    <a href="#" aria-label="Twitter/X"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <!-- Opsional: tambahkan keterangan di bawah jika perlu -->
+                    <!-- <small class="d-block mt-2 text-muted">[Akun media sosial akan segera hadir]</small> -->
                 </div>
             </div>
 
             <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Useful Links</h4>
+                <h4>Tautan Penting</h4>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Terms of service</a></li>
-                    <li><a href="#">Privacy policy</a></li>
+                    <li><a href="{{ route('welcome') }}">Beranda</a></li>
+                    <li><a href="{{ route('about') }}">Profil</a></li>
+                    <li><a href="{{ route('service') }}">Layanan</a></li>
+                    <li><a href="{{ route('staf') }}">Staf</a></li>
+                    <li><a href="{{ route('blog') }}">Berita</a></li>
                 </ul>
             </div>
 
             <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Our Services</h4>
+                <h4>Layanan Utama</h4>
                 <ul>
-                    <li><a href="#">Web Design</a></li>
-                    <li><a href="#">Web Development</a></li>
-                    <li><a href="#">Product Management</a></li>
-                    <li><a href="#">Marketing</a></li>
-                    <li><a href="#">Graphic Design</a></li>
+                    <li><a href="#">Poli Umum</a></li>
+                    <li><a href="#">KIA & Imunisasi</a></li>
+                    <li><a href="#">Pemeriksaan Laboratorium</a></li>
+                    <li><a href="#">Surat Keterangan Sehat</a></li>
+                    <li><a href="#">Program Posyandu</a></li>
                 </ul>
             </div>
 
-            <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Hic solutasetp</h4>
+            <div class="col-lg-4 col-md-6 footer-links">
+                <h4>Jam Operasional</h4>
                 <ul>
-                    <li><a href="#">Molestiae accusamus iure</a></li>
-                    <li><a href="#">Excepturi dignissimos</a></li>
-                    <li><a href="#">Suscipit distinctio</a></li>
-                    <li><a href="#">Dilecta</a></li>
-                    <li><a href="#">Sit quas consectetur</a></li>
+                    <li>Senin–Jumat: 08.00–16.00 WIB</li>
+                    <li>Sabtu: 08.00–12.00 WIB</li>
+                    <li>Minggu & Hari Libur Nasional: Tutup</li>
                 </ul>
-            </div>
-
-            <div class="col-lg-2 col-md-3 footer-links">
-                <h4>Nobis illum</h4>
-                <ul>
-                    <li><a href="#">Ipsam</a></li>
-                    <li><a href="#">Laudantium dolorum</a></li>
-                    <li><a href="#">Dinera</a></li>
-                    <li><a href="#">Trodelas</a></li>
-                    <li><a href="#">Flexo</a></li>
-                </ul>
+                <!-- Opsional: tambahkan catatan -->
+                <!-- <p class="mt-2 text-muted small">Layanan darurat mengikuti ketentuan Dinas Kesehatan setempat.</p> -->
             </div>
 
         </div>
-    </div>
+    </div>  
 
     <div class="container copyright text-center mt-4">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">MyWebsite</strong> <span>All Rights Reserved</span></p>
+        <p>© 2026 Puskesmas Binong</p>
         <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you've purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+            <!-- Required by BootstrapMade Free License -->
             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
         </div>
     </div>

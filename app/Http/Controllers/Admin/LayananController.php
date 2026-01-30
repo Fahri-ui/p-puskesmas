@@ -30,6 +30,11 @@ class LayananController extends Controller
             'urutan' => ['required', 'integer', 'min:0'],
         ]);
 
+        // Cek apakah urutan sudah ada
+        if (Service::where('urutan', $validated['urutan'])->exists()) {
+            return redirect()->back()->withInput()->with('error', 'Nomor urutan sudah digunakan. Silakan pilih nomor urutan yang berbeda.');
+        }
+
         try {
             $slug = Str::slug($validated['nama_layanan']);
             $counter = 1;
@@ -49,7 +54,8 @@ class LayananController extends Controller
 
             return redirect()->route('admin.layanan')->with('success', 'Layanan berhasil ditambahkan.');
         } catch (Exception $e) {
-            return redirect()->route('admin.layanan')->with('error', 'Terjadi kesalahan saat menyimpan layanan.');
+            \Log::error('Error creating service: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menyimpan layanan: ' . $e->getMessage());
         }
     }
 
@@ -64,6 +70,11 @@ class LayananController extends Controller
             'aktif' => ['boolean'],
             'urutan' => ['required', 'integer', 'min:0'],
         ]);
+
+        // Cek apakah urutan sudah ada (kecuali untuk service yang sedang diupdate)
+        if (Service::where('urutan', $validated['urutan'])->where('id', '!=', $service->id)->exists()) {
+            return redirect()->back()->withInput()->with('error', 'Nomor urutan sudah digunakan. Silakan pilih nomor urutan yang berbeda.');
+        }
 
         try {
             $slug = Str::slug($validated['nama_layanan']);
@@ -84,7 +95,8 @@ class LayananController extends Controller
 
             return redirect()->route('admin.layanan')->with('success', 'Layanan berhasil diperbarui.');
         } catch (Exception $e) {
-            return redirect()->route('admin.layanan')->with('error', 'Terjadi kesalahan saat memperbarui layanan.');
+            \Log::error('Error updating service: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat memperbarui layanan: ' . $e->getMessage());
         }
     }
 

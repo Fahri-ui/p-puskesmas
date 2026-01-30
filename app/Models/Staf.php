@@ -10,14 +10,12 @@ class Staf extends Model
 
     protected $fillable = [
         'name',
-        'nip',
         'jabatan',
-        'no_telepon',
+        'bidang',
+        'deskripsi',
         'email',
-        'alamat',
         'foto',
-        'tgl_lahir',
-        'jenis_kelamin',
         'status',
+        'urutan',
     ];
 }

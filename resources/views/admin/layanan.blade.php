@@ -232,22 +232,45 @@
             </button>
         </div>
 
-        <form class="p-6 space-y-5" method="POST">
+        <form class="p-6 space-y-5" method="POST" id="layananForm">
             @csrf
+            
+            <!-- Display validation errors and general errors -->
+            @if ($errors->any())
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                    <div class="flex items-start space-x-3">
+                        <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-red-900 mb-2">Terjadi kesalahan pada form:</h3>
+                            <ul class="list-disc list-inside space-y-1 text-sm text-red-800">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nama Layanan <span class="text-red-500">*</span></label>
-                <input type="text" name="nama_layanan" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Contoh: Pemeriksaan Umum" required>
+                <input type="text" name="nama_layanan" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent @error('nama_layanan') border-red-500 @enderror" placeholder="Contoh: Pemeriksaan Umum" value="{{ old('nama_layanan') }}" required>
+                @error('nama_layanan')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Slug <span class="text-red-500">*</span></label>
-                <input type="text" name="slug" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50" placeholder="pemeriksaan-umum" required readonly>
+                <input type="text" name="slug" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 @error('slug') border-red-500 @enderror" placeholder="pemeriksaan-umum" value="{{ old('slug') }}" required readonly>
                 <p class="mt-1 text-xs text-gray-500">Akan otomatis dibuat dari nama layanan</p>
+                @error('slug')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
-                <textarea name="deskripsi" rows="4" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Jelaskan detail tentang layanan ini..."></textarea>
+                <textarea name="deskripsi" rows="4" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent @error('deskripsi') border-red-500 @enderror" placeholder="Jelaskan detail tentang layanan ini...">{{ old('deskripsi') }}</textarea>
+                @error('deskripsi')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
             </div>
 
             <!-- Input Tersembunyi untuk Menyimpan Nama/Kode Ikon (Opsional, hanya untuk UI) -->
@@ -363,15 +386,17 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Urutan Tampilan <span class="text-red-500">*</span></label>
-                    <input type="number" name="urutan" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="1" value="1" min="1" required>
+                    <input type="number" name="urutan" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent @error('urutan') border-red-500 @enderror" placeholder="1" value="{{ old('urutan', 1) }}" min="1" required>
+                    @error('urutan')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Status <span class="text-red-500">*</span></label>
-                    <select name="aktif" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" required>
-                        <option value="1">Aktif</option>
-                        <option value="0">Tidak Aktif</option>
+                    <select name="aktif" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent @error('aktif') border-red-500 @enderror" required>
+                        <option value="1" {{ old('aktif', 1) == 1 ? 'selected' : '' }}>Aktif</option>
+                        <option value="0" {{ old('aktif') == 0 ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
+                    @error('aktif')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
                 </div>
             </div>
 
@@ -422,6 +447,13 @@
     /* jshint ignore:start */
     // Pastikan DOM sudah dimuat sebelum menjalankan JavaScript
     document.addEventListener('DOMContentLoaded', function() {
+        // Check if there are validation errors and open modal if so
+        @if ($errors->any())
+            setTimeout(function() {
+                openModal('add');
+            }, 100);
+        @endif
+
         // Fungsi untuk membuka modal (add/edit)
         function openModal(mode, id = null, nama = '', deskripsi = '', icon = '', aktif = true, urutan = 1) {
             const modal = document.getElementById('modalLayanan');

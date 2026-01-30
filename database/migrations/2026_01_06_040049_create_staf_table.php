@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('staf', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('nip')->unique();
             $table->string('jabatan');
-            $table->string('no_telepon')->nullable();
-            $table->string('email')->unique();
-            $table->text('alamat')->nullable();
+            $table->string('bidang')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->string('email')->nullable();
             $table->string('foto')->nullable();
-            $table->date('tgl_lahir')->nullable();
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
             $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Aktif');
+            $table->integer('urutan')->default(0);
             $table->timestamps();
         });
     }
