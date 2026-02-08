@@ -1,9 +1,4 @@
-@extends('layouts.admin.main')
-
-@section('title', 'Kelola Kategori Blog - Puskesmas Binong')
-@section('page-title', 'Kategori Berita')
-
-@section('content')
+<x-admin.app-layout :title="'Kelola Kategori Berita - Puskesmas Binong'" :pageTitle="'Kategori Berita'">
 <div class="max-w-7xl mx-auto">
     <!-- Form Create Kategori -->
     <div class="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -156,4 +151,5 @@
         });
     })();
 </script>
-@endsection
+
+</x-admin.app-layout>

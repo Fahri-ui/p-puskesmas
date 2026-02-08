@@ -1,10 +1,5 @@
-@extends('layouts.admin.main')
+<x-admin.app-layout :title="'Kelola Berita - Puskesmas Binong'" :pageTitle="'Kelola Berita'">
 
-@section('title', 'Kelola Blog - Puskesmas Binong')
-
-@section('page-title', 'Kelola Blog')
-
-@push('styles')
 <style>
     .status-draft {
         background-color: #FEF3C7;
@@ -19,10 +14,8 @@
         color: #374151;
     }
 </style>
-@endpush
 
-@section('content')
-    <div class="flex items-center justify-between mb-6">
+<div class="flex items-center justify-between mb-6">
         <div></div>
         <button id="btnTambahBlog" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -274,9 +267,7 @@
             </div>
         </div>
     </div>
-@endsection
 
-@push('scripts')
 <script>
     // Toggle Form Section
     const btnTambahBlog = document.getElementById('btnTambahBlog');
@@ -356,4 +347,5 @@
         });
     }
 </script>
-@endpush
+
+</x-admin.app-layout>

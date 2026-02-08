@@ -17,7 +17,7 @@ class StafController extends Controller
         $stafAktif = $staf->where('status', 'Aktif')->count();
         $stafTidakAktif = $staf->where('status', 'Tidak Aktif')->count();
 
-        return view('admin.staf', compact('staf', 'totalStaf', 'stafAktif', 'stafTidakAktif'));
+        return view('pages.admin.staf', compact('staf', 'totalStaf', 'stafAktif', 'stafTidakAktif'));
     }
 
     public function show($id)
@@ -70,7 +70,7 @@ class StafController extends Controller
                 'urutan' => $validated['urutan'],
             ]);
 
-            return redirect()->route('admin.staf')->with('success', 'Staf berhasil ditambahkan.');
+            return redirect()->route('pages.admin.staf')->with('success', 'Staf berhasil ditambahkan.');
         } catch (Exception $e) {
             \Log::error('Error creating staf: ' . $e->getMessage());
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menambahkan staf: ' . $e->getMessage());
@@ -125,7 +125,7 @@ class StafController extends Controller
                 'urutan' => $validated['urutan'],
             ]);
 
-            return redirect()->route('admin.staf')->with('success', 'Staf berhasil diperbarui.');
+            return redirect()->route('pages.admin.staf')->with('success', 'Staf berhasil diperbarui.');
         } catch (Exception $e) {
             \Log::error('Error updating staf: ' . $e->getMessage());
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat memperbarui staf: ' . $e->getMessage());
@@ -146,10 +146,10 @@ class StafController extends Controller
             }
 
             $staf->delete();
-            return redirect()->route('admin.staf')->with('success', 'Staf berhasil dihapus.');
+            return redirect()->route('pages.admin.staf')->with('success', 'Staf berhasil dihapus.');
         } catch (Exception $e) {
             \Log::error('Error deleting staf: ' . $e->getMessage());
-            return redirect()->route('admin.staf')->with('error', 'Terjadi kesalahan saat menghapus staf: ' . $e->getMessage());
+            return redirect()->route('pages.admin.staf')->with('error', 'Terjadi kesalahan saat menghapus staf: ' . $e->getMessage());
         }
     }
 
@@ -162,9 +162,9 @@ class StafController extends Controller
                 'status' => $staf->status === 'Aktif' ? 'Tidak Aktif' : 'Aktif'
             ]);
 
-            return redirect()->route('admin.staf')->with('success', 'Status staf berhasil diubah.');
+            return redirect()->route('pages.admin.staf')->with('success', 'Status staf berhasil diubah.');
         } catch (Exception $e) {
-            return redirect()->route('admin.staf')->with('error', 'Terjadi kesalahan saat mengubah status staf.');
+            return redirect()->route('pages.admin.staf')->with('error', 'Terjadi kesalahan saat mengubah status staf.');
         }
     }
 }

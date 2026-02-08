@@ -1,9 +1,4 @@
-@extends('layouts.admin.main')
-
-@section('title', 'Staf - Puskesmas Binong')
-@section('page-title', 'Manajemen Staf')
-
-@section('content')
+<x-admin.app-layout :title="'Staf - Puskesmas Binong'" :pageTitle="'Manajemen Staf'">
 <div class="space-y-6">
     <!-- Header Section -->
     <div class="flex justify-between items-center">
@@ -476,9 +471,7 @@
         </form>
     </div>
 </div>
-@endsection
 
-@push('scripts')
 <script>
     function openModal(modalId) {
         document.getElementById(modalId).classList.remove('hidden');
@@ -564,4 +557,5 @@
             .catch(err => { console.error(err); alert('Gagal memuat detail staf.'); });
     }
 </script>
-@endpush
+
+</x-admin.app-layout>

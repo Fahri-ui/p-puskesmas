@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard Admin - Puskesmas Binong')</title>
+    <title>{{ $title ?? 'Dashboard Admin - Puskesmas Binong' }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .sidebar-open {
@@ -20,10 +20,11 @@
     @stack('styles')
 </head>
 <body class="bg-gray-50">
-    @include('components.flash-message')
+    <!-- @include('components.flash-message') -->
 
     <div class="flex h-screen overflow-hidden">
-        @include('layouts.admin.navbar')
+        <!-- Navbar Component -->
+        <x-admin.navbar />
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
@@ -36,7 +37,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                             </svg>
                         </button>
-                        <h2 class="text-2xl font-semibold text-gray-800">@yield('page-title', 'Dashboard')</h2>
+                        <h2 class="text-2xl font-semibold text-gray-800">{{ $pageTitle ?? 'Dashboard' }}</h2>
                     </div>
                     <div class="flex items-center space-x-4">
                         <div class="text-right">
@@ -52,10 +53,11 @@
 
             <!-- Page Content -->
             <main class="flex-1 overflow-y-auto p-6">
-                @yield('content')
+                {{ $slot }}
             </main>
 
-            @include('layouts.admin.footer')
+            <!-- Footer Component -->
+            <x-admin.footer />
         </div>
     </div>
 

@@ -1,9 +1,4 @@
-@extends('layouts.admin.main')
-
-@section('title', 'Kelola Layanan - Puskesmas Binong')
-@section('page-title', 'Layanan')
-
-@section('content')
+<x-admin.app-layout :title="'Kelola Layanan - Puskesmas Binong'" :pageTitle="'Layanan'">
 <div class="space-y-6">
     <!-- Header Section -->
     <div class="flex justify-between items-center">
@@ -439,9 +434,6 @@
         </div>
     </div>
 </div>
-@endsection
-
-@push('scripts')
 <script>
     /* eslint-disable */
     /* jshint ignore:start */
@@ -694,4 +686,4 @@
     /* jshint ignore:end */
     /* eslint-enable */
 </script>
-@endpush
+</x-admin.app-layout>

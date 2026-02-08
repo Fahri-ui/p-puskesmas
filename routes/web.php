@@ -11,6 +11,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/', [Landing\HomeController::class, 'index'])->name('welcome');
     Route::get('/tentang-kami', [Landing\AboutController::class, 'index'])->name('about');
     Route::get('/layanan', [Landing\ServiceController::class, 'index'])->name('service');
+    Route::get('/inovasi', [Landing\InovasiController::class, 'index'])->name('inovasi');
     Route::get('/staf', [Landing\StafController::class, 'index'])->name('staf');
     Route::get('/staf/{id}', [Landing\StafController::class, 'show'])->name('staf.show');
     Route::get('/berita', [Landing\BlogController::class, 'index'])->name('blog');

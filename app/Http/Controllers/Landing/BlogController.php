@@ -9,11 +9,11 @@ class BlogController extends Controller
 {
     public function index()
     {
-        return view('landing.blog');
+        return view('pages.landing.blog');
     }
 
     public function show($slug)
     {
-        return view('landing.blog-show', compact('slug'));
+        return view('pages.landing.blog-show', compact('slug'));
     }
 }

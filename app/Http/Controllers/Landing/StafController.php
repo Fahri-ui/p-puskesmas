@@ -9,11 +9,11 @@ class StafController extends Controller
 {
     public function index()
     {
-        return view('landing.staf');
+        return view('pages.landing.staf');
     }
 
     public function show($id)
     {
-        return view('landing.staf-show', compact('id'));
+        return view('pages.landing.staf-show', compact('id'));
     }
 }

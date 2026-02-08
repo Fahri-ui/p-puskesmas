@@ -9,6 +9,6 @@ class TestimoniController extends Controller
 {
     public function index()
     {
-        return view('landing.testimoni');
+        return view('pages.landing.testimoni');
     }
 }

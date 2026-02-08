@@ -1,9 +1,4 @@
-@extends('layouts.admin.main')
-
-@section('title', 'Dashboard Admin - Puskesmas Binong')
-@section('page-title', 'Dashboard')
-
-@section('content')
+<x-admin.app-layout :title="'Dashboard Admin - Puskesmas Binong'" :pageTitle="'Dashboard'">
 <div class="max-w-7xl mx-auto">
     <!-- Welcome Card -->
     <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-lg shadow-lg p-6 mb-6 text-white">
@@ -167,4 +162,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-admin.app-layout>

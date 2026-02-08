@@ -79,11 +79,6 @@
                     </div>
                     <div class="department-image-wrapper">
                       <img src="{{ asset('MediTrust/assets/img/gallery/gallery-1.webp') }}" alt="{{ $service->nama_layanan }}" class="img-fluid" loading="lazy">
-                      <div class="department-stats">
-                        <div class="stat-item">
-                          <span class="stat-number">Urutan {{ $service->urutan }}</span>
-                        </div>
-                      </div>
                     </div>
                     <div class="department-content">
                       <p>{{ $service->deskripsi ?? 'Deskripsi tidak tersedia' }}</p>

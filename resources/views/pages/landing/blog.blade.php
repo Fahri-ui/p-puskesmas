@@ -69,37 +69,7 @@
                         </div>
                     </div>
 
-                    <!-- Filter & Search -->
-                    <div class="filter-section mb-4" data-aos="fade-up">
-                        <div class="row align-items-center">
-                            <div class="col-md-6 mb-3 mb-md-0">
-                                <div class="category-filter d-flex flex-wrap gap-2">
-                                    <button class="btn btn-sm active-category" style="background-color: #349953; color: white; border: none;">
-                                        <i class="bi bi-grid-fill me-1"></i>Semua
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-secondary category-btn">
-                                        <i class="bi bi-heart-pulse me-1"></i>Kesehatan
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-secondary category-btn">
-                                        <i class="bi bi-calendar-event me-1"></i>Kegiatan
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-secondary category-btn">
-                                        <i class="bi bi-megaphone me-1"></i>Pengumuman
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="search-box">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Cari berita...">
-                                        <button class="btn" type="button" style="background-color: #349953; color: white;">
-                                            <i class="bi bi-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- (Search moved to sidebar) -->
 
                     <!-- News List -->
                     <div class="news-list">
@@ -364,6 +334,63 @@
                 <!-- Sidebar -->
                 <div class="col-lg-4">
                     <aside class="sidebar" data-aos="fade-up" data-aos-delay="100">
+
+
+                        <!-- Search + Categories (compact and professional) -->
+                        <div class="sidebar-widget search-categories mb-4">
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-body p-4">
+                                    <h5 class="widget-title mb-3" style="color: #349953;">
+                                        <i class="bi bi-search me-2"></i>Cari Berita
+                                    </h5>
+
+                                    <form action="{{ route('admin.blog') }}" method="GET" class="mb-3">
+                                        <div class="input-group">
+                                            <input type="search" name="q" class="form-control" placeholder="Cari berita atau kategori..." value="{{ request('q') }}">
+                                            <button class="btn" type="submit" style="background-color: #349953; color: white;">
+                                                <i class="bi bi-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <div class="mb-3" style="height:1px;background:#e9ecef"></div>
+
+                                    <h6 class="mb-3" style="font-weight:600;">Kategori</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2">
+                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
+                                                <span><i class="    bi bi-chevron-right me-2" style="color: #349953;"></i>Kesehatan</span>
+                                                <small class="text-muted">24</small>
+                                            </a>
+                                        </li>
+                                        <li class="mb-2">
+                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
+                                                <span><i class="bi bi-chevron-right me-2" style="color: #349953;"></i>Kegiatan</span>
+                                                <small class="text-muted">18</small>
+                                            </a>
+                                        </li>
+                                        <li class="mb-2">
+                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
+                                                <span><i class="bi bi-chevron-right me-2" style="color: #349953;"></i>Pengumuman</span>
+                                                <small class="text-muted">12</small>
+                                            </a>
+                                        </li>
+                                        <li class="mb-2">
+                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
+                                                <span><i class="bi bi-chevron-right me-2" style="color: #349953;"></i>Layanan</span>
+                                                <small class="text-muted">9</small>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
+                                                <span><i class="bi bi-chevron-right me-2" style="color: #349953;"></i>Edukasi</span>
+                                                <small class="text-muted">7</small>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                         
                         <!-- Popular News -->
                         <div class="sidebar-widget popular-news mb-4">
@@ -444,66 +471,7 @@
                             </div>
                         </div>
 
-                        <!-- Categories -->
-                        <div class="sidebar-widget categories mb-4">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-body p-4">
-                                    <h5 class="widget-title mb-4" style="color: #349953;">
-                                        <i class="bi bi-folder-fill me-2"></i>Kategori
-                                    </h5>
-                                    
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="mb-3">
-                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
-                                                <span>
-                                                    <i class="bi bi-chevron-right me-2" style="color: #349953;"></i>
-                                                    Kesehatan
-                                                </span>
-                                                <span class="badge" style="background-color: #349953;">24</span>
-                                            </a>
-                                        </li>
-                                        <li class="mb-3">
-                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
-                                                <span>
-                                                    <i class="bi bi-chevron-right me-2" style="color: #349953;"></i>
-                                                    Kegiatan
-                                                </span>
-                                                <span class="badge" style="background-color: #349953;">18</span>
-                                            </a>
-                                        </li>
-                                        <li class="mb-3">
-                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
-                                                <span>
-                                                    <i class="bi bi-chevron-right me-2" style="color: #349953;"></i>
-                                                    Pengumuman
-                                                </span>
-                                                <span class="badge" style="background-color: #349953;">12</span>
-                                            </a>
-                                        </li>
-                                        <li class="mb-3">
-                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
-                                                <span>
-                                                    <i class="bi bi-chevron-right me-2" style="color: #349953;"></i>
-                                                    Layanan
-                                                </span>
-                                                <span class="badge" style="background-color: #349953;">9</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="d-flex justify-content-between align-items-center text-decoration-none text-dark hover-link">
-                                                <span>
-                                                    <i class="bi bi-chevron-right me-2" style="color: #349953;"></i>
-                                                    Edukasi
-                                                </span>
-                                                <span class="badge" style="background-color: #349953;">7</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Archive -->
+                        <!-- Archive
                         <div class="sidebar-widget archive mb-4">
                             <div class="card border-0 shadow-sm">
                                 <div class="card-body p-4">
@@ -545,28 +513,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Newsletter -->
-                        <div class="sidebar-widget newsletter">
-                            <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #349953 0%, #2d8347 100%);">
-                                <div class="card-body p-4 text-white text-center">
-                                    <i class="bi bi-envelope-heart-fill" style="font-size: 40px; margin-bottom: 15px;"></i>
-                                    <h5 class="mb-3">Berlangganan Newsletter</h5>
-                                    <p class="mb-4" style="font-size: 14px; opacity: 0.9;">
-                                        Dapatkan update berita kesehatan dan informasi terbaru langsung ke email Anda
-                                    </p>
-                                    <form>
-                                        <div class="mb-3">
-                                            <input type="email" class="form-control" placeholder="Email Anda" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-light w-100" style="color: #349953; font-weight: 600;">
-                                            <i class="bi bi-send me-2"></i>Berlangganan
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        </div> -->
 
                     </aside>
                 </div>

@@ -15,7 +15,7 @@ class BlogController extends Controller
     {
         $blogs = Blog::with('category', 'penulis')->orderBy('created_at', 'desc')->get();
         $categories = BlogCategory::all();
-        return view('admin.blog', compact('blogs', 'categories'));
+        return view('pages.admin.blog', compact('blogs', 'categories'));
     }
 
     public function store(Request $request)
@@ -59,9 +59,9 @@ class BlogController extends Controller
 
             Blog::create($data);
 
-            return redirect()->route('admin.blog')->with('success', 'Blog berhasil ditambahkan.');
+            return redirect()->route('pages.admin.blog')->with('success', 'Blog berhasil ditambahkan.');
         } catch (Exception $e) {
-            return redirect()->route('admin.blog')->with('error', 'Terjadi kesalahan saat menyimpan blog.');
+            return redirect()->route('pages.admin.blog')->with('error', 'Terjadi kesalahan saat menyimpan blog.');
         }
     }
 
@@ -69,7 +69,7 @@ class BlogController extends Controller
     {
         $blog = Blog::findOrFail($id);
         $categories = BlogCategory::all();
-        return view('admin.blog.edit', compact('blog', 'categories'));
+        return view('pages.admin.blog.edit', compact('blog', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -121,9 +121,9 @@ class BlogController extends Controller
 
             $blog->update($data);
 
-            return redirect()->route('admin.blog')->with('success', 'Blog berhasil diperbarui.');
+            return redirect()->route('pages.admin.blog')->with('success', 'Blog berhasil diperbarui.');
         } catch (Exception $e) {
-            return redirect()->route('admin.blog')->with('error', 'Terjadi kesalahan saat memperbarui blog.');
+            return redirect()->route('pages.admin.blog')->with('error', 'Terjadi kesalahan saat memperbarui blog.');
         }
     }
 
@@ -136,9 +136,9 @@ class BlogController extends Controller
                 unlink(public_path($blog->gambar));
             }
             $blog->delete();
-            return redirect()->route('admin.blog')->with('success', 'Blog berhasil dihapus.');
+            return redirect()->route('pages.admin.blog')->with('success', 'Blog berhasil dihapus.');
         } catch (Exception $e) {
-            return redirect()->route('admin.blog')->with('error', 'Terjadi kesalahan saat menghapus blog.');
+            return redirect()->route('pages.admin.blog')->with('error', 'Terjadi kesalahan saat menghapus blog.');
         }
     }
 }

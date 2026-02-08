@@ -14,6 +14,6 @@ class ServiceController extends Controller
             ->orderBy('urutan', 'asc')
             ->get();
 
-        return view('landing.service', compact('services'));
+        return view('pages.landing.service', compact('services'));
     }
 }
