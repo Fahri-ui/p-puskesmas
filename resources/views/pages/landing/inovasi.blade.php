@@ -4,15 +4,15 @@
         <div class="breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{route('welcome')}}"><i class="bi bi-house"></i> Home</a></li>
-                    <li class="breadcrumb-item active current">Layanan</li>
+                    <li class="breadcrumb-item"><a href="{{route('welcome')}}"><i class="bi bi-house"></i> Beranda</a></li>
+                    <li class="breadcrumb-item active current">Inovasi</li>
                 </ol>
             </nav>
         </div>
 
         <div class="title-wrapper">
-            <h1>Layanan Kami</h1>
-            <p>Berbagai layanan kesehatan berkualitas untuk memenuhi kebutuhan Anda</p>
+            <h1>Inovasi</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, blanditiis.</p>
         </div>
     </div><!-- End Page Title -->
 
@@ -233,18 +233,5 @@
         </div>
     </section>
 
-    <!-- Penutup -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h3 class="fw-bold mb-4" style="color: #18444c;">Komitmen Kami untuk Terus Berinovasi</h3>
-                    <p class="text-muted mb-4">Inovasi-inovasi yang telah kami hadirkan merupakan wujud nyata komitmen Puskesmas Binong dalam meningkatkan mutu pelayanan kesehatan kepada masyarakat. Kami terus berupaya mendengarkan masukan dan mengembangkan layanan yang lebih baik, lebih mudah diakses, dan lebih berpihak pada kebutuhan masyarakat. Bersama-sama, kita wujudkan Binong yang lebih sehat.</p>
-                    <a href="#" class="btn btn-lg px-4 py-2 text-white" style="background-color: #349953;">
-                        <i class="bi bi-chat-dots me-2"></i>Sampaikan Saran Inovasi
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 </x-landing.app-layout>

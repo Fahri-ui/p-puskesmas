@@ -56,7 +56,4 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/kategori-blog/{id}',[Admin\KategoriBlogController::class,'update'])->name('admin.kategori_blog.update');
         Route::delete('/admin/kategori-blog/{id}',[Admin\KategoriBlogController::class,'destroy'])->name('admin.kategori_blog.destroy');
     });
-    Route::middleware('role:SUPER_ADMIN')->group(function(){
-        Route::get('/super-admin/dashboard',[SuperAdmin\SADashboardController::class,'index'])->name('super_admin.dashboard');
-    });
 });

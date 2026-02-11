@@ -16,26 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        \App\Models\BlogCategory::factory(5)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'role' => 'ADMIN',
-        ]);
-
-        User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'ADMIN',
-        ]);
-
-        User::create([
-            'name' => 'Super Admin User',
-            'email' => 'superadmin@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'SUPER_ADMIN',
-        ]);
+        \App\Models\Blog::factory(20)->create();
     }
 }

@@ -16,7 +16,7 @@ class ResetPasswordController extends Controller
             return redirect('/forgot-password')->withErrors(['general' => 'Anda belum menginput email']);
         }
 
-        return view('auth.reset-password');
+        return view('pages.auth.reset-password');
     }
 
     public function submit(Request $request)

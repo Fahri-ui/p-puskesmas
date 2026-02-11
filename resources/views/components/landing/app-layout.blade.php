@@ -52,7 +52,7 @@
 
             <!-- Navbar -->
             <x-landing.navbar />
-
+ 
             <!-- <a class="btn-getstarted" href="appointment.html">Appointment</a> -->
 
         </div>

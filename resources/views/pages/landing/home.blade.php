@@ -41,48 +41,6 @@
                             </div>
                         </div>
 
-                        <div class="features-wrapper">
-                            <div class="row gy-4">
-
-                                <div class="col-lg-4">
-                                    <div class="feature-item" data-aos="fade-up" data-aos-delay="450">
-                                        <div class="feature-icon">
-                                            <i class="bi bi-syringe"></i>
-                                        </div>
-                                        <div class="feature-text">
-                                            <h3>Imunisasi</h3>
-                                            <p>Layanan imunisasi lengkap untuk bayi, balita, dan ibu hamil sesuai program nasional.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="feature-item" data-aos="fade-up" data-aos-delay="500">
-                                        <div class="feature-icon">
-                                            <i class="bi bi-mother-child"></i>
-                                        </div>
-                                        <div class="feature-text">
-                                            <h3>Kesehatan Ibu & Anak</h3>
-                                            <p>Pemantauan kehamilan, persalinan, hingga tumbuh kembang anak usia dini.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="feature-item" data-aos="fade-up" data-aos-delay="550">
-                                        <div class="feature-icon">
-                                            <i class="bi bi-stethoscope"></i>
-                                        </div>
-                                        <div class="feature-text">
-                                            <h3>Pemeriksaan Umum</h3>
-                                            <p>Layanan konsultasi dan pemeriksaan kesehatan dasar untuk seluruh usia.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>

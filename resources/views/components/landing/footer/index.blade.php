@@ -63,7 +63,7 @@
         <p>© 2026 Puskesmas Binong</p>
         <div class="credits">
             <!-- Required by BootstrapMade Free License -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            Designed by <a href="https://bootstrapmade.com/">siti barokah</a>
         </div>
     </div>
 

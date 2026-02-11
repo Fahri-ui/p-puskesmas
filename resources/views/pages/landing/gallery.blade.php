@@ -23,13 +23,6 @@
         <div class="container" data-aos="fade-up" data-aos-delay="100">
 
             <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-                <ul class="gallery-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-                    <li data-filter="*" class="filter-active">All</li>
-                    <li data-filter=".filter-nature">Nature</li>
-                    <li data-filter=".filter-architecture">Architecture</li>
-                    <li data-filter=".filter-people">People</li>
-                    <li data-filter=".filter-travel">Travel</li>
-                </ul><!-- End Gallery Filters -->
 
                 <div class="row g-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
                     <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-nature">
