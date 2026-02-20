@@ -10,10 +10,11 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $services = Service::where('aktif', true)
-            ->orderBy('urutan', 'asc')
-            ->get();
+        return view('pages.landing.service');
+    }
 
-        return view('pages.landing.service', compact('services'));
+    public function show()
+    {
+        return view('pages.landing.service-show');
     }
 }

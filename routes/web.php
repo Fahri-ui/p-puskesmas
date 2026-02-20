@@ -4,16 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing;
 use App\Http\Controllers\Auth;
 use App\Http\Controllers\Admin;
-use App\Http\Controllers\SuperAdmin;
 
 Route::middleware('guest')->group(function () {
     // landing route
     Route::get('/', [Landing\HomeController::class, 'index'])->name('welcome');
     Route::get('/tentang-kami', [Landing\AboutController::class, 'index'])->name('about');
     Route::get('/layanan', [Landing\ServiceController::class, 'index'])->name('service');
+    Route::get('/layanan/1', [Landing\ServiceController::class, 'show'])->name('service.show');
     Route::get('/inovasi', [Landing\InovasiController::class, 'index'])->name('inovasi');
-    Route::get('/staf', [Landing\StafController::class, 'index'])->name('staf');
-    Route::get('/staf/{id}', [Landing\StafController::class, 'show'])->name('staf.show');
+    Route::get('/staff', [Landing\StafController::class, 'index'])->name('staf');
+    Route::get('/staff/{id}', [Landing\StafController::class, 'show'])->name('staf.show');
     Route::get('/berita', [Landing\BlogController::class, 'index'])->name('blog');
     Route::get('/berita/{slug}', [Landing\BlogController::class, 'show'])->name('blog.show');
     Route::get('/galeri', [Landing\GalleryController::class, 'index'])->name('gallery');

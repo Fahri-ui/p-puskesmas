@@ -9,13 +9,19 @@ class Staf extends Model
     protected $table = 'staf';
 
     protected $fillable = [
-        'name',
-        'jabatan',
-        'bidang',
-        'deskripsi',
-        'email',
         'foto',
-        'status',
-        'urutan',
+        'nama',
+        'telepon',
+        'email',
+        'jenis_kelamin',
+        'tanggal_lahir',
+        'profesi',
+        'nip',
+        'jabatan',
+        'deskripsi',
+        'alamat',
+        'pendidikan_terakhir',
+        'bergabung_sejak',
+        'urutan'
     ];
 }

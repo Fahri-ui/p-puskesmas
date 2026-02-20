@@ -11,13 +11,9 @@ class BlogController extends Controller
 {
     public function index(Request $request)
     {
-        // Get category filter if exists
         $categoryId = $request->get('category');
-        
-        // Get search query if exists
         $search = $request->get('q');
 
-        // Query builder
         $query = Blog::where('status', 'publish')
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now())
@@ -31,10 +27,10 @@ class BlogController extends Controller
 
         // Search functionality
         if ($search) {
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', '%' . $search . '%')
-                  ->orWhere('content', 'like', '%' . $search . '%')
-                  ->orWhere('excerpt', 'like', '%' . $search . '%');
+                    ->orWhere('content', 'like', '%' . $search . '%')
+                    ->orWhere('excerpt', 'like', '%' . $search . '%');
             });
         }
 
@@ -46,8 +42,8 @@ class BlogController extends Controller
             ->latest('published_at')
             ->first();
 
-        // Get paginated news (5 per page)
-        $news = $query->paginate(5);
+        // Get paginated news (5 per page) - WITH APPENDS
+        $news = $query->paginate(5)->appends(request()->query()); // ✅ Tambahkan ini
 
         // Get popular/latest news (4 items)
         $popularNews = Blog::where('status', 'publish')
@@ -73,15 +69,13 @@ class BlogController extends Controller
 
     public function show($slug)
     {
+        // Get the blog post by slug
         $blog = Blog::where('slug', $slug)
             ->where('status', 'publish')
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now())
             ->with('category')
             ->firstOrFail();
-
-        // Increment view count
-        $blog->increment('views');
 
         // Get related posts (same category, exclude current)
         $relatedPosts = Blog::where('category_id', $blog->category_id)
@@ -94,19 +88,23 @@ class BlogController extends Controller
             ->limit(3)
             ->get();
 
-        // Get popular posts (most viewed)
-        $popularPosts = Blog::where('status', 'publish')
+        // Get recent posts (latest 5)
+        $recentPosts = Blog::where('status', 'publish')
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now())
             ->with('category')
-            ->orderBy('views', 'desc')
+            ->latest('published_at')
             ->limit(5)
             ->get();
 
-        return view('pages.landing.blog-detail', compact(
+        // Get all categories
+        $categories = BlogCategory::all();
+
+        return view('pages.landing.blog-show', compact(
             'blog',
             'relatedPosts',
-            'popularPosts'
+            'recentPosts',
+            'categories'
         ));
     }
 }

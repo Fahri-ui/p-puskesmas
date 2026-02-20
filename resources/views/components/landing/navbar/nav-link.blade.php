@@ -1,3 +1,3 @@
-<a {{ $attributes }} class="{{ request()->fullUrlIs(url($href)) ? 'active' : '' }}">
+<a {{ $attributes }} class="{{ request()->routeIs($route) ? 'active' : '' }}">
     {{ $slot }}
 </a>

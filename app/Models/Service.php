@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    protected $fillable = [
-        'nama_layanan',
-        'slug',
-        'deskripsi',
-        'icon',
-        'aktif',
-        'urutan',
-    ];
+    //
+
+    public function category()
+    {
+        return $this->belongsTo(ServiceCategory::class, 'service_category_id');
+    }
 }

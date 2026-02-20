@@ -6,13 +6,13 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('welcome') }}"><i class="bi bi-house"></i> Beranda</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Berita & Informasi</li>
+                        <li class="breadcrumb-item active" aria-current="page">Berita</li>
                     </ol>
                 </nav>
             </div>
 
             <div class="title-wrapper text-center mt-4">
-                <h1>Berita & Informasi</h1>
+                <h1>Berita</h1>
                 <p class="mt-2">Temukan update terkini seputar layanan, kegiatan, dan informasi kesehatan dari Puskesmas Binong.</p>
             </div>
         </div>
@@ -117,7 +117,7 @@
                     <!-- Pagination -->
                     @if($news->hasPages())
                     <div class="pagination-wrapper mt-5" data-aos="fade-up">
-                        {{ $news->links() }}
+                        {{ $news->links('vendor.pagination.bootstrap-5') }}
                     </div>
                     @endif
                 </div>
@@ -163,7 +163,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Popular News -->
                         @if($popularNews->count() > 0)
                         <div class="sidebar-widget popular-news mb-4">
@@ -172,7 +172,7 @@
                                     <h5 class="widget-title mb-4" style="color: #349953;">
                                         <i class="bi bi-fire me-2"></i>Berita Terbaru
                                     </h5>
-                                    
+
                                     @foreach($popularNews as $popular)
                                     <div class="popular-item mb-3 pb-3 {{ !$loop->last ? 'border-bottom' : '' }}">
                                         <div class="d-flex">
@@ -203,6 +203,91 @@
 
     <!-- Additional CSS -->
     <style>
+        /* Pagination Styling */
+        .pagination-wrapper {
+            margin-top: 40px;
+        }
+
+        .pagination-wrapper .pagination {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pagination-wrapper .page-link {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid #dee2e6;
+            color: #6c757d;
+            background-color: #fff;
+            border-radius: 8px !important;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .pagination-wrapper .page-link:hover {
+            background-color: rgba(52, 153, 83, 0.1);
+            color: #349953;
+            border-color: #349953;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 153, 83, 0.15);
+        }
+
+        .pagination-wrapper .page-item.active .page-link {
+            background-color: #349953;
+            border-color: #349953;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(52, 153, 83, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .pagination-wrapper .page-item.disabled .page-link {
+            color: #adb5bd;
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.6;
+        }
+
+        .pagination-wrapper .page-item:first-child .page-link,
+        .pagination-wrapper .page-item:last-child .page-link {
+            border-radius: 8px !important;
+        }
+
+        /* Responsive Pagination */
+        @media (max-width: 768px) {
+            .pagination-wrapper {
+                margin-top: 30px;
+            }
+
+            .pagination-wrapper .page-link {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.875rem;
+                min-width: 36px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .pagination-wrapper .page-link {
+                padding: 0.35rem 0.5rem;
+                font-size: 0.8rem;
+                min-width: 32px;
+            }
+
+            .pagination-wrapper .page-link .d-none {
+                display: none !important;
+            }
+        }
+
         .news-section {
             background-color: #f8f9fa;
         }
@@ -280,16 +365,6 @@
 
         .popular-item:hover .popular-thumbnail {
             transform: scale(1.05);
-        }
-
-        .pagination .page-link {
-            transition: all 0.3s ease;
-        }
-
-        .pagination .page-link:hover {
-            background-color: #349953;
-            border-color: #349953;
-            color: white !important;
         }
 
         .btn {

@@ -5,697 +5,662 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('welcome') }}"><i class="bi bi-house"></i> Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('staf') }}">Tim Kami</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('staf') }}">Staf</a></li>
                     <li class="breadcrumb-item active current">Profil Staf</li>
                 </ol>
             </nav>
         </div>
-        
+
         <div class="title-wrapper">
             <h1>Profil Staf</h1>
             <p>Kenali lebih dekat tim profesional kami</p>
         </div>
     </div><!-- End Page Title -->
 
-    <!-- Staff Profile Section -->
-    <section id="staff-profile" class="staff-profile section">
+    <!-- Staff Detail Section -->
+    <section class="staff-detail-section">
         <div class="container">
-            <div class="row">
-                <!-- Main Content -->
-                <div class="col-lg-8">
-                    <!-- Staff Profile Card -->
-                    <div class="staff-profile-card mb-4" data-aos="fade-up">
-                        <div class="card border-0 shadow-sm">
-                            <div class="card-body p-4">
-                                <!-- Profile Section -->
-                                <div class="row align-items-center">
-                                    <!-- Photo -->
-                                    <div class="col-md-4 text-center mb-4 mb-md-0">
-                                        <div class="staff-photo-wrapper position-relative d-inline-block">
-                                            <img src="{{ asset('MediTrust/assets/img/gallery/gallery-1.webp') }}" 
-                                                 alt="Staff Photo" 
-                                                 class="img-fluid rounded-circle shadow-lg" 
-                                                 style="width: 200px; height: 200px; object-fit: cover; border: 5px solid #349953;">
-                                            <div class="status-badge" 
-                                                 style="position: absolute; bottom: 15px; right: 15px; background-color: #349953; color: white; padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
-                                                <i class="bi bi-check-circle-fill me-1"></i>Aktif
-                                            </div>
-                                        </div>
-                                        <!-- Social Links -->
-                                        <div class="social-links mt-4">
-                                            <a href="#" class="me-2" style="color: #349953; font-size: 20px;" title="LinkedIn">
-                                                <i class="bi bi-linkedin"></i>
-                                            </a>
-                                            <a href="#" class="me-2" style="color: #349953; font-size: 20px;" title="Email">
-                                                <i class="bi bi-envelope-fill"></i>
-                                            </a>
-                                            <a href="#" style="color: #349953; font-size: 20px;" title="Telepon">
-                                                <i class="bi bi-telephone-fill"></i>
-                                            </a>
-                                        </div>
-                                    </div>
 
-                                    <!-- Basic Info -->
-                                    <div class="col-md-8">
-                                        <div class="staff-info">
-                                            <!-- Name -->
-                                            <div class="info-item mb-3">
-                                                <h2 class="mb-2" style="color: #2c3e50; font-weight: 700;">
-                                                    Dr. Ahmad Hidayat, S.Kom., M.Kom.
-                                                </h2>
-                                                <p class="text-muted mb-0" style="font-size: 14px;">
-                                                    <i class="bi bi-card-text me-2" style="color: #349953;"></i>
-                                                    <strong>NIP:</strong> 198503152010121003
-                                                </p>
-                                            </div>
-
-                                            <!-- Position -->
-                                            <div class="info-item mb-3 p-3 rounded-3" style="background: linear-gradient(135deg, rgba(52, 153, 83, 0.1) 0%, rgba(52, 153, 83, 0.05) 100%); border-left: 4px solid #349953;">
-                                                <p class="mb-1 text-muted" style="font-size: 13px; font-weight: 600; text-transform: uppercase;">Jabatan</p>
-                                                <h5 class="mb-0" style="color: #349953; font-weight: 600;">
-                                                    <i class="bi bi-briefcase-fill me-2"></i>Kepala Divisi Teknologi Informasi
-                                                </h5>
-                                            </div>
-
-                                            <!-- Personal Info -->
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="info-item mb-2">
-                                                        <p class="mb-1 text-muted" style="font-size: 12px;">
-                                                            <i class="bi bi-gender-ambiguous me-1" style="color: #349953;"></i>
-                                                            Jenis Kelamin
-                                                        </p>
-                                                        <p class="mb-0 fw-semibold" style="color: #2c3e50;">Laki-laki</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="info-item mb-2">
-                                                        <p class="mb-1 text-muted" style="font-size: 12px;">
-                                                            <i class="bi bi-calendar-heart me-1" style="color: #349953;"></i>
-                                                            Tanggal Lahir
-                                                        </p>
-                                                        <p class="mb-0 fw-semibold" style="color: #2c3e50;">15 Maret 1985</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Hero Identity Block -->
+            <div class="staff-hero">
+                <div class="staff-photo-wrapper">
+                    <div class="photo-ring">
+                        <img src="{{ asset('assets/img/default-avatar.png') }}"
+                            alt="Foto Fahri"
+                            class="staff-photo">
                     </div>
-
-                    <!-- About Section -->
-                    <div class="about-section mb-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card border-0 shadow-sm">
-                            <div class="card-body p-4">
-                                <h5 class="mb-4" style="color: #349953;">
-                                    <i class="bi bi-person-lines-fill me-2"></i>Tentang
-                                </h5>
-                                <p style="line-height: 1.8; color: #555; text-align: justify;">
-                                    Dr. Ahmad Hidayat adalah seorang profesional berpengalaman di bidang Teknologi Informasi 
-                                    dengan lebih dari 14 tahun pengalaman dalam mengembangkan dan mengelola sistem teknologi 
-                                    informasi skala enterprise. Beliau memiliki keahlian mendalam dalam cloud computing, 
-                                    cybersecurity, dan transformasi digital.
-                                </p>
-                                <p style="line-height: 1.8; color: #555; text-align: justify;">
-                                    Dengan latar belakang pendidikan yang kuat hingga jenjang doktoral, beliau telah memimpin 
-                                    berbagai proyek strategis yang berhasil meningkatkan efisiensi operasional dan keamanan 
-                                    sistem informasi perusahaan. Komitmennya terhadap inovasi dan pengembangan berkelanjutan 
-                                    menjadikannya aset berharga bagi organisasi.
-                                </p>
-                            </div>
-                        </div>
+                    <div class="status-badge">
+                        <span class="status-dot"></span>
+                        Aktif
                     </div>
-
-                    <!-- Contact Information Card -->
-                    <div class="contact-info-card mb-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="card border-0 shadow-sm">
-                            <div class="card-body p-4">
-                                <h5 class="mb-4" style="color: #349953;">
-                                    <i class="bi bi-telephone-fill me-2"></i>Informasi Kontak
-                                </h5>
-
-                                <div class="row">
-                                    <!-- Phone -->
-                                    <div class="col-md-6 mb-3">
-                                        <div class="contact-item p-3 rounded-3" style="background-color: #f8f9fa; border-left: 3px solid #349953;">
-                                            <p class="text-muted mb-2" style="font-size: 13px; font-weight: 600;">
-                                                <i class="bi bi-phone-fill me-2" style="color: #349953;"></i>NOMOR TELEPON
-                                            </p>
-                                            <p class="mb-0 fw-semibold" style="color: #2c3e50; font-size: 16px;">
-                                                +62 812-3456-7890
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Email -->
-                                    <div class="col-md-6 mb-3">
-                                        <div class="contact-item p-3 rounded-3" style="background-color: #f8f9fa; border-left: 3px solid #349953;">
-                                            <p class="text-muted mb-2" style="font-size: 13px; font-weight: 600;">
-                                                <i class="bi bi-envelope-fill me-2" style="color: #349953;"></i>EMAIL
-                                            </p>
-                                            <p class="mb-0 fw-semibold" style="color: #2c3e50; font-size: 16px;">
-                                                ahmad.hidayat@company.co.id
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Address -->
-                                    <div class="col-12">
-                                        <div class="contact-item p-3 rounded-3" style="background-color: #f8f9fa; border-left: 3px solid #349953;">
-                                            <p class="text-muted mb-2" style="font-size: 13px; font-weight: 600;">
-                                                <i class="bi bi-geo-alt-fill me-2" style="color: #349953;"></i>LOKASI KANTOR
-                                            </p>
-                                            <p class="mb-0" style="color: #2c3e50; line-height: 1.6;">
-                                                Jl. Sudirman No. 123<br>
-                                                Jakarta Pusat, DKI Jakarta 10250
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Education & Expertise Card -->
-                    <div class="education-expertise-card mb-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="card border-0 shadow-sm">
-                            <div class="card-body p-4">
-                                <h5 class="mb-4" style="color: #349953;">
-                                    <i class="bi bi-mortarboard-fill me-2"></i>Pendidikan & Keahlian
-                                </h5>
-
-                                <!-- Education -->
-                                <div class="mb-4">
-                                    <h6 class="mb-3" style="color: #2c3e50;">
-                                        <i class="bi bi-book me-2" style="color: #349953;"></i>Riwayat Pendidikan
-                                    </h6>
-                                    <div class="timeline">
-                                        <div class="timeline-item mb-3 p-3 rounded-3" style="background-color: #f8f9fa; border-left: 4px solid #349953;">
-                                            <div class="d-flex align-items-start">
-                                                <div class="timeline-icon me-3 mt-1" style="color: #349953;">
-                                                    <i class="bi bi-mortarboard-fill" style="font-size: 24px;"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <p class="mb-1 fw-semibold" style="color: #2c3e50; font-size: 15px;">
-                                                        Doktor (S3) Teknik Informatika
-                                                    </p>
-                                                    <p class="mb-1 text-muted" style="font-size: 14px;">Universitas Indonesia</p>
-                                                    <small class="text-muted">
-                                                        <i class="bi bi-calendar3 me-1"></i>2015 - 2019
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="timeline-item mb-3 p-3 rounded-3" style="background-color: #f8f9fa; border-left: 4px solid #349953;">
-                                            <div class="d-flex align-items-start">
-                                                <div class="timeline-icon me-3 mt-1" style="color: #349953;">
-                                                    <i class="bi bi-mortarboard-fill" style="font-size: 24px;"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <p class="mb-1 fw-semibold" style="color: #2c3e50; font-size: 15px;">
-                                                        Magister (S2) Ilmu Komputer
-                                                    </p>
-                                                    <p class="mb-1 text-muted" style="font-size: 14px;">Institut Teknologi Bandung</p>
-                                                    <small class="text-muted">
-                                                        <i class="bi bi-calendar3 me-1"></i>2008 - 2010
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="timeline-item p-3 rounded-3" style="background-color: #f8f9fa; border-left: 4px solid #349953;">
-                                            <div class="d-flex align-items-start">
-                                                <div class="timeline-icon me-3 mt-1" style="color: #349953;">
-                                                    <i class="bi bi-mortarboard-fill" style="font-size: 24px;"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <p class="mb-1 fw-semibold" style="color: #2c3e50; font-size: 15px;">
-                                                        Sarjana (S1) Teknik Komputer
-                                                    </p>
-                                                    <p class="mb-1 text-muted" style="font-size: 14px;">Institut Teknologi Sepuluh Nopember</p>
-                                                    <small class="text-muted">
-                                                        <i class="bi bi-calendar3 me-1"></i>2003 - 2007
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Expertise -->
-                                <div>
-                                    <h6 class="mb-3" style="color: #2c3e50;">
-                                        <i class="bi bi-star me-2" style="color: #349953;"></i>Area Keahlian
-                                    </h6>
-                                    <div class="d-flex flex-wrap gap-2">
-                                        <span class="badge px-3 py-2" style="background-color: #349953; font-weight: normal; font-size: 13px;">
-                                            <i class="bi bi-check-circle me-1"></i>Project Management
-                                        </span>
-                                        <span class="badge px-3 py-2" style="background-color: #349953; font-weight: normal; font-size: 13px;">
-                                            <i class="bi bi-check-circle me-1"></i>Cloud Computing
-                                        </span>
-                                        <span class="badge px-3 py-2" style="background-color: #349953; font-weight: normal; font-size: 13px;">
-                                            <i class="bi bi-check-circle me-1"></i>Cybersecurity
-                                        </span>
-                                        <span class="badge px-3 py-2" style="background-color: #349953; font-weight: normal; font-size: 13px;">
-                                            <i class="bi bi-check-circle me-1"></i>Data Analytics
-                                        </span>
-                                        <span class="badge px-3 py-2" style="background-color: #349953; font-weight: normal; font-size: 13px;">
-                                            <i class="bi bi-check-circle me-1"></i>Machine Learning
-                                        </span>
-                                        <span class="badge px-3 py-2" style="background-color: #349953; font-weight: normal; font-size: 13px;">
-                                            <i class="bi bi-check-circle me-1"></i>Network Architecture
-                                        </span>
-                                        <span class="badge px-3 py-2" style="background-color: #349953; font-weight: normal; font-size: 13px;">
-                                            <i class="bi bi-check-circle me-1"></i>Digital Transformation
-                                        </span>
-                                        <span class="badge px-3 py-2" style="background-color: #349953; font-weight: normal; font-size: 13px;">
-                                            <i class="bi bi-check-circle me-1"></i>Enterprise Architecture
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
-                <!-- Sidebar -->
-                <div class="col-lg-4">
-                    <aside class="sidebar" data-aos="fade-up" data-aos-delay="100">
-                        
-                        <!-- Professional Info -->
-                        <div class="sidebar-widget professional-info mb-4">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-body p-4">
-                                    <h5 class="widget-title mb-4" style="color: #349953;">
-                                        <i class="bi bi-info-circle-fill me-2"></i>Informasi Profesional
-                                    </h5>
-                                    
-                                    <div class="info-item mb-3 p-3 rounded-3" style="background-color: #f8f9fa;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="icon-box me-3" style="background-color: rgba(52, 153, 83, 0.1); width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="bi bi-diagram-3" style="font-size: 20px; color: #349953;"></i>
-                                            </div>
-                                            <div>
-                                                <p class="text-muted mb-0" style="font-size: 12px;">Departemen</p>
-                                                <p class="mb-0 fw-semibold" style="color: #2c3e50;">Teknologi Informasi</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                <div class="staff-identity">
+                    <span class="staff-profesi">Dokter Umum</span>
+                    <h2 class="staff-nama">Fahri, S.Ked</h2>
+                    <p class="staff-jabatan">Dokter Pelayanan Umum</p>
 
-                                    <div class="info-item mb-3 p-3 rounded-3" style="background-color: #f8f9fa;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="icon-box me-3" style="background-color: rgba(52, 153, 83, 0.1); width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="bi bi-calendar-check" style="font-size: 20px; color: #349953;"></i>
-                                            </div>
-                                            <div>
-                                                <p class="text-muted mb-0" style="font-size: 12px;">Bergabung Sejak</p>
-                                                <p class="mb-0 fw-semibold" style="color: #2c3e50;">Desember 2010</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="info-item p-3 rounded-3" style="background-color: #f8f9fa;">
-                                        <div class="d-flex align-items-center">
-                                            <div class="icon-box me-3" style="background-color: rgba(52, 153, 83, 0.1); width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                                                <i class="bi bi-hourglass-split" style="font-size: 20px; color: #349953;"></i>
-                                            </div>
-                                            <div>
-                                                <p class="text-muted mb-0" style="font-size: 12px;">Pengalaman</p>
-                                                <p class="mb-0 fw-semibold" style="color: #2c3e50;">14+ Tahun</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Certifications -->
-                        <div class="sidebar-widget certifications mb-4">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-body p-4">
-                                    <h5 class="widget-title mb-4" style="color: #349953;">
-                                        <i class="bi bi-award-fill me-2"></i>Sertifikasi Profesional
-                                    </h5>
-                                    
-                                    <div class="cert-item mb-3 p-3 rounded-3" style="background-color: #f8f9fa; border-left: 4px solid #349953;">
-                                        <div class="d-flex align-items-start">
-                                            <i class="bi bi-patch-check-fill me-2 mt-1" style="color: #349953; font-size: 20px;"></i>
-                                            <div>
-                                                <p class="mb-1 fw-semibold" style="font-size: 14px; color: #2c3e50;">
-                                                    AWS Certified Solutions Architect
-                                                </p>
-                                                <small class="text-muted">Amazon Web Services • 2023</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="cert-item mb-3 p-3 rounded-3" style="background-color: #f8f9fa; border-left: 4px solid #349953;">
-                                        <div class="d-flex align-items-start">
-                                            <i class="bi bi-patch-check-fill me-2 mt-1" style="color: #349953; font-size: 20px;"></i>
-                                            <div>
-                                                <p class="mb-1 fw-semibold" style="font-size: 14px; color: #2c3e50;">
-                                                    PMP - Project Management Professional
-                                                </p>
-                                                <small class="text-muted">PMI • 2022</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="cert-item mb-3 p-3 rounded-3" style="background-color: #f8f9fa; border-left: 4px solid #349953;">
-                                        <div class="d-flex align-items-start">
-                                            <i class="bi bi-patch-check-fill me-2 mt-1" style="color: #349953; font-size: 20px;"></i>
-                                            <div>
-                                                <p class="mb-1 fw-semibold" style="font-size: 14px; color: #2c3e50;">
-                                                    CISSP - Information Systems Security
-                                                </p>
-                                                <small class="text-muted">ISC² • 2021</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="cert-item p-3 rounded-3" style="background-color: #f8f9fa; border-left: 4px solid #349953;">
-                                        <div class="d-flex align-items-start">
-                                            <i class="bi bi-patch-check-fill me-2 mt-1" style="color: #349953; font-size: 20px;"></i>
-                                            <div>
-                                                <p class="mb-1 fw-semibold" style="font-size: 14px; color: #2c3e50;">
-                                                    ITIL Foundation v4
-                                                </p>
-                                                <small class="text-muted">AXELOS • 2020</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Achievements -->
-                        <div class="sidebar-widget achievements mb-4">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-body p-4">
-                                    <h5 class="widget-title mb-4" style="color: #349953;">
-                                        <i class="bi bi-trophy-fill me-2"></i>Pencapaian
-                                    </h5>
-
-                                    <div class="achievement-item mb-3">
-                                        <div class="d-flex align-items-start">
-                                            <div class="achievement-icon me-3" style="background: linear-gradient(135deg, #349953 0%, #2d8347 100%); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
-                                                <i class="bi bi-star-fill" style="font-size: 24px;"></i>
-                                            </div>
-                                            <div>
-                                                <p class="mb-1 fw-semibold" style="color: #2c3e50; font-size: 14px;">Best IT Leader Award</p>
-                                                <small class="text-muted">2024</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="achievement-item mb-3">
-                                        <div class="d-flex align-items-start">
-                                            <div class="achievement-icon me-3" style="background: linear-gradient(135deg, #349953 0%, #2d8347 100%); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
-                                                <i class="bi bi-lightbulb-fill" style="font-size: 24px;"></i>
-                                            </div>
-                                            <div>
-                                                <p class="mb-1 fw-semibold" style="color: #2c3e50; font-size: 14px;">Innovation Excellence</p>
-                                                <small class="text-muted">2023</small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="achievement-item">
-                                        <div class="d-flex align-items-start">
-                                            <div class="achievement-icon me-3" style="background: linear-gradient(135deg, #349953 0%, #2d8347 100%); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
-                                                <i class="bi bi-shield-check" style="font-size: 24px;"></i>
-                                            </div>
-                                            <div>
-                                                <p class="mb-1 fw-semibold" style="color: #2c3e50; font-size: 14px;">Cybersecurity Champion</p>
-                                                <small class="text-muted">2022</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </aside>
+                    <div class="staff-quick-meta">
+                        <span class="meta-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                            </svg>
+                            NIP: 19900515 201903 1 001
+                        </span>
+                        <span class="meta-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 8a16 16 0 0 0 6 6l.06-.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z" />
+                            </svg>
+                            0812-3456-7890
+                        </span>
+                        <span class="meta-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                            Bergabung 2019
+                        </span>
+                    </div>
                 </div>
             </div>
+
+            <!-- Content Grid -->
+            <div class="staff-content-grid">
+
+                <!-- Left Column -->
+                <div class="staff-col-left">
+
+                    <!-- About -->
+                    <div class="content-block">
+                        <div class="block-label">
+                            <span class="label-line"></span>
+                            <span>Tentang</span>
+                        </div>
+                        <p class="staff-bio">
+                            Dokter Fahri adalah tenaga medis berpengalaman di bidang pelayanan kesehatan dasar. 
+                            Fokus pada pencegahan penyakit, edukasi kesehatan masyarakat, dan pelayanan prima 
+                            untuk warga sekitar Puskesmas Binong. Aktif dalam program posyandu dan penyuluhan 
+                            kesehatan lingkungan.
+                        </p>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="content-block">
+                        <div class="block-label">
+                            <span class="label-line"></span>
+                            <span>Kontak</span>
+                        </div>
+                        <ul class="info-list">
+                            <li class="info-item">
+                                <span class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                        <polyline points="22,6 12,13 2,6" />
+                                    </svg>
+                                </span>
+                                <div class="info-content">
+                                    <span class="info-label">Email</span>
+                                    <a href="mailto:fahri@puskesmasbinong.go.id" class="info-value">fahri@puskesmasbinong.go.id</a>
+                                </div>
+                            </li>
+                            <li class="info-item">
+                                <span class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 8a16 16 0 0 0 6 6l.06-.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z" />
+                                    </svg>
+                                </span>
+                                <div class="info-content">
+                                    <span class="info-label">Telepon</span>
+                                    <a href="tel:081234567890" class="info-value">0812-3456-7890</a>
+                                </div>
+                            </li>
+                            <li class="info-item">
+                                <span class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                        <circle cx="12" cy="10" r="3" />
+                                    </svg>
+                                </span>
+                                <div class="info-content">
+                                    <span class="info-label">Alamat</span>
+                                    <span class="info-value">Jl. Kesehatan No. 45, Binong, Kab. Tangerang</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Right Column -->
+                <div class="staff-col-right">
+
+                    <!-- Personal Data -->
+                    <div class="content-block">
+                        <div class="block-label">
+                            <span class="label-line"></span>
+                            <span>Data Pribadi</span>
+                        </div>
+                        <dl class="data-grid">
+                            <div class="data-row">
+                                <dt>Jenis Kelamin</dt>
+                                <dd>Laki-laki</dd>
+                            </div>
+                            <div class="data-row">
+                                <dt>Tanggal Lahir</dt>
+                                <dd>15 Mei 1990</dd>
+                            </div>
+                            <div class="data-row">
+                                <dt>Pendidikan Terakhir</dt>
+                                <dd>S1 Kedokteran Umum</dd>
+                            </div>
+                            <div class="data-row">
+                                <dt>Bergabung Sejak</dt>
+                                <dd>15 Maret 2019</dd>
+                            </div>
+                            <div class="data-row">
+                                <dt>NIP</dt>
+                                <dd class="mono">19900515 201903 1 001</dd>
+                            </div>
+                            <div class="data-row">
+                                <dt>Jabatan</dt>
+                                <dd>Dokter Pelayanan Umum</dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- Tenure Visual -->
+                    <div class="tenure-block">
+                        <div class="tenure-label">Masa Bergabung</div>
+                        <div class="tenure-years">
+                            6
+                            <span>Tahun</span>
+                        </div>
+                        <div class="tenure-sub">bersama tim kami</div>
+                        <div class="tenure-bar">
+                            <div class="tenure-fill" style="width: 30%"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-    </section><!-- /Staff Profile Section -->
+    </section><!-- End Staff Detail Section -->
 
-    <!-- Related Team Section -->
-    <section class="related-team py-5" style="background-color: #f8f9fa;">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h3 class="mb-3" style="color: #349953;">
-                    <i class="bi bi-people-fill me-2"></i>Tim Profesional Lainnya
-                </h3>
-                <p class="text-muted">Kenali lebih dekat tim ahli kami yang siap membantu Anda</p>
-            </div>
-
-            <div class="row g-4">
-                <!-- Team Member 1 -->
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card border-0 shadow-sm h-100 team-card text-center">
-                        <div class="card-body p-4">
-                            <div class="team-photo mb-3">
-                                <img src="{{ asset('MediTrust/assets/img/gallery/gallery-1.webp') }}" 
-                                     alt="Team Member" 
-                                     class="rounded-circle shadow" 
-                                     style="width: 120px; height: 120px; object-fit: cover; border: 4px solid #349953;">
-                            </div>
-                            <h5 class="mb-1" style="color: #2c3e50;">Dr. Sarah Wijaya</h5>
-                            <p class="text-muted mb-2" style="font-size: 14px;">Kepala Divisi HRD</p>
-                            <p class="text-muted mb-3" style="font-size: 12px;">
-                                <i class="bi bi-card-text me-1"></i>199012151015122001
-                            </p>
-                            <a href="#" class="btn btn-sm btn-outline-success" style="border-color: #349953; color: #349953;">
-                                Lihat Profil <i class="bi bi-arrow-right ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Member 2 -->
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card border-0 shadow-sm h-100 team-card text-center">
-                        <div class="card-body p-4">
-                            <div class="team-photo mb-3">
-                                <img src="{{ asset('MediTrust/assets/img/gallery/gallery-1.webp') }}" 
-                                     alt="Team Member" 
-                                     class="rounded-circle shadow" 
-                                     style="width: 120px; height: 120px; object-fit: cover; border: 4px solid #349953;">
-                            </div>
-                            <h5 class="mb-1" style="color: #2c3e50;">Budi Santoso, M.M.</h5>
-                            <p class="text-muted mb-2" style="font-size: 14px;">Kepala Divisi Keuangan</p>
-                            <p class="text-muted mb-3" style="font-size: 12px;">
-                                <i class="bi bi-card-text me-1"></i>198805202012121002
-                            </p>
-                            <a href="#" class="btn btn-sm btn-outline-success" style="border-color: #349953; color: #349953;">
-                                Lihat Profil <i class="bi bi-arrow-right ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Member 3 -->
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card border-0 shadow-sm h-100 team-card text-center">
-                        <div class="card-body p-4">
-                            <div class="team-photo mb-3">
-                                <img src="{{ asset('MediTrust/assets/img/gallery/gallery-1.webp') }}" 
-                                     alt="Team Member" 
-                                     class="rounded-circle shadow" 
-                                     style="width: 120px; height: 120px; object-fit: cover; border: 4px solid #349953;">
-                            </div>
-                            <h5 class="mb-1" style="color: #2c3e50;">Linda Puspitasari, S.E.</h5>
-                            <p class="text-muted mb-2" style="font-size: 14px;">Kepala Divisi Marketing</p>
-                            <p class="text-muted mb-3" style="font-size: 12px;">
-                                <i class="bi bi-card-text me-1"></i>199203101016122003
-                            </p>
-                            <a href="#" class="btn btn-sm btn-outline-success" style="border-color: #349953; color: #349953;">
-                                Lihat Profil <i class="bi bi-arrow-right ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Member 4 -->
-                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="card border-0 shadow-sm h-100 team-card text-center">
-                        <div class="card-body p-4">
-                            <div class="team-photo mb-3">
-                                <img src="{{ asset('MediTrust/assets/img/gallery/gallery-1.webp') }}" 
-                                     alt="Team Member" 
-                                     class="rounded-circle shadow" 
-                                     style="width: 120px; height: 120px; object-fit: cover; border: 4px solid #349953;">
-                            </div>
-                            <h5 class="mb-1" style="color: #2c3e50;">Andi Prasetyo, S.T.</h5>
-                            <p class="text-muted mb-2" style="font-size: 14px;">Kepala Divisi Operasional</p>
-                            <p class="text-muted mb-3" style="font-size: 12px;">
-                                <i class="bi bi-card-text me-1"></i>198707151014121004
-                            </p>
-                            <a href="#" class="btn btn-sm btn-outline-success" style="border-color: #349953; color: #349953;">
-                                Lihat Profil <i class="bi bi-arrow-right ms-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-5" data-aos="fade-up">
-                <a href="{{ route('staf') }}" class="btn btn-lg" style="background-color: #349953; color: white; padding: 12px 40px;">
-                    <i class="bi bi-people me-2"></i>Lihat Semua Tim
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Additional CSS -->
     <style>
-        .staff-profile {
-            padding: 60px 0;
+        /* =============================================
+   CSS VARIABLES
+   ============================================= */
+        :root {
+            --clr-white: #ffffff;
+            --clr-primary: #349953;
+            --clr-primary-light: #e8f5ec;
+            --clr-primary-mid: #2a7d43;
+            --clr-primary-dark: #1e5c31;
+            --clr-text: #1a2b22;
+            --clr-muted: #6b8070;
+            --clr-border: #d4e6da;
+            --clr-surface: #f6faf7;
+
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+
+            --shadow-sm: 0 2px 8px rgba(52, 153, 83, 0.08);
+            --shadow-md: 0 8px 32px rgba(52, 153, 83, 0.12);
+            --shadow-lg: 0 20px 60px rgba(52, 153, 83, 0.16);
+
         }
 
-        .staff-profile-card .card {
-            transition: all 0.3s ease;
+        /* =============================================
+   SECTION WRAPPER
+   ============================================= */
+        .staff-detail-section {
+            padding: 60px 0 80px;
+            background: var(--clr-white);
         }
 
-        .staff-profile-card .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(52, 153, 83, 0.15) !important;
+        .staff-detail-section .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
-        .staff-photo-wrapper img {
-            transition: all 0.3s ease;
+        /* =============================================
+   HERO BLOCK
+   ============================================= */
+        .staff-hero {
+            display: flex;
+            align-items: flex-start;
+            gap: 48px;
+            padding-bottom: 56px;
+            border-bottom: 1px solid var(--clr-border);
+            margin-bottom: 56px;
+            animation: fadeUp 0.6s ease both;
         }
 
-        .staff-photo-wrapper:hover img {
-            transform: scale(1.05);
+        /* Photo */
+        .staff-photo-wrapper {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
         }
 
-        .social-links a {
-            transition: all 0.3s ease;
+        .photo-ring {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-dark));
+            box-shadow: var(--shadow-lg);
+        }
+
+        .staff-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--clr-white);
+            display: block;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--clr-primary-light);
+            color: var(--clr-primary-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 100px;
+            border: 1px solid rgba(52, 153, 83, 0.2);
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--clr-primary);
+            animation: pulse 2s infinite;
+        }
+
+        /* Identity */
+        .staff-identity {
+            flex: 1;
+            padding-top: 12px;
+        }
+
+        .staff-profesi {
             display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--clr-primary);
+            margin-bottom: 10px;
         }
 
-        .social-links a:hover {
-            transform: translateY(-3px);
-            color: #2d8347 !important;
+        .staff-nama {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--clr-text);
+            line-height: 1.1;
+            margin: 0 0 8px 0;
         }
 
-        .contact-item {
-            transition: all 0.3s ease;
+        .staff-jabatan {
+            font-size: 1rem;
+            color: var(--clr-muted);
+            margin: 0 0 28px 0;
+            font-weight: 400;
         }
 
-        .contact-item:hover {
-            background-color: #e9ecef !important;
-            transform: translateX(5px);
+        .staff-quick-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .timeline-item {
-            transition: all 0.3s ease;
+        .meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            color: var(--clr-text);
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 100px;
+            transition: all 0.2s;
         }
 
-        .timeline-item:hover {
-            background-color: #e9ecef !important;
-            transform: translateX(5px);
+        .meta-pill svg {
+            color: var(--clr-primary);
         }
 
-        .sidebar {
-            position: sticky;
-            top: 100px;
+        .meta-pill:hover {
+            background: var(--clr-primary-light);
+            border-color: var(--clr-primary);
+            color: var(--clr-primary-dark);
         }
 
-        .sidebar-widget .card {
-            transition: all 0.3s ease;
+        /* =============================================
+   CONTENT GRID
+   ============================================= */
+        .staff-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 56px;
+            animation: fadeUp 0.7s 0.15s ease both;
         }
 
-        .sidebar-widget .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(52, 153, 83, 0.15) !important;
+        /* =============================================
+   CONTENT BLOCKS (no card)
+   ============================================= */
+        .content-block {
+            margin-bottom: 44px;
         }
 
-        .cert-item {
-            transition: all 0.3s ease;
+        .content-block:last-child {
+            margin-bottom: 0;
         }
 
-        .cert-item:hover {
-            background-color: #e9ecef !important;
-            transform: translateX(5px);
+        .block-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--clr-muted);
         }
 
-        .achievement-item {
-            transition: all 0.3s ease;
+        .label-line {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--clr-primary);
+            border-radius: 2px;
+            flex-shrink: 0;
         }
 
-        .achievement-item:hover {
-            transform: translateX(5px);
+        /* Bio text */
+        .staff-bio {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--clr-text);
+            margin: 0;
+            font-weight: 300;
         }
 
-        .achievement-icon {
-            transition: all 0.3s ease;
-        }
-
-        .achievement-item:hover .achievement-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .team-card {
-            transition: all 0.3s ease;
-        }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(52, 153, 83, 0.2) !important;
-        }
-
-        .team-card img {
-            transition: all 0.3s ease;
-        }
-
-        .team-card:hover img {
-            transform: scale(1.1);
-        }
-
-        .btn {
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 153, 83, 0.3);
+        /* =============================================
+   INFO LIST (Contact)
+   ============================================= */
+        .info-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
         .info-item {
-            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
         }
 
-        @media (max-width: 992px) {
-            .sidebar {
-                position: relative;
-                top: 0;
-                margin-top: 40px;
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--clr-primary-light);
+            color: var(--clr-primary);
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+
+        .info-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding-top: 4px;
+        }
+
+        .info-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--clr-muted);
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+            color: var(--clr-text);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s;
+            word-break: break-word;
+        }
+
+        a.info-value:hover {
+            color: var(--clr-primary);
+        }
+
+        /* =============================================
+   DATA GRID (Personal Info)
+   ============================================= */
+        .data-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 0;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--clr-border);
+            gap: 16px;
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .data-row dt {
+            font-size: 0.82rem;
+            color: var(--clr-muted);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .data-row dd {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--clr-text);
+            margin: 0;
+            text-align: right;
+        }
+
+        .data-row dd.mono {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            letter-spacing: 0.05em;
+            color: var(--clr-primary-dark);
+        }
+
+        /* =============================================
+   TENURE VISUAL
+   ============================================= */
+        .tenure-block {
+            margin-top: 44px;
+            padding-top: 36px;
+            border-top: 1px dashed var(--clr-border);
+        }
+
+        .tenure-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--clr-muted);
+            margin-bottom: 12px;
+        }
+
+        .tenure-years {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--clr-primary);
+            line-height: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .tenure-years span {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--clr-text);
+            margin-bottom: 8px;
+        }
+
+        .tenure-sub {
+            font-size: 0.85rem;
+            color: var(--clr-muted);
+            margin-bottom: 16px;
+        }
+
+        .tenure-bar {
+            height: 4px;
+            background: var(--clr-border);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .tenure-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--clr-primary-light), var(--clr-primary));
+            border-radius: 100px;
+            animation: growBar 1.2s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        /* =============================================
+   ANIMATIONS
+   ============================================= */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
             }
 
-            .staff-profile-card .card-body {
-                padding: 25px !important;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        @media (max-width: 768px) {
-            .staff-photo-wrapper img {
-                width: 150px !important;
-                height: 150px !important;
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
             }
 
-            .social-links {
-                margin-top: 20px !important;
+            50% {
+                opacity: 0.5;
+                transform: scale(1.3);
+            }
+        }
+
+        @keyframes growBar {
+            from {
+                width: 0 !important;
+            }
+        }
+
+        /* =============================================
+   RESPONSIVE - TABLET
+   ============================================= */
+        @media (max-width: 900px) {
+            .staff-content-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .staff-col-right {
+                padding-top: 44px;
+                border-top: 1px solid var(--clr-border);
+            }
+        }
+
+        /* =============================================
+   RESPONSIVE - MOBILE
+   ============================================= */
+        @media (max-width: 600px) {
+            .staff-detail-section {
+                padding: 40px 0 60px;
+            }
+
+            .staff-hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 28px;
+                padding-bottom: 40px;
+                margin-bottom: 40px;
+            }
+
+            .staff-identity {
+                padding-top: 0;
+            }
+
+            .staff-quick-meta {
+                justify-content: center;
+            }
+
+            .photo-ring {
+                width: 140px;
+                height: 140px;
+            }
+
+            .staff-nama {
+                font-size: 2rem;
+            }
+
+            .data-row {
+                flex-direction: column;
+                gap: 4px;
+                padding: 12px 0;
+            }
+
+            .data-row dd {
+                text-align: left;
+                font-size: 0.95rem;
+            }
+
+            .tenure-years {
+                font-size: 3rem;
             }
         }
     </style>
-
 </x-landing.app-layout>
