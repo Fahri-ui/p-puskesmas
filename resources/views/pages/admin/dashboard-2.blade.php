@@ -16,7 +16,7 @@
     --sidebar-bg: #18444c;
     --sidebar-text: #a8c8cc;
     --sidebar-active: #349953;
-    --text: #374151;
+    --text: #374151;  
     --text-light: #6b7280;
     --border: #e5e7eb;
     --surface: #f9fafb;
