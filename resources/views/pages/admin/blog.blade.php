@@ -1,434 +1,496 @@
-<x-admin.app-layout :title="'Kelola Berita - Puskesmas Binong'" :pageTitle="'Kelola Berita'">
+<!DOCTYPE html>
 
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#349953",
+                        "heading": "#18444c",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#141e17",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
     <style>
-        .status-draft {
-            background-color: #FEF3C7;
-            color: #92400E;
-        }
-
-        .status-publish {
-            background-color: #D1FAE5;
-            color: #065F46;
-        }
-
-        .status-archived {
-            background-color: #E5E7EB;
-            color: #374151;
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
     </style>
+</head>
 
-    <div class="flex items-center justify-between mb-6">
-        <div></div>
-        <button id="btnTambahBlog" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg>
-            Tambah Blog
-        </button>
-    </div>
-
-    <div class="max-w-7xl mx-auto">
-
-        <!-- Form Tambah/Edit Blog (Hidden by default) -->
-        <div id="formSection" class="bg-white rounded-lg shadow-md p-6 mb-6" style="display: none;">
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center">
-                    <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                    </svg>
-                    <h3 class="text-xl font-semibold text-gray-800" id="formTitle">Tambah Blog Baru</h3>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="fixed inset-0 bg-slate-900/50 z-40 lg:hidden hidden" id="sidebar-backdrop"></div>
+        <aside
+            class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col fixed h-full z-50 -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 rounded-lg bg-primary flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">newspaper</span>
                 </div>
-                <button id="btnCloseForm" class="text-gray-500 hover:text-gray-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
+                <div class="flex flex-col">
+                    <h1 class="text-heading dark:text-slate-100 text-base font-bold leading-tight">Admin News</h1>
+                    <p class="text-slate-500 text-xs font-normal">Management Panel</p>
+                </div>
             </div>
-
-            <form id="formBlog" class="space-y-6" method="POST" action="{{ route('admin.blog.store') }}" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" id="formMethod" name="_method" value="POST">
-                <input type="hidden" id="blogId" name="blog_id" value="">
-
-                <!-- Title -->
-                <div>
-                    <label for="titleBlog" class="block text-sm font-medium text-gray-700 mb-2">
-                        Judul Blog <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text"
-                        id="titleBlog"
-                        name="title"
-                        placeholder="Masukkan judul blog"
-                        value="{{ old('title') }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        required>
-                    @error('title')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Category -->
-                <div>
-                    <label for="categoryBlog" class="block text-sm font-medium text-gray-700 mb-2">
-                        Kategori <span class="text-red-500">*</span>
-                    </label>
-                    <select
-                        id="categoryBlog"
-                        name="category_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        required>
-                        <option value="">Pilih Kategori</option>
-                        @forelse($categories ?? collect() as $category)
-                        <option value="{{ $category->id }}" @selected(old('category_id')==$category->id)>
-                            {{ $category->nama_kategori }}
-                        </option>
-                        @empty
-                        @endforelse
-                    </select>
-                    @error('category_id')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Excerpt (Ringkasan) -->
-                <div>
-                    <label for="excerptBlog" class="block text-sm font-medium text-gray-700 mb-2">
-                        Ringkasan <span class="text-gray-500">(Opsional)</span>
-                    </label>
-                    <textarea
-                        id="excerptBlog"
-                        name="excerpt"
-                        rows="3"
-                        placeholder="Tulis ringkasan artikel (maksimal 500 karakter)..."
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        maxlength="500">{{ old('excerpt') }}</textarea>
-                    <p class="text-xs text-gray-500 mt-1">Maksimal 500 karakter. Akan ditampilkan di halaman daftar blog.</p>
-                    @error('excerpt')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Content -->
-                <div>
-                    <label for="contentBlog" class="block text-sm font-medium text-gray-700 mb-2">
-                        Konten Blog <span class="text-red-500">*</span>
-                    </label>
-                    <textarea
-                        id="contentBlog"
-                        name="content"
-                        rows="12"
-                        placeholder="Tulis konten blog di sini..."
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        required>{{ old('content') }}</textarea>
-                    @error('content')
-                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Upload Images Section -->
-                <div class="border-t pt-6">
-                    <h4 class="text-sm font-semibold text-gray-700 mb-4">Upload Gambar</h4>
-
-                    <!-- Featured Image -->
-                    <div class="mb-6">
-                        <label for="imageBlog" class="block text-sm font-medium text-gray-700 mb-2">
-                            Gambar Utama (Featured Image) <span class="text-gray-500">(Opsional)</span>
-                        </label>
-                        <div class="flex items-center space-x-4">
-                            <label class="flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                                <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                <span class="text-sm text-gray-600">Pilih Gambar</span>
-                                <input type="file" id="imageBlog" name="image" accept="image/*" class="hidden">
-                            </label>
-                            <span id="imageFileName" class="text-sm text-gray-500">Tidak ada file dipilih</span>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-1">Gambar utama yang akan ditampilkan di detail artikel.</p>
-                        @error('image')
-                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+            <nav class="flex-1 px-4 space-y-2 py-4">
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">article</span>
+                    <span class="text-sm font-medium">Berita</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">category</span>
+                    <span class="text-sm font-medium">Kategori</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">group</span>
+                    <span class="text-sm font-medium">Pengguna</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="text-sm font-medium">Pengaturan</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex items-center gap-3 p-2">
+                    <div class="size-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined">account_circle</span>
                     </div>
-
-                    <!-- Thumbnail -->
-                    <div class="mb-6">
-                        <label for="thumbnailBlog" class="block text-sm font-medium text-gray-700 mb-2">
-                            Thumbnail <span class="text-gray-500">(Opsional)</span>
-                        </label>
-                        <div class="flex items-center space-x-4">
-                            <label class="flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                                <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                <span class="text-sm text-gray-600">Pilih Thumbnail</span>
-                                <input type="file" id="thumbnailBlog" name="thumbnail" accept="image/*" class="hidden">
-                            </label>
-                            <span id="thumbnailFileName" class="text-sm text-gray-500">Tidak ada file dipilih</span>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-1">Gambar kecil yang akan ditampilkan di halaman daftar blog.</p>
-                        @error('thumbnail')
-                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+                    <div class="flex flex-col overflow-hidden">
+                        <span class="text-sm font-semibold truncate">Admin User</span>
+                        <span class="text-xs text-slate-500 truncate">admin@news.com</span>
                     </div>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Status -->
-                    <div>
-                        <label for="statusBlog" class="block text-sm font-medium text-gray-700 mb-2">
-                            Status <span class="text-red-500">*</span>
-                        </label>
-                        <select
-                            id="statusBlog"
-                            name="status"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                            required>
-                            <option value="draft" @selected(old('status')=='draft' )>Draft</option>
-                            <option value="publish" @selected(old('status')=='publish' )>Publish</option>
-                            <option value="archived" @selected(old('status')=='archived' )>Archived</option>
-                        </select>
-                        @error('status')
-                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Published At -->
-                    <div>
-                        <label for="publishedAt" class="block text-sm font-medium text-gray-700 mb-2">
-                            Tanggal Publish <span class="text-gray-500">(Opsional)</span>
-                        </label>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="lg:ml-64 flex-1 flex flex-col min-w-0">
+            <!-- Header/Topbar -->
+            <header
+                class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between px-8 sticky top-0 z-10">
+                <div class="flex items-center gap-4"><button
+                        class="lg:hidden p-2 -ml-2 text-slate-600 dark:text-slate-400"
+                        onclick="document.querySelector('aside').classList.toggle('-translate-x-full'); document.getElementById('sidebar-backdrop').classList.toggle('hidden')">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <h2 class="text-heading dark:text-slate-100 text-base lg:text-lg font-bold truncate">Manajemen
+                        Berita</h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative w-64 hidden sm:block">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
                         <input
-                            type="datetime-local"
-                            id="publishedAt"
-                            name="published_at"
-                            value="{{ old('published_at') }}"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                        @error('published_at')
-                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+                            class="w-full pl-10 pr-4 py-1.5 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-1 focus:ring-primary outline-none"
+                            placeholder="Cari berita..." type="text" />
                     </div>
-                </div>
-
-                <!-- Buttons -->
-                <div class="flex space-x-3 pt-4 border-t">
-                    <button
-                        type="submit"
-                        id="submitBtn"
-                        class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300 transition-colors flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span id="submitBtnText">Simpan Blog</span>
+                    <button class="relative p-2 text-slate-400 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span
+                            class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white"></span>
                     </button>
-                    <button
-                        type="button"
-                        id="btnBatalForm"
-                        class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:ring-4 focus:ring-gray-300 transition-colors">
-                        Batal
+                    <div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2"></div>
+                    <button class="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300">
+                        <span class="material-symbols-outlined">person</span>
                     </button>
                 </div>
-            </form>
-        </div>
-
-        <!-- Daftar Blog (Cards) -->
-        <div id="listSection">
-            <!-- Header -->
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-800">Daftar Blog</h3>
-                    <p class="text-sm text-gray-600 mt-1">Total: <span class="font-semibold">{{ isset($blogs) ? $blogs->count() : 0 }} artikel</span></p>
-                </div>
-                <!-- Filter/Search (Optional) -->
-                <div class="flex space-x-3">
-                    <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
-                        <option value="">Semua Status</option>
-                        <option value="draft">Draft</option>
-                        <option value="publish">Publish</option>
-                        <option value="archived">Archived</option>
-                    </select>
-                    <input
-                        type="text"
-                        placeholder="Cari blog..."
-                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
-                </div>
-            </div>
-
-            <!-- Blog Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @forelse($blogs ?? collect() as $blog)
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                    <div class="relative">
-                        @php
-                        $image = $blog->thumbnail ?? $blog->image ?? $blog->gambar;
-                        @endphp
-                        @if($image && file_exists(public_path($image)))
-                        <img src="{{ asset($image) }}" alt="{{ $blog->title }}" class="w-full h-48 object-cover">
-                        @else
-                        <div class="w-full h-48 bg-gray-300 flex items-center justify-center">
-                            <span class="text-gray-500">Tidak ada gambar</span>
-                        </div>
-                        @endif
-                        <span class="absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full status-{{ $blog->status }}">
-                            {{ ucfirst($blog->status) }}
-                        </span>
+            </header>
+            <!-- Page Body -->
+            <div class="p-4 sm:p-6 lg:p-8 space-y-6 lg:space-y-8 max-w-7xl mx-auto w-full">
+                <!-- Page Title Area -->
+                <div class="flex items-end justify-between">
+                    <div>
+                        <h1 class="text-3xl font-black text-heading dark:text-slate-100 tracking-tight">Manajemen Berita
+                        </h1>
+                        <p class="text-slate-500 mt-1">Kelola publikasi, sunting konten, dan unggah media berita.</p>
                     </div>
-                    <div class="p-5">
-                        <div class="flex items-center text-xs text-gray-500 mb-2">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded">{{ $blog->category?->nama_kategori ?? 'N/A' }}</span>
-                            <span class="mx-2">•</span>
-                            <span>{{ optional($blog->published_at ?? $blog->created_at)->format('j M Y') }}</span>
+                    <button
+                        class="bg-primary text-white px-6 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-primary/90 shadow-sm transition-all active:scale-95">
+                        <span class="material-symbols-outlined">add</span>
+                        Buat Berita Baru
+                    </button>
+                </div>
+                <!-- Tabs -->
+                <div class="border-b border-slate-200 dark:border-slate-800">
+                    <nav class="flex gap-8 overflow-x-auto whitespace-nowrap scrollbar-hide">
+                        <a class="border-b-2 border-primary py-3 px-1 text-sm font-bold text-primary"
+                            href="#">Semua Berita</a>
+                        <a class="border-b-2 border-transparent py-3 px-1 text-sm font-medium text-slate-500 hover:text-slate-700"
+                            href="#">Published</a>
+                        <a class="border-b-2 border-transparent py-3 px-1 text-sm font-medium text-slate-500 hover:text-slate-700"
+                            href="#">Draft</a>
+                        <a class="border-b-2 border-transparent py-3 px-1 text-sm font-medium text-slate-500 hover:text-slate-700"
+                            href="#">Terjadwal</a>
+                    </nav>
+                </div>
+                <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                    <!-- Table Section -->
+                    <div class="xl:col-span-12">
+                        <div
+                            class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left whitespace-nowrap">
+                                    <thead
+                                        class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+                                        <tr>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                Judul Berita</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                Kategori</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                Status</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                Tanggal Rilis</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
+                                                Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                            <td class="px-6 py-4 whitespace-normal min-w-[300px]">
+                                                <div class="flex items-center gap-3 w-full sm:w-auto">
+                                                    <div
+                                                        class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
+                                                        <img alt="News" class="w-full h-full object-cover"
+                                                            data-alt="Stock market growth chart on screen"
+                                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcCC_MyxSvzu3dRi5OZnD-tOWMZkqrQB0aVq3dIQ8D1EOFhAyt9fhAuSfS8NEHyBQSgxaf0lRDr3zihtgapkypvpeWGteugjQFNX9AjYf7d5q_BhVdtjent4nb275tTypBUQwM7xj-gxgrvprOcD_sYJk3zwnf38c8sOwm3bgH4DxOuhIIQbY0oEb3E-33Cj9-KmqIGt77V2yAFckYG00AZvCRPhj2PxBJNBc5VP-o07WL6xZwAdQfSUV0WjTsRrTodpYmP56Bow" />
+                                                    </div>
+                                                    <span
+                                                        class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">Inovasi
+                                                        Ekonomi Digital: Langkah Menuju 2025</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Bisnis</span>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"><span
+                                                        class="size-1.5 rounded-full bg-green-600"></span>Published</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-slate-500">24 Okt 2023, 14:30</td>
+                                            <td class="px-6 py-4 text-right space-x-2">
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-primary transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">edit</span></button>
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">delete</span></button>
+                                            </td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                            <td class="px-6 py-4 whitespace-normal min-w-[300px]">
+                                                <div class="flex items-center gap-3 w-full sm:w-auto">
+                                                    <div
+                                                        class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
+                                                        <img alt="News" class="w-full h-full object-cover"
+                                                            data-alt="Close up of a medical professional"
+                                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpuuu-SKsSJ8BbjQ6Qbp69MCbcVHbZE3uR7YqbZ26xv88ov77eFucSeWKt8T7bj0SCVrspluRYr8WcvVPy1i-DAKwQvaCseZAqyDBjd1t8E4OSdYZNM7HPexQo_ehZgvOycglPhEKPrE69KEVCgv4jwcklo_KXCZuQJTK3Vmp8R7jBBKfZKeVEFQ8sxEYLaotVMuKNq04w8MoE3pPPnOaWtnvStILZodRmemW2vZ_2Uwr6UiXxZQd2Hb2BxjUt6UjrvBBgE7tgBQ" />
+                                                    </div>
+                                                    <span
+                                                        class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">Protokol
+                                                        Kesehatan Terbaru di Musim Hujan</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Kesehatan</span>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"><span
+                                                        class="size-1.5 rounded-full bg-yellow-600"></span>Draft</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-slate-500">-</td>
+                                            <td class="px-6 py-4 text-right space-x-2">
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-primary transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">edit</span></button>
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">delete</span></button>
+                                            </td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                            <td class="px-6 py-4 whitespace-normal min-w-[300px]">
+                                                <div class="flex items-center gap-3 w-full sm:w-auto">
+                                                    <div
+                                                        class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
+                                                        <img alt="News" class="w-full h-full object-cover"
+                                                            data-alt="Modern robot arm technology"
+                                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBZCGMIVEfehI5j0rCEvMFrRHNEc1GHY9PNJEP5xK0I8UX54GoFS390ghUnmC3lJ7VPbtsOEENbtseq2fwJn5c54Yu9CWNRVC5B6gQZsEHkw6ToVGb_Bls3NyVzFAqg78zrLhiNcgcsJD5Js6Cjab21ZhZLY2Yw39Uys4NBxMSwcrI26E2pmRcuQhU57h4-uZAaHDnLPRj_vVfCMJCAhQ75Twx48t0yTdI9vDGOBzl_jMXKElN-8iWNxkMTm6qvNxBN-Aqp57OEg" />
+                                                    </div>
+                                                    <span
+                                                        class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">AI
+                                                        vs Tenaga Kerja: Peluang atau Ancaman?</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Teknologi</span>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"><span
+                                                        class="size-1.5 rounded-full bg-green-600"></span>Published</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-slate-500">22 Okt 2023, 10:00</td>
+                                            <td class="px-6 py-4 text-right space-x-2">
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-primary transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">edit</span></button>
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">delete</span></button>
+                                            </td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                            <td class="px-6 py-4 whitespace-normal min-w-[300px]">
+                                                <div class="flex items-center gap-3 w-full sm:w-auto">
+                                                    <div
+                                                        class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
+                                                        <img alt="News" class="w-full h-full object-cover"
+                                                            data-alt="Soccer player on field stadium"
+                                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYzfU3mHcMB2T8w__JN2qegq8Fmo9u4sMIUlzn7Cazcyg8YpSqYeMRNQlGU0C0rtkblmnDd_yicwpZKesqN8mA-Ak3RksUb-zmoCzAVRAKwMNZOnba3E0s1fKV4YyIak10Yp1zoxjYAAnPD6Vj_E6yuyXXOgQNiVwIFVHZbXcg7ecCqDxiAqKLAZBIYNyNGS4vZxi2FO0XmwChLyJ0bESIECaHDQCYg1h7FL7_gM1ArUeIZnPVPGH7KT39LO3IiqgxqEPvnoNj3Q" />
+                                                    </div>
+                                                    <span
+                                                        class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">Rekapitulasi
+                                                        Liga Champion: Derby Malam Ini</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Olahraga</span>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"><span
+                                                        class="size-1.5 rounded-full bg-green-600"></span>Published</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-slate-500">21 Okt 2023, 08:00</td>
+                                            <td class="px-6 py-4 text-right space-x-2">
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-primary transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">edit</span></button>
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">delete</span></button>
+                                            </td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                            <td class="px-6 py-4 whitespace-normal min-w-[300px]">
+                                                <div class="flex items-center gap-3 w-full sm:w-auto">
+                                                    <div
+                                                        class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
+                                                        <img alt="News" class="w-full h-full object-cover"
+                                                            data-alt="Scenic mountain landscape with lake"
+                                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZNVQ0lOjYhlG_0VOo79SAHGRvYFywWP6_z3qiXiGb6rw7zSb9meoKH-xxoycl4cFHqePpOmEImYzWDydtAH5dR5wOwqflRi5xUJSquro9BF7qpqx8wW9qawN-T_zhILii6Ln_8V0BXt7uDm6_rnGWcDnQFHu7kz_FHRPZGTb-BJa5cGp78CogPP-Bvd9JnFgqzuVXOCC9iDlsmbWJm8PB05UvbCEJlg4cRwezN0dw1BaCNNVbuJkwZIiEEd55_Em5K7PvOxZb1Q" />
+                                                    </div>
+                                                    <span
+                                                        class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">Destinasi
+                                                        Liburan Akhir Tahun Paling Irit</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Wisata</span>
+                                            </td>
+                                            <td class="px-6 py-4"><span
+                                                    class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"><span
+                                                        class="size-1.5 rounded-full bg-yellow-600"></span>Draft</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-slate-500">-</td>
+                                            <td class="px-6 py-4 text-right space-x-2">
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-primary transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">edit</span></button>
+                                                <button
+                                                    class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
+                                                        class="material-symbols-outlined text-[20px]">delete</span></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div
+                                class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                                <span class="text-xs text-slate-500">Menampilkan 5 dari 128 berita</span>
+                                <div class="flex gap-2">
+                                    <button
+                                        class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 transition-colors">Previous</button>
+                                    <button
+                                        class="px-3 py-1 bg-primary text-white rounded text-xs font-medium">1</button>
+                                    <button
+                                        class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 transition-colors">2</button>
+                                    <button
+                                        class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 transition-colors">Next</button>
+                                </div>
+                            </div>
                         </div>
-                        <h4 class="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">{{ $blog->title }}</h4>
-                        <p class="text-sm text-gray-600 mb-4 line-clamp-3">{{ $blog->excerpt ?? Str::limit(strip_tags($blog->content), 100) }}</p>
-                        <div class="flex items-center justify-between pt-4 border-t">
-                            <button type="button" class="editBlogBtn text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center"
-                                data-id="{{ $blog->id }}"
-                                data-title="{{ $blog->title }}"
-                                data-category="{{ $blog->category_id }}"
-                                data-content="{{ $blog->content }}"
-                                data-excerpt="{{ $blog->excerpt ?? '' }}"
-                                data-status="{{ $blog->status }}"
-                                data-published-at="{{ $blog->published_at }}"
-                                data-gambar="{{ $blog->gambar }}"
-                                data-thumbnail="{{ $blog->thumbnail }}"
-                                data-image="{{ $blog->image }}">
-                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                </svg>
-                                Edit
-                            </button>
-                            <form method="POST" action="{{ route('admin.blog.destroy', $blog->id) }}" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus blog ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-800 text-sm font-medium flex items-center">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                    </svg>
-                                    Hapus
-                                </button>
+                    </div>
+                    <!-- Editor/Form Section -->
+                    <div class="xl:col-span-12">
+                        <div
+                            class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-8 shadow-sm">
+                            <div
+                                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">
+                                <h3 class="text-xl font-bold text-heading dark:text-slate-100 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">edit_note</span>
+                                    Edit / Buat Berita
+                                </h3>
+                                <div class="flex gap-3 w-full sm:w-auto">
+                                    <button
+                                        class="px-6 py-2 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-sm font-bold hover:bg-slate-50 transition-colors flex-1 sm:flex-none">Simpan
+                                        Draft</button>
+                                    <button
+                                        class="px-6 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary/90 transition-colors flex-1 sm:flex-none">Publikasikan</button>
+                                </div>
+                            </div>
+                            <form class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                <!-- Main Info -->
+                                <div class="lg:col-span-2 space-y-6">
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Judul
+                                            Berita</label>
+                                        <input
+                                            class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                            placeholder="Masukkan judul yang menarik..." type="text" />
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Konten
+                                            Berita</label>
+                                        <div
+                                            class="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                                            <div
+                                                class="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-3 py-2 flex gap-4 text-slate-500">
+                                                <span
+                                                    class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">format_bold</span>
+                                                <span
+                                                    class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">format_italic</span>
+                                                <span
+                                                    class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">format_underlined</span>
+                                                <span
+                                                    class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">format_list_bulleted</span>
+                                                <span
+                                                    class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">link</span>
+                                                <span
+                                                    class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">image</span>
+                                            </div>
+                                            <textarea class="w-full px-4 py-3 h-80 bg-white dark:bg-slate-900 text-sm focus:outline-none border-none resize-none"
+                                                placeholder="Mulai menulis berita di sini..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Side Options -->
+                                <div
+                                    class="space-y-6 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                                    <div class="space-y-4">
+                                        <div class="space-y-2">
+                                            <label
+                                                class="text-sm font-bold text-slate-700 dark:text-slate-300">Kategori</label>
+                                            <select
+                                                class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none">
+                                                <option>Pilih Kategori</option>
+                                                <option>Bisnis</option>
+                                                <option>Teknologi</option>
+                                                <option>Kesehatan</option>
+                                                <option>Olahraga</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Status
+                                                Publikasi</label>
+                                            <select
+                                                class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none">
+                                                <option>Published</option>
+                                                <option>Draft</option>
+                                                <option>Pending</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Tanggal
+                                                Publikasi</label>
+                                            <input
+                                                class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                                type="date" />
+                                        </div>
+                                    </div>
+                                    <!-- Dual Image Upload -->
+                                    <div class="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                                        <div class="space-y-2">
+                                            <label
+                                                class="text-sm font-bold text-slate-700 dark:text-slate-300">Thumbnail
+                                                Berita (1:1)</label>
+                                            <div
+                                                class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-4 bg-white dark:bg-slate-900 flex flex-col items-center justify-center text-center">
+                                                <div
+                                                    class="size-16 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center mb-2">
+                                                    <span
+                                                        class="material-symbols-outlined text-slate-400">add_a_photo</span>
+                                                </div>
+                                                <p
+                                                    class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">
+                                                    Klik untuk unggah</p>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Gambar
+                                                Utama (16:9)</label>
+                                            <div
+                                                class="relative group border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg h-32 bg-slate-100 dark:bg-slate-900 overflow-hidden flex flex-col items-center justify-center">
+                                                <img alt="Preview"
+                                                    class="absolute inset-0 w-full h-full object-cover opacity-50"
+                                                    data-alt="Blue and purple abstract gradient background"
+                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvSB3S0a2xpA7jGZqr5b8zz5FURishcZaTOCNBFtOcS_6a_8Tz8wBLkEza935lHfdfoN2k4Yruc_LWaXifkNTOGAKZ4GhHeoOE5-TMY7NPXqXTqLwrrf37-TZDCisI8ew-1vcsRwKVcwfByG0SiHhR2-iCn8CP5GDhMqqoNLOWyydwwif9gGstiRsPgc-aAqiboFE93okitbyf_O-qdEaDsg6Y6S9ISEfOkhsSSETqmrB6jDGGFV1sihtSJGCnna39KOJ7-mPmSw" />
+                                                <div class="relative z-10 text-center">
+                                                    <span
+                                                        class="material-symbols-outlined text-heading dark:text-slate-200">upload_file</span>
+                                                    <p class="text-xs font-bold text-heading dark:text-slate-200">Ubah
+                                                        Gambar</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                @empty
-                <div class="col-span-full text-center py-12">
-                    <p class="text-gray-500">Belum ada blog. Mulai dengan menambahkan blog baru.</p>
-                </div>
-                @endforelse
             </div>
-        </div>
+        </main>
     </div>
+</body>
 
-    <script>
-        // Toggle Form Section
-        const btnTambahBlog = document.getElementById('btnTambahBlog');
-        const btnCloseForm = document.getElementById('btnCloseForm');
-        const btnBatalForm = document.getElementById('btnBatalForm');
-        const formSection = document.getElementById('formSection');
-        const listSection = document.getElementById('listSection');
-        const formBlog = document.getElementById('formBlog');
-        const formMethod = document.getElementById('formMethod');
-        const blogId = document.getElementById('blogId');
-        const submitBtn = document.getElementById('submitBtn');
-        const submitBtnText = document.getElementById('submitBtnText');
-
-        // Show form for tambah
-        if (btnTambahBlog) {
-            btnTambahBlog.addEventListener('click', function() {
-                formSection.style.display = 'block';
-                listSection.style.display = 'none';
-                document.getElementById('formTitle').textContent = 'Tambah Blog Baru';
-                formBlog.reset();
-                formMethod.value = 'POST';
-                blogId.value = '';
-                formBlog.action = "{{ route('admin.blog.store') }}";
-                submitBtnText.textContent = 'Simpan Blog';
-
-                // Reset file name displays
-                document.getElementById('imageFileName').textContent = 'Tidak ada file dipilih';
-                document.getElementById('thumbnailFileName').textContent = 'Tidak ada file dipilih';
-                document.getElementById('fileName').textContent = 'Tidak ada file dipilih';
-            });
-        }
-
-        // Close form
-        if (btnCloseForm) {
-            btnCloseForm.addEventListener('click', function() {
-                formSection.style.display = 'none';
-                listSection.style.display = 'block';
-            });
-        }
-
-        if (btnBatalForm) {
-            btnBatalForm.addEventListener('click', function() {
-                formSection.style.display = 'none';
-                listSection.style.display = 'block';
-            });
-        }
-
-        // Edit blog
-        document.querySelectorAll('.editBlogBtn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const id = this.dataset.id;
-                const title = this.dataset.title;
-                const category = this.dataset.category;
-                const content = this.dataset.content;
-                const excerpt = this.dataset.excerpt;
-                const status = this.dataset.status;
-                const publishedAt = this.dataset.publishedAt;
-
-                document.getElementById('titleBlog').value = title;
-                document.getElementById('categoryBlog').value = category;
-                document.getElementById('contentBlog').value = content;
-                document.getElementById('excerptBlog').value = excerpt;
-                document.getElementById('statusBlog').value = status;
-
-                if (publishedAt) {
-                    // Format datetime untuk input datetime-local (YYYY-MM-DDTHH:mm)
-                    const date = new Date(publishedAt);
-                    const formattedDate = date.toISOString().slice(0, 16);
-                    document.getElementById('publishedAt').value = formattedDate;
-                } else {
-                    document.getElementById('publishedAt').value = '';
-                }
-
-                formSection.style.display = 'block';
-                listSection.style.display = 'none';
-                document.getElementById('formTitle').textContent = 'Edit Blog';
-                formMethod.value = 'PUT';
-                blogId.value = id;
-                formBlog.action = "/admin/blog/" + id;
-                submitBtnText.textContent = 'Perbarui Blog';
-            });
-        });
-
-        // File input display name - Featured Image
-        const imageBlogInput = document.getElementById('imageBlog');
-        if (imageBlogInput) {
-            imageBlogInput.addEventListener('change', function(e) {
-                const fileName = e.target.files[0] ? e.target.files[0].name : 'Tidak ada file dipilih';
-                document.getElementById('imageFileName').textContent = fileName;
-            });
-        }
-
-        // File input display name - Thumbnail
-        const thumbnailBlogInput = document.getElementById('thumbnailBlog');
-        if (thumbnailBlogInput) {
-            thumbnailBlogInput.addEventListener('change', function(e) {
-                const fileName = e.target.files[0] ? e.target.files[0].name : 'Tidak ada file dipilih';
-                document.getElementById('thumbnailFileName').textContent = fileName;
-            });
-        }
-
-        // File input display name - Gambar Lama
-        const gambarBlogInput = document.getElementById('gambarBlog');
-        if (gambarBlogInput) {
-            gambarBlogInput.addEventListener('change', function(e) {
-                const fileName = e.target.files[0] ? e.target.files[0].name : 'Tidak ada file dipilih';
-                document.getElementById('fileName').textContent = fileName;
-            });
-        }
-    </script>
-
-</x-admin.app-layout>
+</html>

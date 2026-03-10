@@ -1,561 +1,447 @@
-<x-admin.app-layout :title="'Staf - Puskesmas Binong'" :pageTitle="'Manajemen Staf'">
-<div class="space-y-6">
-    <!-- Header Section -->
-    <div class="flex justify-between items-center">
-        <div>
-            <h3 class="text-lg font-medium text-gray-900">Data Staf Puskesmas</h3>
-            <p class="mt-1 text-sm text-gray-600">Kelola informasi staf dan pegawai Puskesmas Binong</p>
-        </div>
-        <button onclick="openModal('tambahStaf')" class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition duration-150">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg>
-            Tambah Staf
-        </button>
-    </div>
+<!DOCTYPE html>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-lg shadow-sm p-6">
-            <div class="flex items-center">
-                <div class="flex-shrink-0 p-3 bg-green-100 rounded-lg">
-                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Total Staf</p>
-                    <p class="text-2xl font-semibold text-gray-900">24</p>
-                </div>
-            </div>
-        </div>
+<html class="light" lang="id">
 
-        <div class="bg-white rounded-lg shadow-sm p-6">
-            <div class="flex items-center">
-                <div class="flex-shrink-0 p-3 bg-blue-100 rounded-lg">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Staf Aktif</p>
-                    <p class="text-2xl font-semibold text-gray-900">22</p>
-                </div>
-            </div>
-        </div>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Manajemen Staf - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#349953",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#141e17",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
 
-        <div class="bg-white rounded-lg shadow-sm p-6">
-            <div class="flex items-center">
-                <div class="flex-shrink-0 p-3 bg-gray-100 rounded-lg">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
-                    </svg>
-                </div>
-                <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Tidak Aktif</p>
-                    <p class="text-2xl font-semibold text-gray-900">2</p>
-                </div>
-            </div>
-        </div>
-    </div>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            color: #349953;
+        }
 
-    <!-- Filter dan Search -->
-    <div class="bg-white rounded-lg shadow-sm p-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Cari Staf</label>
-                <input type="text" placeholder="Nama atau NIP..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan</label>
-                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                    <option value="">Semua Jabatan</option>
-                    <option>Dokter</option>
-                    <option>Perawat</option>
-                    <option>Bidan</option>
-                    <option>Apoteker</option>
-                    <option>Staff Administrasi</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                    <option value="">Semua Status</option>
-                    <option>Aktif</option>
-                    <option>Tidak Aktif</option>
-                </select>
-            </div>
-            <div class="flex items-end">
-                <button class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition duration-150">
-                    Filter
-                </button>
-            </div>
-        </div>
-    </div>
+        .active-link {
+            background-color: rgba(52, 153, 83, 0.1);
+            border-left: 4px solid #349953;
+        }
+    </style>
+</head>
 
-    <!-- Tabel Data Staf -->
-    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Staf</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jabatan</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Urutan</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse($staf as $index => $s)
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $index + 1 }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10">
-                                    <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-semibold">
-                                        {{ strtoupper(substr($s->name,0,2)) }}
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+    <div class="flex min-h-screen">
+        <!-- Side Navigation -->
+        <div class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" id="sidebar-overlay" onclick="toggleSidebar()">
+        </div>
+        <aside
+            class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col fixed h-full fixed inset-y-0 left-0 z-50 transition-transform duration-300 transform -translate-x-full lg:translate-x-0 lg:static lg:inset-0"
+            id="sidebar">
+            <div class="p-6 flex items-center gap-3">
+                <div class="bg-primary p-2 rounded-lg text-white">
+                    <span class="material-symbols-outlined !text-white">admin_panel_settings</span>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-none">Admin Panel</h1>
+                    <p class="text-xs text-slate-500 mt-1">Staff Management</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 py-4 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-primary active-link rounded-r-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined !text-primary">group</span>
+                    <span class="text-sm font-semibold">Manajemen Staf</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    <span class="text-sm font-medium">Jadwal</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">description</span>
+                    <span class="text-sm font-medium">Laporan</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="text-sm font-medium">Pengaturan</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+                <div class="flex items-center gap-3 p-2">
+                    <img alt="Admin Profile" class="w-10 h-10 rounded-full border-2 border-primary"
+                        data-alt="Portrait of a professional male admin"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKFMO3jfeWv2GaZ0Vx3dshfLsgdtxid-xUfCXEjpKS-ARjd-_3rgsMrWIn_2b310yHMd9pVggxbrFlLJ7ZkH-gl4eMzqs6rjdtQKzg0ft-AmyxwLcvLj-H-Nz_YE5XYxocvuAVnmwhPTz0rjcz_53rPREJV6C55QrMKtd8XROm1t6f57iGM7h4EUiRPG6TGkt87Y4SgOtzoLELc2e8R7dzR8oHB40ii9yAuys-M_8IL1ssv___37OkdvjcZ85cY7Ue29nApE3EPQ" />
+                    <div class="overflow-hidden">
+                        <p class="text-sm font-bold truncate">Admin Utama</p>
+                        <p class="text-xs text-slate-500 truncate">admin@company.com</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-1 w-full lg:ml-0">
+            <!-- Top Navigation -->
+            <header
+                class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md flex items-center justify-between px-8 sticky top-0 z-10">
+                <div class="flex items-center gap-4"><button
+                        class="lg:hidden p-2 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                        onclick="toggleSidebar()">
+                        <span class="material-symbols-outlined !text-slate-600 dark:!text-slate-300">menu</span>
+                    </button>
+                    <h2 class="text-xl font-bold tracking-tight">Manajemen Staf</h2>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="relative group">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 !text-slate-400 text-xl">search</span>
+                        <input
+                            class="pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all"
+                            placeholder="Cari staf..." type="text" />
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 relative">
+                            <span
+                                class="material-symbols-outlined !text-slate-600 dark:!text-slate-300">notifications</span>
+                            <span
+                                class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+                        </button>
+                        <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                            <span
+                                class="material-symbols-outlined !text-slate-600 dark:!text-slate-300">account_circle</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <div class="max-w-7xl mx-auto space-y-8 px-4 sm:px-6 lg:px-8">
+                <!-- Header Stats/Action -->
+                <div class="flex justify-between items-end flex-col sm:flex-row sm:items-end gap-4 items-start">
+                    <div>
+                        <h3 class="text-3xl font-extrabold tracking-tight">Daftar Staf</h3>
+                        <p class="text-slate-500 dark:text-slate-400 mt-1">Kelola data dan informasi staf organisasi
+                            Anda.</p>
+                    </div>
+                    <button
+                        class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 shadow-lg shadow-primary/20 transition-all w-full sm:w-auto justify-center">
+                        <span class="material-symbols-outlined !text-white">add</span>
+                        Tambah Staf Baru
+                    </button>
+                </div>
+                <!-- Table Section -->
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse min-w-[800px]">
+                            <thead>
+                                <tr class="bg-slate-50 dark:bg-slate-800/50">
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Foto
+                                    </th>
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Nama
+                                        Lengkap</th>
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                        Telepon</th>
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                        Email</th>
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                        Jabatan</th>
+                                    <th
+                                        class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 text-right">
+                                        Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                <!-- Row 1 -->
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-200 dark:border-slate-600">
+                                            <img alt="Staff 1" data-alt="Close up portrait of a young man smiling"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwDB-HaNPimORQJQpXdnWUvexHYBHxn5j-6S8RwPTJyHrVySLZ9fnk9t5T3Gh3u4MKNy5p5iMXMJ2E6cgedoPWo-qgL8CxpQk0nz6NdMnoYwdNPVzdWHGSX4mmTkHJBM1MNwADNtstZSc7mZkAg2h4Tx4_ccxBCRRVxbV2L638KWrd_T5YDgfQz7WENLItVhjxCDSj_RiRn4FMmwt1yPSwhbOzc0066izyTFvsJTNmwPgABfxb9bPAPap6MCzF2buGuDTE9vN7Mg" />
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold text-sm">Budi Santoso</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">0812-3456-7890</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">budi.s@hospital.com
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full">Manager</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button
+                                            class="text-primary hover:text-primary/70 font-bold text-sm">Edit</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-200 dark:border-slate-600">
+                                            <img alt="Staff 2"
+                                                data-alt="Portrait of a professional woman with glasses"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeLxE8dYH9-bp6cL8vzXIm7kpCxsxjBMNLB9tT3rUx3wyf0hxCvWbMZbl20WKdz_4mY9U_cOkqCjmhnGP3AFauRdSbvvKm6hACs5gpFCRGBuXgGuWt4AHli7oKGA3pJ31UEPPi59EZYHh9_Vt2R7kohRcRqEtgBdpi5fGr1tEcBMJRzo4fSzHSnzvGCW-vngvPoKJPtBFDw_W6xziBjL_Ni5E73FSU785H5IeyRB3prmEDWizzjgfRm51e7ICknn1_fA9wwAJU4w" />
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold text-sm">Siti Aminah</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">0856-2223-3344
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                                        siti.a@hospital.com</td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-bold rounded-full">Senior
+                                            Staff</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button
+                                            class="text-primary hover:text-primary/70 font-bold text-sm">Edit</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 3 -->
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-200 dark:border-slate-600">
+                                            <img alt="Staff 3" data-alt="Professional male with a beard smiling"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl6mBv9g5b4P0Xsuoy-2mtytwUvJUI0mJtpbduWOfd1uwno5JZk51tye_mY0FftQrU9etzUlSRX-0p6cbgY_HU1cGbspIMyRPqwC90UR0mHcafR8n6tSlUfXA7l2kSLjQDxWixArW9nLq5NNpqgQCVsO7kssRPviqlq8dCbI4DjPRPSSVNLkR5fItPLxgoVb8DelVw4VZTP7nQ_v6B6-CnRCxW8qqobKJZ4ZuendvtMTnc69qC0J6OSt9Xq45k29IANv3R9qZ_Uw" />
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold text-sm">Agus Prayogo</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">0813-3344-5566
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                                        agus.p@hospital.com</td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="px-3 py-1 bg-purple-100 text-purple-600 text-xs font-bold rounded-full">Administrator</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button
+                                            class="text-primary hover:text-primary/70 font-bold text-sm">Edit</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 4 -->
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-200 dark:border-slate-600">
+                                            <img alt="Staff 4" data-alt="Portrait of a young professional woman"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjwU_m1AVvl0hjR1PIB35L6824aA36HEDZRe3A8g6mJOjPwpAVijYQ_e1sEee5HNpXaf2RSDDDH81kCfTYrYwiCSR7Jmpwgw-DNkdpndr9dZPTeSgWQPLHBDtW-_D--JPEetxPadgl7oihgX9B8myPL4a1KXR90lmadvy3CdE2DxakAK-dnrDYqHc6CPGh-cHrTBlhXHfEjRPtSpthei3pHEoMFNlVsysveSShQ8t2x7KRcei1kG0OzCNAUV9jiBHGxwuudbL5Gg" />
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold text-sm">Lani Wijaya</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">0814-4455-6677
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                                        lani.w@hospital.com</td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full">Staff</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button
+                                            class="text-primary hover:text-primary/70 font-bold text-sm">Edit</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 5 -->
+                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-200 dark:border-slate-600">
+                                            <img alt="Staff 5"
+                                                data-alt="Professional male with glasses looking forward"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeGv5j2h5mxJRTtoznpoLKNBDSGwuqQNU4-cI22ovTSh9cLsBMSTHOR3pRBLvA7oSJ5R4MiXOnnpfS7VJEnNo2PHYpeYU9avp8thddSloMsSaW1rlo8prrptuGWCa3uL5VtC_NXF_rL_jmv2s7brMWxzPuBBHLrA3iemjQ-iUersHMIrStVUynfB1J5qiT5QsKgGslwtXh8JkUXOatqhIjVtYBOcAFiNDs7gfbun9EztiK0LRn9HwOvzHCaWWJMpFLv6fosrv1xg" />
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 font-semibold text-sm">Rudi Tabuti</td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">0815-5566-7788
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
+                                        rudi.t@hospital.com</td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="px-3 py-1 bg-amber-100 text-amber-600 text-xs font-bold rounded-full">Supervisor</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button
+                                            class="text-primary hover:text-primary/70 font-bold text-sm">Edit</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Form Section -->
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                    <div
+                        class="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <h4 class="text-xl font-bold">Data Detil Staf</h4>
+                        <span class="text-xs font-medium text-slate-400">Lengkapi formulir di bawah ini</span>
+                    </div>
+                    <form class="p-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                            <!-- Left: Profile Image Upload/Preview -->
+                            <div class="lg:col-span-3 flex flex-col items-center gap-4">
+                                <div class="relative group">
+                                    <div
+                                        class="w-40 h-40 rounded-xl border-4 border-primary p-1 bg-white overflow-hidden shadow-xl shadow-primary/10">
+                                        <img alt="Staff Preview" class="w-full h-full object-cover rounded-lg"
+                                            data-alt="Detailed close up preview of staff member"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfMIFIzgC29TDHB8luqq-KQ0GZ38Vxek280Pgbzv2FZwaD_1bqYUcWc9Cl16JWV3M8Kaq7UcdPiXS8v8Ky55UaS5ryGSoZVn0CtgNfndBz7NSOte0_TXD0CLlvTAMTmSUQ2vlj1blGXsMlBUw3QMC_rTcUxQ_CysDr7I67eXWYCXY3nOwYG1r1WIYwbJDgtRfkqSAgOTjyijRztCPlS1evjK5MCX7sUxSGwX5dzk6KBm2I5ESYm3ubkh7lDVzwlmQMm6YsMF7GvQ" />
                                     </div>
+                                    <button
+                                        class="absolute -bottom-3 -right-3 bg-primary text-white p-2 rounded-lg shadow-lg hover:scale-105 transition-transform flex items-center justify-center"
+                                        type="button">
+                                        <span class="material-symbols-outlined !text-white text-lg">edit</span>
+                                    </button>
                                 </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">{{ $s->name }}</div>
-                                    <div class="text-sm text-gray-500">{{ $s->bidang ?? '-' }}</div>
+                                <div class="text-center">
+                                    <p class="text-sm font-bold">Foto Profil</p>
+                                    <p class="text-xs text-slate-500 mt-1">Maks. 2MB (JPG, PNG)</p>
                                 </div>
                             </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $s->jabatan }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $s->email ?? '-' }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $s->urutan }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $s->status === 'Aktif' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                {{ $s->status }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <button onclick="openDetail({{ $s->id }})" class="text-blue-600 hover:text-blue-900 mr-3" title="Lihat Detail">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                            </button>
-                            <button onclick="openEditStaf({{ $s->id }})" class="text-green-600 hover:text-green-900 mr-3" title="Edit">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                </svg>
-                            </button>
-                            <form action="{{ route('admin.staf.destroy', $s->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus staf ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900" title="Hapus">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                    </svg>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="px-6 py-8 text-center text-gray-500">Belum ada staf</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Pagination -->
-        <div class="bg-white px-6 py-4 border-t border-gray-200">
-            <div class="flex items-center justify-between">
-                <div class="text-sm text-gray-700">
-                    Menampilkan <span class="font-medium">1</span> sampai <span class="font-medium">3</span> dari <span class="font-medium">24</span> staf
-                </div>
-                <div class="flex space-x-2">
-                    <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50" disabled>
-                        Sebelumnya
-                    </button>
-                    <button class="px-3 py-1 bg-green-600 text-white rounded-lg text-sm">1</button>
-                    <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">2</button>
-                    <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">3</button>
-                    <button class="px-3 py-1 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50">
-                        Selanjutnya
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Tambah/Edit Staf -->
-<div id="tambahStaf" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-    <div class="relative top-10 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-lg bg-white">
-        <div class="flex justify-between items-center pb-4 border-b">
-            <h3 class="text-xl font-semibold text-gray-900">Tambah Staf Baru</h3>
-            <button onclick="closeModal('tambahStaf')" class="text-gray-400 hover:text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-        </div>
-
-        <form class="mt-6" method="POST" action="{{ route('admin.staf.store') }}" enctype="multipart/form-data">
-            @csrf
-            @if ($errors->any())
-                <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-                    <div class="flex items-start space-x-3">
-                        <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.516 9.8A1.75 1.75 0 0116.986 16H3.014a1.75 1.75 0 01-1.273-2.101l5.516-9.8zM11 13a1 1 0 10-2 0 1 1 0 002 0zm-1-8a.75.75 0 00-.75.75v4.5c0 .414.336.75.75.75s.75-.336.75-.75v-4.5A.75.75 0 0010 5z" clip-rule="evenodd"/>
-                        </svg>
-                        <div class="flex-1">
-                            <h3 class="font-medium text-red-900 mb-2">Periksa formulir:</h3>
-                            <ul class="list-disc list-inside space-y-1 text-sm text-red-800">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+                            <!-- Right: Detailed Grid Form -->
+                            <div class="lg:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                <!-- Row 1 -->
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Nama
+                                        Lengkap</label>
+                                    <input
+                                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary"
+                                        type="text" value="Budi Santoso" />
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Nomor
+                                        Telepon</label>
+                                    <input
+                                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary"
+                                        type="tel" value="081234567890" />
+                                </div>
+                                <!-- Row 2 -->
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Alamat
+                                        Email</label>
+                                    <input
+                                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary"
+                                        type="email" value="budi.s@hospital.com" />
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Jenis
+                                        Kelamin</label>
+                                    <select
+                                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary">
+                                        <option value="L">Laki-laki</option>
+                                        <option value="P">Perempuan</option>
+                                    </select>
+                                </div>
+                                <!-- Row 3 -->
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Tanggal
+                                        Lahir</label>
+                                    <div class="relative">
+                                        <span
+                                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 !text-slate-400 text-xl pointer-events-none">calendar_month</span>
+                                        <input
+                                            class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary appearance-none"
+                                            type="date" value="1990-05-15" />
+                                    </div>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label
+                                        class="text-sm font-semibold text-slate-700 dark:text-slate-300">Profesi</label>
+                                    <input
+                                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary"
+                                        type="text" value="Tenaga Medis" />
+                                </div>
+                                <!-- Row 4 -->
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">NIP (Nomor
+                                        Induk Pegawai)</label>
+                                    <input
+                                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary"
+                                        type="text" value="199005152020031001" />
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Jabatan
+                                        Struktural</label>
+                                    <input
+                                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary"
+                                        type="text" value="Manager Operasional" />
+                                </div>
+                                <!-- Row 5 -->
+                                <div class="space-y-1.5 md:col-span-2">
+                                    <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Bergabung
+                                        Sejak</label>
+                                    <div class="relative">
+                                        <span
+                                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 !text-slate-400 text-xl pointer-events-none">event_available</span>
+                                        <input
+                                            class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary appearance-none"
+                                            type="date" value="2020-03-01" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            @endif
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Kolom Kiri -->
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Masukkan nama lengkap">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">NIP <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Nomor Induk Pegawai">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan <span class="text-red-500">*</span></label>
-                        <select required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <option value="">Pilih Jabatan</option>
-                            <option>Dokter Umum</option>
-                            <option>Dokter Gigi</option>
-                            <option>Perawat</option>
-                            <option>Bidan</option>
-                            <option>Apoteker</option>
-                            <option>Analis Kesehatan</option>
-                            <option>Staff Administrasi</option>
-                            <option>Staff Kebersihan</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
-                        <input type="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="email@puskesmas.id">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon</label>
-                        <input type="tel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="0812-xxxx-xxxx">
-                    </div>
-                </div>
-
-                <!-- Kolom Kanan -->
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Bidang</label>
-                        <input type="text" name="bidang" value="{{ old('bidang') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Contoh: Poliklinik Anak">
-                        @error('bidang')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Urutan Tampilan <span class="text-red-500">*</span></label>
-                        <input type="number" name="urutan" min="0" value="{{ old('urutan', 0) }}" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                        @error('urutan')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Status <span class="text-red-500">*</span></label>
-                        <select name="status" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <option value="Aktif" {{ old('status', 'Aktif') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                            <option value="Tidak Aktif" {{ old('status') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
-                        </select>
-                        @error('status')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
-                        <textarea name="deskripsi" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Deskripsi singkat layanan atau staf">{{ old('deskripsi') }}</textarea>
-                        @error('deskripsi')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Foto Staf</label>
-                        <input type="file" name="foto" accept="image/*" onchange="previewImage(event)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                        <div class="mt-2 flex justify-center">
-                            <img id="fotoPreview" src="#" alt="Preview Foto" class="hidden h-24 w-24 object-cover rounded-lg border border-gray-300" />
+                        <!-- Form Actions -->
+                        <div class="mt-12 flex justify-end gap-4 pt-8 border-t border-slate-100 dark:border-slate-800">
+                            <button
+                                class="px-6 py-2.5 border border-slate-200 dark:border-slate-700 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                                type="button">Batal</button>
+                            <button
+                                class="px-8 py-2.5 bg-primary text-white rounded-lg font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all"
+                                type="submit">Simpan Perubahan</button>
                         </div>
-                        @error('foto')<p class="text-red-500 text-sm mt-1">{{ $message }}</p>@enderror
-                    </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="mt-8 flex justify-end space-x-3">
-                <button type="button" onclick="closeModal('tambahStaf')" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                    Batal
-                </button>
-                <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">
-                    Simpan Staf
-                </button>
-            </div>
-        </form>
+        </main>
     </div>
-</div>
-<!-- Modal Detail Staf -->
-<div id="detailStaf" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-    <div class="relative top-10 mx-auto p-5 border w-11/12 max-w-2xl shadow-lg rounded-lg bg-white">
-        <div class="flex justify-between items-center pb-4 border-b">
-            <h3 class="text-xl font-semibold text-gray-900">Detail Staf</h3>
-            <button onclick="closeModal('detailStaf')" class="text-gray-400 hover:text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-        </div>
-
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-900">
-            <!-- Kolom Kiri -->
-            <div class="space-y-4">
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Nama Lengkap</p>
-                    <p class="mt-1">dr. Rina Susanti</p>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">NIP</p>
-                    <p class="mt-1">198501012010012001</p>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Jabatan</p>
-                    <p class="mt-1">Dokter Umum</p>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Email</p>
-                    <p class="mt-1">rina.susanti@puskesmas.id</p>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Nomor Telepon</p>
-                    <p class="mt-1">0812-3456-7890</p>
-                </div>
-            </div>
-
-            <!-- Kolom Kanan -->
-            <div class="space-y-4">
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Tanggal Lahir</p>
-                    <p class="mt-1">01 Januari 1985</p>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Jenis Kelamin</p>
-                    <p class="mt-1">Perempuan</p>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Status</p>
-                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 mt-1">Aktif</span>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Alamat</p>
-                    <p class="mt-1">Jl. Sehat No. 123, Kec. Binong, Kab. Subang</p>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Foto</p>
-                    <div class="mt-2 flex justify-center">
-                        <div class="h-24 w-24 bg-green-100 rounded-lg flex items-center justify-center text-green-700 font-semibold">DR</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-8 flex justify-end">
-            <button type="button" onclick="closeModal('detailStaf')" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg">
-                Tutup
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Edit Staf -->
-<div id="editStaf" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-    <div class="relative top-10 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-lg bg-white">
-        <div class="flex justify-between items-center pb-4 border-b">
-            <h3 class="text-xl font-semibold text-gray-900">Edit Staf</h3>
-            <button onclick="closeModal('editStaf')" class="text-gray-400 hover:text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-        </div>
-
-        <form id="editStafForm" class="mt-6" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Kolom Kiri -->
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
-                        <input id="edit_name" name="name" type="text" value="" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Bidang</label>
-                        <input id="edit_bidang" name="bidang" type="text" value="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Contoh: Poliklinik Anak">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Jabatan <span class="text-red-500">*</span></label>
-                        <select id="edit_jabatan" name="jabatan" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <option value="">Pilih Jabatan</option>
-                            <option>Dokter Umum</option>
-                            <option>Dokter Gigi</option>
-                            <option>Perawat</option>
-                            <option>Bidan</option>
-                            <option>Apoteker</option>
-                            <option>Analis Kesehatan</option>
-                            <option>Staff Administrasi</option>
-                            <option>Staff Kebersihan</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Email <span class="text-red-500">*</span></label>
-                        <input id="edit_email" name="email" type="email" value="" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="email@puskesmas.id">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Urutan Tampilan <span class="text-red-500">*</span></label>
-                        <input id="edit_urutan" name="urutan" type="number" min="0" value="0" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                    </div>
-                </div>
-
-                <!-- Kolom Kanan -->
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
-                        <textarea id="edit_deskripsi" name="deskripsi" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"></textarea>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Status <span class="text-red-500">*</span></label>
-                        <select id="edit_status" name="status" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <option value="Aktif">Aktif</option>
-                            <option value="Tidak Aktif">Tidak Aktif</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Foto Staf</label>
-                        <input id="edit_foto" type="file" name="foto" accept="image/*" onchange="previewImage(event)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                        <div class="mt-2 flex justify-center">
-                            <img id="editFotoPreview" src="#" alt="Preview Foto" class="hidden h-24 w-24 object-cover rounded-lg border border-gray-300" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 flex justify-end space-x-3">
-                <button type="button" onclick="closeModal('editStaf')" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-                    Batal
-                </button>
-                <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">
-                    Simpan Perubahan
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script>
-    function openModal(modalId) {
-        document.getElementById(modalId).classList.remove('hidden');
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).classList.add('hidden');
-    }
-
-    function previewImage(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        const preview = document.getElementById('fotoPreview');
-
-        if (file) {
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
-        } else {
-            preview.classList.add('hidden');
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
         }
-    }
+    </script>
+</body>
 
-    function confirmDelete() {
-        if (confirm('Apakah Anda yakin ingin menghapus data staf ini?')) {
-            // Di sini nanti bisa dipanggil AJAX atau form submit
-            alert('Data staf berhasil dihapus.');
-        }
-    }
-    
-    // Fetch data and open edit modal
-    function openEditStaf(id) {
-        fetch("{{ url('/admin/staf') }}/" + id)
-            .then(response => response.json())
-            .then(data => {
-                // Populate form
-                document.getElementById('edit_name').value = data.name || '';
-                document.getElementById('edit_jabatan').value = data.jabatan || '';
-                document.getElementById('edit_bidang').value = data.bidang || '';
-                document.getElementById('edit_deskripsi').value = data.deskripsi || '';
-                document.getElementById('edit_email').value = data.email || '';
-                document.getElementById('edit_urutan').value = data.urutan || 0;
-                document.getElementById('edit_status').value = data.status || 'Aktif';
-
-                // Set form action
-                const form = document.getElementById('editStafForm');
-                form.action = '{{ route("admin.staf.update", ":id") }}'.replace(':id', id);
-
-                // Preview foto jika ada
-                const editPreview = document.getElementById('editFotoPreview');
-                if (data.foto) {
-                    editPreview.src = '/' + data.foto.replace(/^\/+/, '');
-                    editPreview.classList.remove('hidden');
-                } else {
-                    editPreview.classList.add('hidden');
-                }
-
-                // Open modal
-                openModal('editStaf');
-            })
-            .catch(err => {
-                console.error(err);
-                alert('Gagal memuat data staf.');
-            });
-    }
-
-    function openDetail(id) {
-        fetch("{{ url('/admin/staf') }}/" + id)
-            .then(response => response.json())
-            .then(data => {
-                // Fill detail modal contents
-                document.querySelector('#detailStaf .text-sm.font-medium + p')?.textContent = data.name || '';
-                // For simplicity, reload modal static fields by selecting elements directly
-                // Name
-                const nameEl = document.querySelector('#detailStaf div p.mt-1');
-                if (nameEl) nameEl.textContent = data.name || '';
-                // Jabatan
-                // other fields are in fixed positions; better to rebuild detail modal if needed
-                openModal('detailStaf');
-            })
-            .catch(err => { console.error(err); alert('Gagal memuat detail staf.'); });
-    }
-</script>
-
-</x-admin.app-layout>
+</html>
