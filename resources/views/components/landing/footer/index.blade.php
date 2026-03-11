@@ -48,8 +48,7 @@
             <div class="col-lg-4 col-md-6 footer-links">
                 <h4>Jam Operasional</h4>
                 <ul>
-                    <li>Senin–Jumat: 08.00–16.00 WIB</li>
-                    <li>Sabtu: 08.00–12.00 WIB</li>
+                    <li>Senin–Sabtu: 08.00–01.00 WIB</li>
                     <li>Minggu & Hari Libur Nasional: Tutup</li>
                 </ul>
                 <!-- Opsional: tambahkan catatan -->
@@ -57,7 +56,7 @@
             </div>
 
         </div>
-    </div>  
+    </div>
 
     <div class="container copyright text-center mt-4">
         <p>© 2026 Puskesmas Binong</p>

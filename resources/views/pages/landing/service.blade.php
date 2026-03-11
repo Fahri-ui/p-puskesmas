@@ -13,7 +13,7 @@
 
         <div class="title-wrapper">
             <h1>Layanan</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+            <p>Kami hadir dengan berbagai poli spesialis dan layanan umum untuk memenuhi kebutuhan kesehatan keluarga Anda.</p>
         </div>
     </div><!-- End Page Title -->
 
@@ -313,7 +313,7 @@
     <div class="services-section">
 
         <!-- Category Filter -->
-        <div class="category-filter">
+        <!--<div class="category-filter">
             <button class="category-btn active">Pelayanan Dasar</button>
             <button class="category-btn">Pelayanan Khusus</button>
             <button class="category-btn">Penunjang Medis</button>

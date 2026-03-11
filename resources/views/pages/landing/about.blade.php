@@ -9,7 +9,7 @@
                 </ol>
             </nav>
         </div>
-        
+
         <div class="title-wrapper">
             <h1>Profil Kami</h1>
             <p>Bersama Membangun Kepercayaan Melalui Inovasi dan Pelayanan Terbaik</p>
@@ -31,14 +31,12 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
                     <div class="content-wrapper">
-                        <h2 class="section-title" style="margin-bottom: -30px; color:#349953;">Lorem ipsum dolor sit amet.</h2>
-                        <p class="lead-text">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Temporibus, velit.
-                        </p>
+                        <h2 class="section-title" style="margin-bottom: -30px; color:#349953;">Dedikasi Sepenuh Hati untuk Kesehatan Anda</h2>
+                        <p class="lead-text">Memberikan pelayanan kesehatan yang ramah, cepat, dan berkualitas bagi masyarakat </p>
                         <p class="description-text">
-                            Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan individu 
-                            dan institusi dalam meningkatkan standar kesehatan mereka. Tim profesional kami 
-                            yang berpengalaman siap memberikan solusi terbaik yang disesuaikan dengan 
+                            Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan individu
+                            dan institusi dalam meningkatkan standar kesehatan mereka. Tim profesional kami
+                            yang berpengalaman siap memberikan solusi terbaik yang disesuaikan dengan
                             kebutuhan Anda.
                         </p>
                         <div class="feature-list">
@@ -73,7 +71,7 @@
                 <h2 class="section-title">Fondasi yang Menuntun Setiap Langkah Kami</h2>
                 <p class="section-description">Komitmen kami untuk memberikan layanan kesehatan terbaik bagi masyarakat</p>
             </div>
-            
+
             <div class="row gy-4 mt-4">
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="vm-card vision-card">
@@ -84,8 +82,8 @@
                         </div>
                         <h3 class="vm-title">Visi Kami</h3>
                         <p class="vm-description">
-                            Menjadi institusi kesehatan terdepan di Indonesia yang diakui secara nasional 
-                            dan internasional, dengan standar pelayanan berkelas dunia yang mengutamakan 
+                            Menjadi institusi kesehatan terdepan di Indonesia yang diakui secara nasional
+                            dan internasional, dengan standar pelayanan berkelas dunia yang mengutamakan
                             keselamatan, kenyamanan, dan kesembuhan pasien.
                         </p>
                         <div class="vm-decoration"></div>
@@ -290,8 +288,8 @@
                             <h3 class="accreditation-title">Akreditasi Paripurna</h3>
                             <p class="accreditation-issuer">Komisi Akreditasi Rumah Sakit (KARS)</p>
                             <p class="accreditation-description">
-                                Telah meraih akreditasi tingkat Paripurna, standar tertinggi dalam pelayanan kesehatan 
-                                di Indonesia yang mencakup keselamatan pasien, pelayanan medis, manajemen, dan 
+                                Telah meraih akreditasi tingkat Paripurna, standar tertinggi dalam pelayanan kesehatan
+                                di Indonesia yang mencakup keselamatan pasien, pelayanan medis, manajemen, dan
                                 peningkatan mutu berkelanjutan.
                             </p>
                             <div class="accreditation-year">

@@ -34,7 +34,7 @@
                 </div>
                 <div class="card-content">
                   <h4>Lokasi Kami</h4>
-                  <p>4952 XXX Dr, XXXX</p>
+                  <p>Jalan Raya Binong, Binong, Pagaden, Binong, Kec. Binong, Kabupaten Subang, Jawa Barat 41253</p>
                 </div>
               </div>
 
@@ -44,7 +44,7 @@
                 </div>
                 <div class="card-content">
                   <h4>Email Kami</h4>
-                  <p>info@example.com</p>
+                  <p>Pkm.binong@gmail.com</p>
                 </div>
               </div>
 
@@ -54,7 +54,7 @@
                 </div>
                 <div class="card-content">
                   <h4>Telepon Kami</h4>
-                  <p>+1 (555) 123-4567</p>
+                  <p>0260453308</p>
                 </div>
               </div>
 
@@ -64,7 +64,7 @@
                 </div>
                 <div class="card-content">
                   <h4>Jam Kerja</h4>
-                  <p>Senen-Jumat: 9AM - 7PM</p>
+                  <p>Senen-Sabtu 08.00-01.00 WIB</p>
                 </div>
               </div>
             </div>
@@ -72,10 +72,8 @@
             <div class="social-links-panel">
               <h5>Ikuti Kami</h5>
               <div class="social-icons">
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
+                <a href="#"><i class="bi bi-whatsapp"></i></a>
                 <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-linkedin"></i></a>
                 <a href="#"><i class="bi bi-youtube"></i></a>
               </div>
             </div>
@@ -83,7 +81,8 @@
 
           <div class="contact-form-panel">
             <div class="map-container">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7929.796003736464!2d107.7914555!3d-6.4071394!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6947107feb349b%3A0xa803aaba719c61ff!2sPuskesmas%20Binong!5e0!3m2!1sid!2sid!4v1773193765771!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
             <div class="form-container">
@@ -98,7 +97,7 @@
 
                 <div class="form-floating mb-3">
                   <input type="email" class="form-control" id="emailInput" name="email" placeholder="Email Address" required="">
-                  <label for="emailInput">Aalamat Email</label>
+                  <label for="emailInput">Alamat Email</label>
                 </div>
 
                 <div class="form-floating mb-3">

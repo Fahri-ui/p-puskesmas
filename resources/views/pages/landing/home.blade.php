@@ -26,14 +26,14 @@
                                             <i class="bi bi-telephone-fill"></i>
                                             <div class="badge-content">
                                                 <span>Telepon Puskesmas</span>
-                                                <strong>+62 21 [XXXX-XXXX]</strong>
+                                                <strong>0260453308</strong>
                                             </div>
                                         </div>
                                         <div class="badge-item">
                                             <i class="bi bi-clock-fill"></i>
                                             <div class="badge-content">
                                                 <span>Jam Operasional</span>
-                                                <strong>Senin–Jumat: 08.00–16.00 WIB</strong>
+                                                <strong>Senin–Sabtu: 08.00–01.00 WIB</strong>
                                             </div>
                                         </div>
                                     </div>
@@ -261,7 +261,7 @@
         <!-- Section Title -->
         <div class="container section-title" data-aos="fade-up">
             <h2>Staf kami</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, quos.</p>
+            <!--<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, quos.</p>
         </div><!-- End Section Title -->
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
