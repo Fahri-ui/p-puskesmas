@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#359c57",
+                        "heading": "#18444c",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#141e17",
+                        "sidebar-green": "#349953",
+                        "content-gray": "#f3f4f6",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .sidebar-item-active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-content-gray text-slate-900 dark:text-slate-100 font-display">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<aside class="w-[260px] bg-sidebar-green text-white flex flex-col fixed h-full z-30 transition-transform duration-300 transform -translate-x-full lg:translate-x-0">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="size-8 bg-white/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white">grid_view</span>
+</div>
+<span class="text-xl font-bold tracking-tight">AdminPanel</span>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="sidebar-item-active flex items-center gap-3 px-4 py-3 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined">handyman</span>
+<span class="text-sm font-medium">Layanan</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Staf</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="text-sm font-medium">Berita</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-white/10">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-500/20 text-red-100 transition-colors mt-1" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Content Area -->
+<main class="flex-1 ml-0 lg:ml-[260px] min-w-0">
+<!-- Topbar -->
+<header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 sticky top-0 z-10"><button class="lg:hidden p-2 -ml-2 text-slate-600 hover:bg-slate-100 rounded-lg" onclick="document.querySelector('aside').classList.toggle('-translate-x-full')">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-lg md:text-xl font-bold text-heading flex-1 ml-2 lg:ml-0">Dashboard</h1>
+<div class="flex items-center gap-3 md:gap-6">
+<div class="relative">
+<span class="material-symbols-outlined text-slate-500 cursor-pointer">notifications</span>
+<span class="absolute top-0 right-0 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</div>
+<div class="flex items-center gap-3 pl-6 border-l border-slate-200 pl-3 md:pl-6">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold text-heading leading-none">Alex Johnson</p>
+<p class="text-xs text-slate-500 mt-1">Super Admin</p>
+</div>
+<div class="size-10 rounded-full bg-slate-200 overflow-hidden border border-slate-200 bg-cover bg-center" data-alt="User profile photo of a male administrator" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBEa8VfS_2AxONvzaWc5_ayjDnu-DrHGBwolZEMz0nmpc-sngpmunutZ-K30ZHiyOD4nRg0j3CiGXoiOQWdEyzoXdUm6ISFGSEEreEfrWcHlWfquQopHeV3MEBcvq5kGfEi_9-cW5HcmNt-G-30OJEzIfTyNGXpCo9g7l1R2eaYJlwyBimMbe9Zfu5b03pgxQTMvfsHL56zsEu_kSI17y64_6beAjMuqJ0mdOGQdD_2ONeIpWj4AGyDxgz7082-vkWJfiVipFUWoA')">
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<div class="p-4 sm:p-6 lg:p-8">
+<!-- Statistics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- Stat Card 1 -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">handyman</span>
+</div>
+<span class="text-primary text-xs font-bold px-2 py-1 bg-primary/10 rounded-full">+12.5%</span>
+</div>
+<p class="text-slate-500 text-sm font-medium uppercase tracking-wider">Total Layanan</p>
+<h3 class="text-3xl font-bold text-heading mt-1">128</h3>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">group</span>
+</div>
+<span class="text-primary text-xs font-bold px-2 py-1 bg-primary/10 rounded-full">+3.2%</span>
+</div>
+<p class="text-slate-500 text-sm font-medium uppercase tracking-wider">Total Staf</p>
+<h3 class="text-3xl font-bold text-heading mt-1">45</h3>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">newspaper</span>
+</div>
+<span class="text-red-500 text-xs font-bold px-2 py-1 bg-red-100 rounded-full">-1.4%</span>
+</div>
+<p class="text-slate-500 text-sm font-medium uppercase tracking-wider">Total Berita</p>
+<h3 class="text-3xl font-bold text-heading mt-1">312</h3>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">photo_library</span>
+</div>
+<span class="text-primary text-xs font-bold px-2 py-1 bg-primary/10 rounded-full">+22.1%</span>
+</div>
+<p class="text-slate-500 text-sm font-medium uppercase tracking-wider">Total Gallery</p>
+<h3 class="text-3xl font-bold text-heading mt-1">856</h3>
+</div>
+</div>
+<!-- Recent Data Table Section -->
+<div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+<div class="px-6 py-4 flex items-center justify-between border-b border-slate-100">
+<h2 class="text-lg font-bold text-heading">Recent Data Overview</h2>
+<button class="text-sm text-primary font-semibold hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left whitespace-nowrap">
+<thead>
+<tr class="bg-[#ecfdf5]">
+<th class="px-6 py-4 text-sm font-bold text-heading uppercase tracking-wider">ID</th>
+<th class="px-6 py-4 text-sm font-bold text-heading uppercase tracking-wider">Name</th>
+<th class="px-6 py-4 text-sm font-bold text-heading uppercase tracking-wider">Category</th>
+<th class="px-6 py-4 text-sm font-bold text-heading uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 text-sm font-bold text-heading uppercase tracking-wider">Date</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-600">#001</td>
+<td class="px-6 py-4 text-sm font-semibold text-heading">Layanan Kebersihan</td>
+<td class="px-6 py-4">
+<span class="inline-flex px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">Layanan</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-green-500"></span>
+<span class="text-sm text-slate-600">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500">2023-10-24</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-600">#002</td>
+<td class="px-6 py-4 text-sm font-semibold text-heading">Budi Santoso</td>
+<td class="px-6 py-4">
+<span class="inline-flex px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold">Staf</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-orange-500"></span>
+<span class="text-sm text-slate-600">On Duty</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500">2023-10-23</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-600">#003</td>
+<td class="px-6 py-4 text-sm font-semibold text-heading">Update Fasilitas</td>
+<td class="px-6 py-4">
+<span class="inline-flex px-3 py-1 rounded-full bg-purple-100 text-purple-600 text-xs font-bold">Berita</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-green-500"></span>
+<span class="text-sm text-slate-600">Published</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500">2023-10-22</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-600">#004</td>
+<td class="px-6 py-4 text-sm font-semibold text-heading">Layanan Keamanan</td>
+<td class="px-6 py-4">
+<span class="inline-flex px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold">Layanan</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-green-500"></span>
+<span class="text-sm text-slate-600">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500">2023-10-21</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors">
+<td class="px-6 py-4 text-sm font-medium text-slate-600">#005</td>
+<td class="px-6 py-4 text-sm font-semibold text-heading">Siti Aminah</td>
+<td class="px-6 py-4">
+<span class="inline-flex px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold">Staf</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-slate-300"></span>
+<span class="text-sm text-slate-600">Off Duty</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-500">2023-10-20</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

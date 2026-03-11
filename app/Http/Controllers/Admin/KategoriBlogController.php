@@ -13,7 +13,7 @@ class KategoriBlogController extends Controller
     public function index()
     {
         $categories = BlogCategory::orderBy('created_at', 'desc')->get();
-        return view('admin.kategori_blog', compact('categories'));
+        return view('pages.admin.kategori_blog', compact('categories'));
     }
 
     public function store(Request $request)
@@ -32,7 +32,7 @@ class KategoriBlogController extends Controller
             return redirect()->route('admin.kategori_blog')->with('error', 'Terjadi kesalahan saat menyimpan kategori.');
         }
     }
-
+    
     public function update(Request $request, $id)
     {
         $category = BlogCategory::findOrFail($id);

@@ -12,12 +12,12 @@ class StafController extends Controller
 {
     public function index()
     {
-        $staf = Staf::orderBy('created_at', 'desc')->paginate(10);
-        $totalStaf = Staf::count();
-        $stafAktif = Staf::where('status', 'Aktif')->count();
-        $stafTidakAktif = Staf::where('status', 'Tidak Aktif')->count();
+        $staf = Staf::orderBy('urutan', 'asc')->get();
+        $totalStaf = $staf->count();
+        $stafAktif = $staf->where('status', 'Aktif')->count();
+        $stafTidakAktif = $staf->where('status', 'Tidak Aktif')->count();
 
-        return view('admin.staf', compact('staf', 'totalStaf', 'stafAktif', 'stafTidakAktif'));
+        return view('pages.admin.staf', compact('staf', 'totalStaf', 'stafAktif', 'stafTidakAktif'));
     }
 
     public function show($id)
@@ -36,15 +36,13 @@ class StafController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'nip' => 'required|string|max:255|unique:staf,nip',
             'jabatan' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:staf,email',
-            'no_telepon' => 'nullable|string|max:20',
-            'alamat' => 'nullable|string',
+            'bidang' => 'nullable|string|max:255',
+            'deskripsi' => 'nullable|string|max:1000',
+            'email' => 'nullable|email|max:255|unique:staf,email',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'tgl_lahir' => 'required|date|before:today',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'status' => 'required|in:Aktif,Tidak Aktif',
+            'urutan' => 'required|integer|min:0',
         ]);
 
         try {
@@ -63,20 +61,19 @@ class StafController extends Controller
 
             Staf::create([
                 'name' => $validated['name'],
-                'nip' => $validated['nip'],
                 'jabatan' => $validated['jabatan'],
-                'email' => $validated['email'],
-                'no_telepon' => $validated['no_telepon'],
-                'alamat' => $validated['alamat'],
+                'bidang' => $validated['bidang'] ?? null,
+                'deskripsi' => $validated['deskripsi'] ?? null,
+                'email' => $validated['email'] ?? null,
                 'foto' => $fotoPath,
-                'tgl_lahir' => $validated['tgl_lahir'],
-                'jenis_kelamin' => $validated['jenis_kelamin'],
                 'status' => $validated['status'],
+                'urutan' => $validated['urutan'],
             ]);
 
-            return redirect()->route('admin.staf')->with('success', 'Staf berhasil ditambahkan.');
+            return redirect()->route('pages.admin.staf')->with('success', 'Staf berhasil ditambahkan.');
         } catch (Exception $e) {
-            return redirect()->route('admin.staf')->with('error', 'Terjadi kesalahan saat menambahkan staf.');
+            \Log::error('Error creating staf: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menambahkan staf: ' . $e->getMessage());
         }
     }
 
@@ -86,15 +83,13 @@ class StafController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'nip' => ['required', 'string', 'max:255', Rule::unique('staf', 'nip')->ignore($staf->id)],
             'jabatan' => 'required|string|max:255',
-            'email' => ['required', 'email', 'max:255', Rule::unique('staf', 'email')->ignore($staf->id)],
-            'no_telepon' => 'nullable|string|max:20',
-            'alamat' => 'nullable|string',
+            'bidang' => 'nullable|string|max:255',
+            'deskripsi' => 'nullable|string|max:1000',
+            'email' => ['nullable','email','max:255', Rule::unique('staf', 'email')->ignore($staf->id)],
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'tgl_lahir' => 'required|date|before:today',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'status' => 'required|in:Aktif,Tidak Aktif',
+            'urutan' => 'required|integer|min:0',
         ]);
 
         try {
@@ -121,20 +116,19 @@ class StafController extends Controller
 
             $staf->update([
                 'name' => $validated['name'],
-                'nip' => $validated['nip'],
                 'jabatan' => $validated['jabatan'],
-                'email' => $validated['email'],
-                'no_telepon' => $validated['no_telepon'],
-                'alamat' => $validated['alamat'],
+                'bidang' => $validated['bidang'] ?? null,
+                'deskripsi' => $validated['deskripsi'] ?? null,
+                'email' => $validated['email'] ?? null,
                 'foto' => $fotoPath,
-                'tgl_lahir' => $validated['tgl_lahir'],
-                'jenis_kelamin' => $validated['jenis_kelamin'],
                 'status' => $validated['status'],
+                'urutan' => $validated['urutan'],
             ]);
 
-            return redirect()->route('admin.staf')->with('success', 'Staf berhasil diperbarui.');
+            return redirect()->route('pages.admin.staf')->with('success', 'Staf berhasil diperbarui.');
         } catch (Exception $e) {
-            return redirect()->route('admin.staf')->with('error', 'Terjadi kesalahan saat memperbarui staf.');
+            \Log::error('Error updating staf: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat memperbarui staf: ' . $e->getMessage());
         }
     }
 
@@ -152,9 +146,10 @@ class StafController extends Controller
             }
 
             $staf->delete();
-            return redirect()->route('admin.staf')->with('success', 'Staf berhasil dihapus.');
+            return redirect()->route('pages.admin.staf')->with('success', 'Staf berhasil dihapus.');
         } catch (Exception $e) {
-            return redirect()->route('admin.staf')->with('error', 'Terjadi kesalahan saat menghapus staf.');
+            \Log::error('Error deleting staf: ' . $e->getMessage());
+            return redirect()->route('pages.admin.staf')->with('error', 'Terjadi kesalahan saat menghapus staf: ' . $e->getMessage());
         }
     }
 
@@ -167,9 +162,9 @@ class StafController extends Controller
                 'status' => $staf->status === 'Aktif' ? 'Tidak Aktif' : 'Aktif'
             ]);
 
-            return redirect()->route('admin.staf')->with('success', 'Status staf berhasil diubah.');
+            return redirect()->route('pages.admin.staf')->with('success', 'Status staf berhasil diubah.');
         } catch (Exception $e) {
-            return redirect()->route('admin.staf')->with('error', 'Terjadi kesalahan saat mengubah status staf.');
+            return redirect()->route('pages.admin.staf')->with('error', 'Terjadi kesalahan saat mengubah status staf.');
         }
     }
 }

@@ -3,15 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Service extends Model
 {
+    use HasFactory;
     protected $fillable = [
-        'nama_layanan',
+        'name',
         'slug',
+        'image',
+        'excerpt',
         'deskripsi',
-        'icon',
-        'aktif',
-        'urutan',
+        'service_category_id',
+        'is_active',
+        'sort_order',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(ServiceCategory::class, 'service_category_id');
+    }
 }

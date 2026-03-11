@@ -3,21 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Staf extends Model
 {
+    use HasFactory;
     protected $table = 'staf';
 
     protected $fillable = [
-        'name',
+        'foto',
+        'nama',
+        'telepon',
+        'email',
+        'jenis_kelamin',
+        'tanggal_lahir',
+        'profesi',
         'nip',
         'jabatan',
-        'no_telepon',
-        'email',
+        'deskripsi',
         'alamat',
-        'foto',
-        'tgl_lahir',
-        'jenis_kelamin',
-        'status',
+        'pendidikan_terakhir',
+        'bergabung_sejak',
+        'urutan'
     ];
 }

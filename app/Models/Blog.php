@@ -2,28 +2,43 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends Model
 {
+    use HasFactory;
+
+    protected $table = 'blogs';
+
     protected $fillable = [
-        'judul',
+        'title',
         'slug',
-        'isi',
-        'gambar',
-        'kategori_id',
-        'penulis_id',
+        'content',
+        'excerpt',
+        'thumbnail',
+        'image',
+        'category_id',
         'status',
-        'tanggal_publish',
+        'published_at',
     ];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
+    // Relationship
     public function category()
     {
-        return $this->belongsTo(BlogCategory::class, 'kategori_id');
+        return $this->belongsTo(BlogCategory::class, 'category_id');
     }
 
-    public function penulis()
+    // Scope untuk blog yang dipublish
+    public function scopePublished($query)
     {
-        return $this->belongsTo(User::class, 'penulis_id');
+        return $query->where('status', 'publish')
+                     ->whereNotNull('published_at')
+                     ->where('published_at', '<=', now());
     }
 }

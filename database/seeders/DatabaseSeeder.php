@@ -14,28 +14,20 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
+    public function run()
     {
-        // User::factory(10)->create();
+        \App\Models\BlogCategory::factory(5)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'role' => 'ADMIN',
-        ]);
+        \App\Models\Blog::factory(10)->create();
 
-        User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'ADMIN',
-        ]);
+        \App\Models\ServiceCategory::factory(5)->create();
 
-        User::create([
-            'name' => 'Super Admin User',
-            'email' => 'superadmin@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'SUPER_ADMIN',
-        ]);
+        \App\Models\Service::factory(10)->create();
+
+        \App\Models\Gallery::factory(10)->create();
+
+        \App\Models\Staf::factory(10)->create();
+
+        \App\Models\User::factory(1)->create();
     }
 }
