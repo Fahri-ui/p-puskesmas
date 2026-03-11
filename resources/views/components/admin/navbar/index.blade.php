@@ -1,55 +1,72 @@
-<!-- Sidebar -->
-<aside id="sidebar" class="sidebar-open bg-green-700 text-white transition-width overflow-hidden">
-    <div class="p-6">
-        <div class="flex items-center justify-between mb-8">
-            <h1 class="text-xl font-bold">Puskesmas Binong</h1>
+<aside class="w-64 bg-primary text-white flex flex-col fixed h-full z-50">
+    <div class="p-6 flex items-center gap-3">
+        <div class="p-2 bg-white/20 rounded-lg">
+            <span class="material-symbols-outlined text-white">shield_person</span>
         </div>
-
-        <nav class="space-y-2">
-            <a href="{{ route('admin.dashboard') }}" class="menu-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg {{ Route::is('admin.dashboard') ? 'active bg-green-800 text-white' : 'text-green-100 hover:bg-green-600' }}" data-menu="dashboard">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                </svg>
-                <span>Dashboard</span>
-            </a>
-
-            <a href="{{ route('admin.kategori_blog') }}" class="menu-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg {{ Route::is('admin.kategori_blog') ? 'active bg-green-800 text-white' : 'text-green-100 hover:bg-green-600' }}" data-menu="kategori">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                <span>Kategori Berita</span>
-            </a>
-
-            <a href="{{ route('admin.blog') }}" class="menu-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg {{ Route::is('admin.blog') ? 'active bg-green-800 text-white' : 'text-green-100 hover:bg-green-600' }}" data-menu="blog">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                </svg>
-                <span>Berita</span>
-            </a>
-
-            <a href="{{ route('admin.layanan') }}" class="menu-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg {{ Route::is('admin.layanan') ? 'active bg-green-800 text-white' : 'text-green-100 hover:bg-green-600' }}" data-menu="layanan">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
-                <span>Layanan</span>
-            </a>
-
-            <a href="{{ route('admin.staf') }}" class="menu-item w-full flex items-center space-x-3 px-4 py-3 rounded-lg {{ Route::is('admin.staf') ? 'active bg-green-800 text-white' : 'text-green-100 hover:bg-green-600' }}" data-menu="staf">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                </svg>
-                <span>Staf</span>
-            </a>
-
-            <form method="POST" action="{{ route('logout') }}" class="mt-8">
+        <span class="font-bold text-xl tracking-tight">SystemAdmin</span>
+    </div>
+    <nav class="flex-1 px-4 py-4 space-y-2">
+        <x-admin.navbar.nav-link 
+            href="{{ route('admin.dashboard') }}" 
+            route="admin.dashboard">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span>Dashboard</span>
+        </x-admin.navbar.nav-link>
+    
+        <x-admin.navbar.nav-link 
+            href="{{ route('admin.layanan') }}" 
+            route="admin.layanan">
+            <span class="material-symbols-outlined">settings_suggest</span>
+            <span>Services</span>
+        </x-admin.navbar.nav-link>
+    
+        <x-admin.navbar.nav-link 
+            href="{{ route('admin.staf') }}" 
+            route="admin.staf">
+            <span class="material-symbols-outlined">badge</span>
+            <span>Staff</span>
+        </x-admin.navbar.nav-link>
+    
+        <x-admin.navbar.nav-link 
+            href="{{ route('admin.blog') }}" 
+            route="admin.blog">
+            <span class="material-symbols-outlined">newspaper</span>
+            <span>Berita</span>
+        </x-admin.navbar.nav-link>
+    
+        <x-admin.navbar.nav-link 
+            href="{{ route('admin.kategori_blog') }}" 
+            route="admin.kategori_blog">
+            <span class="material-symbols-outlined">newspaper</span>
+            <span>Kategory Berita</span>
+        </x-admin.navbar.nav-link>
+    
+        <x-admin.navbar.nav-link 
+            href="{{ route('admin.gallery') }}" 
+            route="admin.gallery">
+            <span class="material-symbols-outlined">gallery_thumbnail</span>
+            <span>Gallery</span>
+        </x-admin.navbar.nav-link>
+    </nav>
+    <div class="p-4 border-t border-white/10">
+        <div class="flex items-center gap-3 px-4 py-3">
+            <div
+                class="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center border border-white/20 overflow-hidden">
+                <img alt="Admin Profile" data-alt="User avatar of the admin user"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC35y_pkeFeEwcyfd-OejOvQQ_dczxwrjqsoOasORw-W2wyictOa88gXo7xPVrAMlgYCVoJtM0ZNxZuOXy3djKu4rVNh2F5KVPK3D2aMLUyOxLQZwtsUONcwf8S3S8WZlXuHXzbL3RVuWMb192BaIJsfRKlYcHVUkiW6I_1vECw3CllEXV2V_okLDV6tGTQds1PQWBPWaK6ZWf8zws9bPbGE0oH4wGqcxYlrfRd-EfI9sDsd7fNh05JTiJJP4LzdqqAb9lD41x2vEc" />
+            </div>
+            <div>
+                <p class="text-sm font-bold">Admin User</p>
+                <p class="text-xs text-white/60">System Manager</p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-green-100 hover:bg-green-600">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                    </svg>
-                    <span>Logout</span>
+                <button type="submit" class="w-full px-4 py-2 text-sm font-bold text-center text-white bg-red-600 rounded hover:bg-red-700">
+                    Logout
                 </button>
             </form>
-        </nav>
+        </div>
     </div>
 </aside>
