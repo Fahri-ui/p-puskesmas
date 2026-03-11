@@ -12,13 +12,17 @@ class LayananController extends Controller
 {
     public function index()
     {
-        $services = Service::orderBy('urutan', 'asc')->get();
-        $totalServices = $services->count();
-        $activeServices = $services->where('aktif', true)->count();
-        $inactiveServices = $services->where('aktif', false)->count();
-
-        return view('pages.admin.layanan', compact('services', 'totalServices', 'activeServices', 'inactiveServices'));
+        return view('pages.admin.layanan');
     }
+    // public function index()
+    // {
+    //     $services = Service::orderBy('urutan', 'asc')->get();
+    //     $totalServices = $services->count();
+    //     $activeServices = $services->where('aktif', true)->count();
+    //     $inactiveServices = $services->where('aktif', false)->count();
+
+    //     return view('pages.admin.layanan', compact('services', 'totalServices', 'activeServices', 'inactiveServices'));
+    // }
 
     public function store(Request $request)
     {
