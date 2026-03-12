@@ -12,17 +12,8 @@ class LayananController extends Controller
 {
     public function index()
     {
-        return view('pages.admin.layanan');
+        return view('pages.admin.service.index');
     }
-    // public function index()
-    // {
-    //     $services = Service::orderBy('urutan', 'asc')->get();
-    //     $totalServices = $services->count();
-    //     $activeServices = $services->where('aktif', true)->count();
-    //     $inactiveServices = $services->where('aktif', false)->count();
-
-    //     return view('pages.admin.layanan', compact('services', 'totalServices', 'activeServices', 'inactiveServices'));
-    // }
 
     public function store(Request $request)
     {
@@ -56,7 +47,7 @@ class LayananController extends Controller
                 'urutan' => $validated['urutan'],
             ]);
 
-            return redirect()->route('pages.admin.layanan')->with('success', 'Layanan berhasil ditambahkan.');
+            return redirect()->route(''pages.admin.service.index')->with('success', 'Layanan berhasil ditambahkan.');
         } catch (Exception $e) {
             \Log::error('Error creating service: ' . $e->getMessage());
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menyimpan layanan: ' . $e->getMessage());
@@ -97,7 +88,7 @@ class LayananController extends Controller
                 'urutan' => $validated['urutan'],
             ]);
 
-            return redirect()->route('pages.admin.layanan')->with('success', 'Layanan berhasil diperbarui.');
+            return redirect()->route(''pages.admin.service.index')->with('success', 'Layanan berhasil diperbarui.');
         } catch (Exception $e) {
             \Log::error('Error updating service: ' . $e->getMessage());
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat memperbarui layanan: ' . $e->getMessage());
@@ -110,9 +101,9 @@ class LayananController extends Controller
 
         try {
             $service->delete();
-            return redirect()->route('pages.admin.layanan')->with('success', 'Layanan berhasil dihapus.');
+            return redirect()->route(''pages.admin.service.index')->with('success', 'Layanan berhasil dihapus.');
         } catch (Exception $e) {
-            return redirect()->route('pages.admin.layanan')->with('error', 'Terjadi kesalahan saat menghapus layanan.');
+            return redirect()->route(''pages.admin.service.index')->with('error', 'Terjadi kesalahan saat menghapus layanan.');
         }
     }
 
@@ -126,9 +117,9 @@ class LayananController extends Controller
             ]);
 
             $status = $service->aktif ? 'diaktifkan' : 'dinonaktifkan';
-            return redirect()->route('pages.admin.layanan')->with('success', "Layanan berhasil {$status}.");
+            return redirect()->route(''pages.admin.service.index')->with('success', "Layanan berhasil {$status}.");
         } catch (Exception $e) {
-            return redirect()->route('pages.admin.layanan')->with('error', 'Terjadi kesalahan saat mengubah status layanan.');
+            return redirect()->route(''pages.admin.service.index')->with('error', 'Terjadi kesalahan saat mengubah status layanan.');
         }
     }
 }
