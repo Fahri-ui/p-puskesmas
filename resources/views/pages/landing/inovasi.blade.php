@@ -12,7 +12,7 @@
 
         <div class="title-wrapper">
             <h1>Inovasi</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, blanditiis.</p>
+            <p>Melalui berbagai inovasi layanan, Puskesmas Binong berkomitmen menghadirkan pelayanan kesehatan yang lebih responsif, mudah diakses, dan berfokus pada kebutuhan masyarakat.</p>
         </div>
     </div><!-- End Page Title -->
 
@@ -233,5 +233,5 @@
         </div>
     </section>
 
-    
+
 </x-landing.app-layout>

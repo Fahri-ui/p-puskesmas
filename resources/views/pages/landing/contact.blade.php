@@ -12,7 +12,7 @@
 
       <div class="title-wrapper">
         <h1>Kontak</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+        <p>Kami siap mendengarkan dan melayani Anda. Hubungi kami untuk informasi layanan kesehatan, pendaftaran, atau sampaikan saran dan kritik Anda demi kemajuan pelayanan UPTD Puskesmas Binong</p>
       </div>
     </div><!-- End Page Title -->
 
@@ -24,7 +24,6 @@
           <div class="contact-info-panel">
             <div class="contact-info-header">
               <h3>Informasi Kontak</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
             </div>
 
             <div class="contact-info-cards">
@@ -64,7 +63,7 @@
                 </div>
                 <div class="card-content">
                   <h4>Jam Kerja</h4>
-                  <p>Senen-Sabtu 08.00-01.00 WIB</p>
+                  <p>Senin-Sabtu 08.00-01.00 WIB</p>
                 </div>
               </div>
             </div>
@@ -87,8 +86,7 @@
 
             <div class="form-container">
               <h3>Berikan kami saran</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipiscing elit mauris hendrerit faucibus imperdiet nec eget felis.</p>
-
+              <p>Saran dan kritik anda sangat berharga bagi kami</p>
               <form action="forms/contact.php" method="post" class="php-email-form">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="nameInput" name="name" placeholder="Full Name" required="">

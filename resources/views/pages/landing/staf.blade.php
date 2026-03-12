@@ -12,7 +12,7 @@
 
         <div class="title-wrapper">
             <h1>Staf</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+            <p>Tenaga kesehatan kami terdiri dari para profesional yang berdedikasi dalam memberikan pelayanan medis yang aman, ramah, dan berkualitas bagi masyarakat</p>
         </div>
     </div><!-- End Page Title -->
 

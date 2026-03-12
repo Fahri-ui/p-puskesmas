@@ -17,6 +17,7 @@ class BlogCategory extends Model
 
     public function blogs()
     {
-        return $this->hasMany(Blog::class, 'kategori_id');
+        // relationship uses category_id after migration
+        return $this->hasMany(Blog::class, 'category_id');
     }
 }

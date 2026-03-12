@@ -7,6 +7,8 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+
 use Exception;
 
 class BlogController extends Controller
@@ -14,8 +16,57 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::with('category')->orderBy('created_at', 'desc')->get();
-        $categories = BlogCategory::all();
-        return view('pages.admin.blog', compact('blogs', 'categories'));
+        // include blog count for each category to display in the UI
+        $categories = BlogCategory::withCount('blogs')->orderBy('nama_kategori')->get();
+        return view('pages.admin.blog.index', compact('blogs', 'categories'));
+    }
+
+    public function storeKategory(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_kategori' => ['required', 'string', 'max:255', Rule::unique('blog_categories', 'nama_kategori')],
+        ]);
+
+        try {
+            BlogCategory::create([
+                'nama_kategori' => $validated['nama_kategori'],
+            ]);
+
+            return redirect()->route('admin.blog')->with('success', 'Kategori berhasil ditambahkan.');
+        } catch (Exception $e) {
+            return redirect()->route('admin.blog')->with('error', 'Terjadi kesalahan saat menyimpan kategori.');
+        }
+    }
+
+    public function updateKategory(Request $request, $id)
+    {
+        $category = BlogCategory::findOrFail($id);
+
+        $validated = $request->validate([
+            'nama_kategori' => ['required', 'string', 'max:255', Rule::unique('blog_categories', 'nama_kategori')->ignore($category->id)],
+        ]);
+
+        try {
+            $category->update([
+                'nama_kategori' => $validated['nama_kategori'],
+            ]);
+
+            return redirect()->route('admin.blog')->with('success', 'Kategori berhasil diperbarui.');
+        } catch (Exception $e) {
+            return redirect()->route('admin.blog')->with('error', 'Terjadi kesalahan saat memperbarui kategori.');
+        }
+    }
+
+    public function destroyKategory($id)
+    {
+        $category = BlogCategory::findOrFail($id);
+
+        try {
+            $category->delete();
+            return redirect()->route('admin.blog')->with('success', 'Kategori berhasil dihapus.');
+        } catch (Exception $e) {
+            return redirect()->route('admin.blog')->with('error', 'Terjadi kesalahan saat menghapus kategori.');
+        }
     }
 
     public function store(Request $request)

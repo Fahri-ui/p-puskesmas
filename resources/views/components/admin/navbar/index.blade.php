@@ -6,43 +6,36 @@
         <span class="font-bold text-xl tracking-tight">SystemAdmin</span>
     </div>
     <nav class="flex-1 px-4 py-4 space-y-2">
-        <x-admin.navbar.nav-link 
-            href="{{ route('admin.dashboard') }}" 
+        <x-admin.navbar.nav-link
+            href="{{ route('admin.dashboard') }}"
             route="admin.dashboard">
             <span class="material-symbols-outlined">dashboard</span>
             <span>Dashboard</span>
         </x-admin.navbar.nav-link>
-    
-        <x-admin.navbar.nav-link 
-            href="{{ route('admin.layanan') }}" 
+
+        <x-admin.navbar.nav-link
+            href="{{ route('admin.layanan') }}"
             route="admin.layanan">
             <span class="material-symbols-outlined">settings_suggest</span>
             <span>Services</span>
         </x-admin.navbar.nav-link>
-    
-        <x-admin.navbar.nav-link 
-            href="{{ route('admin.staf') }}" 
+
+        <x-admin.navbar.nav-link
+            href="{{ route('admin.staf') }}"
             route="admin.staf">
             <span class="material-symbols-outlined">badge</span>
             <span>Staff</span>
         </x-admin.navbar.nav-link>
-    
-        <x-admin.navbar.nav-link 
-            href="{{ route('admin.blog') }}" 
+
+        <x-admin.navbar.nav-link
+            href="{{ route('admin.blog') }}"
             route="admin.blog">
             <span class="material-symbols-outlined">newspaper</span>
             <span>Berita</span>
         </x-admin.navbar.nav-link>
-    
-        <x-admin.navbar.nav-link 
-            href="{{ route('admin.kategori_blog') }}" 
-            route="admin.kategori_blog">
-            <span class="material-symbols-outlined">newspaper</span>
-            <span>Kategory Berita</span>
-        </x-admin.navbar.nav-link>
-    
-        <x-admin.navbar.nav-link 
-            href="{{ route('admin.gallery') }}" 
+
+        <x-admin.navbar.nav-link
+            href="{{ route('admin.gallery') }}"
             route="admin.gallery">
             <span class="material-symbols-outlined">gallery_thumbnail</span>
             <span>Gallery</span>
