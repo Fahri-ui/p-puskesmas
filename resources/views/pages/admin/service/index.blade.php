@@ -296,37 +296,11 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-1">
-                                <label
-                                    class="text-sm font-semibold text-slate-700 dark:text-slate-300">Category</label>
-                                <select
-                                    class="w-full bg-primary/5 border-primary/10 rounded-lg focus:ring-primary focus:border-primary transition-all text-sm">
-                                    <option>Development</option>
-                                    <option>Design</option>
-                                    <option>Marketing</option>
-                                    <option>Infrastructure</option>
-                                </select>
-                            </div>
-                            <div class="space-y-1">
                                 <label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Sort
                                     Order</label>
                                 <input
                                     class="w-full bg-primary/5 border-primary/10 rounded-lg focus:ring-primary focus:border-primary transition-all text-sm"
                                     type="number" value="1" />
-                            </div>
-                        </div>
-                        <div class="p-4 bg-primary/5 rounded-lg border border-primary/10">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm font-bold">Service Visibility</p>
-                                    <p class="text-[11px] text-slate-500 leading-tight">Decide if this service
-                                        should be publicly visible on the website.</p>
-                                </div>
-                                <label class="inline-flex items-center cursor-pointer">
-                                    <input checked="" class="sr-only peer" type="checkbox" />
-                                    <div
-                                        class="relative w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
-                                    </div>
-                                </label>
                             </div>
                         </div>
                         <div class="pt-4 flex items-center gap-3">

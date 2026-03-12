@@ -9,18 +9,12 @@ class Service extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
+        'nama_layanan',
         'slug',
-        'image',
-        'excerpt',
         'deskripsi',
-        'service_category_id',
-        'is_active',
-        'sort_order',
+        'icon',
+        'aktif',
+        'urutan',
     ];
 
-    public function category()
-    {
-        return $this->belongsTo(ServiceCategory::class, 'service_category_id');
-    }
 }

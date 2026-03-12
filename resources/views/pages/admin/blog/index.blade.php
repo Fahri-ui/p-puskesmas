@@ -2,447 +2,407 @@
 
     <!-- Page Body -->
     <div class="p-4 sm:p-6 lg:p-8 space-y-6 lg:space-y-8 max-w-7xl mx-auto w-full">
-        <!-- Page Title Area -->
+
+        {{-- ===================== FLASH MESSAGES ===================== --}}
+        @if(session('success'))
+            <div class="px-4 py-3 bg-green-100 text-green-800 rounded-lg border border-green-200 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                {{ session('success') }}
+            </div>
+        @elseif(session('error'))
+            <div class="px-4 py-3 bg-red-100 text-red-800 rounded-lg border border-red-200 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">error</span>
+                {{ session('error') }}
+            </div>
+        @endif
+
+        {{-- ===================== PAGE HEADER ===================== --}}
         <div class="flex items-end justify-between">
             <div>
-                <h1 class="text-3xl font-black text-heading dark:text-slate-100 tracking-tight">Manajemen Berita
-                </h1>
+                <h1 class="text-3xl font-black text-heading dark:text-slate-100 tracking-tight">Manajemen Berita</h1>
                 <p class="text-slate-500 mt-1">Kelola publikasi, sunting konten, dan unggah media berita.</p>
             </div>
             <button
+                onclick="showCreateForm()"
                 class="bg-primary text-white px-6 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-primary/90 shadow-sm transition-all active:scale-95">
                 <span class="material-symbols-outlined">add</span>
                 Buat Berita Baru
             </button>
         </div>
 
-        <!-- Tabs -->
+        {{-- ===================== TABS ===================== --}}
         <div class="border-b border-slate-200 dark:border-slate-800">
             <nav class="flex gap-8 overflow-x-auto whitespace-nowrap scrollbar-hide">
-                <a class="border-b-2 border-primary py-3 px-1 text-sm font-bold text-primary" href="#">Semua
-                    Berita</a>
-                <a class="border-b-2 border-transparent py-3 px-1 text-sm font-medium text-slate-500 hover:text-slate-700"
-                    href="#">Published</a>
-                <a class="border-b-2 border-transparent py-3 px-1 text-sm font-medium text-slate-500 hover:text-slate-700"
-                    href="#">Draft</a>
-                <a class="border-b-2 border-transparent py-3 px-1 text-sm font-medium text-slate-500 hover:text-slate-700"
-                    href="#">Terjadwal</a>
+                <a href="{{ route('admin.blog') }}"
+                   class="{{ !request('status') ? 'border-b-2 border-primary text-primary font-bold' : 'border-b-2 border-transparent text-slate-500 hover:text-slate-700 font-medium' }} py-3 px-1 text-sm">
+                    Semua Berita
+                </a>
+                <a href="{{ route('admin.blog', ['status' => 'publish']) }}"
+                   class="{{ request('status') === 'publish' ? 'border-b-2 border-primary text-primary font-bold' : 'border-b-2 border-transparent text-slate-500 hover:text-slate-700 font-medium' }} py-3 px-1 text-sm">
+                    Published
+                </a>
+                <a href="{{ route('admin.blog', ['status' => 'draft']) }}"
+                   class="{{ request('status') === 'draft' ? 'border-b-2 border-primary text-primary font-bold' : 'border-b-2 border-transparent text-slate-500 hover:text-slate-700 font-medium' }} py-3 px-1 text-sm">
+                    Draft
+                </a>
+                <a href="{{ route('admin.blog', ['status' => 'archived']) }}"
+                   class="{{ request('status') === 'archived' ? 'border-b-2 border-primary text-primary font-bold' : 'border-b-2 border-transparent text-slate-500 hover:text-slate-700 font-medium' }} py-3 px-1 text-sm">
+                    Terjadwal
+                </a>
             </nav>
         </div>
 
-        <!-- Category Management Section -->
-        <div class="space-y-6 lg:space-y-8 max-w-7xl mx-auto w-full">
-
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-                <!-- Form Section -->
-                <div class="xl:col-span-4">
-                    <div
-                        class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
-                        <h3 class="text-lg font-bold text-heading dark:text-slate-100 mb-4 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary">add</span>
-                            Tambah Kategori Baru
-                        </h3>
-                        @if(session('success'))
-                            <div class="px-4 py-2 mb-4 bg-green-100 text-green-800 rounded">
-                                {{ session('success') }}
-                            </div>
-                        @elseif(session('error'))
-                            <div class="px-4 py-2 mb-4 bg-red-100 text-red-800 rounded">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                        <form class="space-y-4" action="{{ route('admin.kategori_blog.store') }}" method="POST">
-                            @csrf
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Nama Kategori</label>
-                                <input
-                                    class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none"
-                                    placeholder="Masukkan nama kategori..." type="text" name="nama_kategori" required />
-                                @error('nama_kategori')
-                                    <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <button type="submit"
-                                class="w-full bg-primary text-white px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/90 shadow-sm transition-all active:scale-95">
-                                Tambah Kategori
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Categories Cards Section -->
-                <div class="xl:col-span-8">
-                    <div
-                        class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
-                        <h3 class="text-lg font-bold text-heading dark:text-slate-100 mb-4 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary">category</span>
-                            Daftar Kategori
-                        </h3>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            @forelse($categories as $category)
-                                <div
-                                    class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 hover:shadow-md transition-shadow">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h4 class="text-sm font-semibold text-heading dark:text-slate-200" id="cat-name-{{ $category->id }}">{{ $category->nama_kategori }}</h4>
-                                        <div class="flex gap-1">
-                                            <button type="button" onclick="toggleEditForm({{ $category->id }})" class="p-1 text-slate-400 hover:text-primary transition-colors">
-                                                <span class="material-symbols-outlined text-[16px]">edit</span>
-                                            </button>
-                                            <form action="{{ route('admin.kategori_blog.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="p-1 text-slate-400 hover:text-red-500 transition-colors">
-                                                    <span class="material-symbols-outlined text-[16px]">delete</span>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <p class="text-xs text-slate-500">{{ $category->blogs_count }} berita</p>
-
-                                    <!-- hidden edit form -->
-                                    <form id="edit-form-{{ $category->id }}" class="mt-2 hidden" action="{{ route('admin.kategori_blog.update', $category->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="flex gap-2">
-                                            <input type="text" name="nama_kategori" value="{{ $category->nama_kategori }}" required
-                                                class="w-full px-3 py-2 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm" />
-                                            @error('nama_kategori')
-                                                <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
-                                            @enderror
-                                            <button type="submit" class="px-3 bg-green-500 text-white rounded">Save</button>
-                                            <button type="button" onclick="toggleEditForm({{ $category->id }})" class="px-3 bg-gray-300 text-gray-700 rounded">Cancel</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            @empty
-                                <p class="text-sm text-slate-500">Belum ada kategori.</p>
-                            @endforelse
-                        </div>
-
-                        <script>
-                            function toggleEditForm(id) {
-                                const form = document.getElementById('edit-form-' + id);
-                                if (form) {
-                                    form.classList.toggle('hidden');
-                                }
-                            }
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        {{-- ===================== CATEGORY MANAGEMENT ===================== --}}
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-            <!-- Table Section -->
-            <div class="xl:col-span-12">
-                <div
-                    class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left whitespace-nowrap">
-                            <thead
-                                class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-                                <tr>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                        Judul Berita</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                        Kategori</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                        Status</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                        Tanggal Rilis</th>
-                                    <th
-                                        class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
-                                        Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                                    <td class="px-6 py-4 whitespace-normal min-w-[300px]">
-                                        <div class="flex items-center gap-3 w-full sm:w-auto">
-                                            <div
-                                                class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
-                                                <img alt="News" class="w-full h-full object-cover"
-                                                    data-alt="Stock market growth chart on screen"
-                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcCC_MyxSvzu3dRi5OZnD-tOWMZkqrQB0aVq3dIQ8D1EOFhAyt9fhAuSfS8NEHyBQSgxaf0lRDr3zihtgapkypvpeWGteugjQFNX9AjYf7d5q_BhVdtjent4nb275tTypBUQwM7xj-gxgrvprOcD_sYJk3zwnf38c8sOwm3bgH4DxOuhIIQbY0oEb3E-33Cj9-KmqIGt77V2yAFckYG00AZvCRPhj2PxBJNBc5VP-o07WL6xZwAdQfSUV0WjTsRrTodpYmP56Bow" />
-                                            </div>
-                                            <span
-                                                class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">Inovasi
-                                                Ekonomi Digital: Langkah Menuju 2025</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Bisnis</span>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"><span
-                                                class="size-1.5 rounded-full bg-green-600"></span>Published</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-slate-500">24 Okt 2023, 14:30</td>
-                                    <td class="px-6 py-4 text-right space-x-2">
-                                        <button class="p-2 text-slate-400 hover:text-primary transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">edit</span></button>
-                                        <button class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">delete</span></button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                                    <td class="px-6 py-4 whitespace-normal min-w-[300px]">
-                                        <div class="flex items-center gap-3 w-full sm:w-auto">
-                                            <div
-                                                class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
-                                                <img alt="News" class="w-full h-full object-cover"
-                                                    data-alt="Close up of a medical professional"
-                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpuuu-SKsSJ8BbjQ6Qbp69MCbcVHbZE3uR7YqbZ26xv88ov77eFucSeWKt8T7bj0SCVrspluRYr8WcvVPy1i-DAKwQvaCseZAqyDBjd1t8E4OSdYZNM7HPexQo_ehZgvOycglPhEKPrE69KEVCgv4jwcklo_KXCZuQJTK3Vmp8R7jBBKfZKeVEFQ8sxEYLaotVMuKNq04w8MoE3pPPnOaWtnvStILZodRmemW2vZ_2Uwr6UiXxZQd2Hb2BxjUt6UjrvBBgE7tgBQ" />
-                                            </div>
-                                            <span
-                                                class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">Protokol
-                                                Kesehatan Terbaru di Musim Hujan</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Kesehatan</span>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"><span
-                                                class="size-1.5 rounded-full bg-yellow-600"></span>Draft</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-slate-500">-</td>
-                                    <td class="px-6 py-4 text-right space-x-2">
-                                        <button class="p-2 text-slate-400 hover:text-primary transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">edit</span></button>
-                                        <button class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">delete</span></button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                                    <td class="px-6 py-4 whitespace-normal min-w-[300px]">
-                                        <div class="flex items-center gap-3 w-full sm:w-auto">
-                                            <div
-                                                class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
-                                                <img alt="News" class="w-full h-full object-cover"
-                                                    data-alt="Modern robot arm technology"
-                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBZCGMIVEfehI5j0rCEvMFrRHNEc1GHY9PNJEP5xK0I8UX54GoFS390ghUnmC3lJ7VPbtsOEENbtseq2fwJn5c54Yu9CWNRVC5B6gQZsEHkw6ToVGb_Bls3NyVzFAqg78zrLhiNcgcsJD5Js6Cjab21ZhZLY2Yw39Uys4NBxMSwcrI26E2pmRcuQhU57h4-uZAaHDnLPRj_vVfCMJCAhQ75Twx48t0yTdI9vDGOBzl_jMXKElN-8iWNxkMTm6qvNxBN-Aqp57OEg" />
-                                            </div>
-                                            <span
-                                                class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">AI
-                                                vs Tenaga Kerja: Peluang atau Ancaman?</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Teknologi</span>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"><span
-                                                class="size-1.5 rounded-full bg-green-600"></span>Published</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-slate-500">22 Okt 2023, 10:00</td>
-                                    <td class="px-6 py-4 text-right space-x-2">
-                                        <button class="p-2 text-slate-400 hover:text-primary transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">edit</span></button>
-                                        <button class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">delete</span></button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                                    <td class="px-6 py-4 whitespace-normal min-w-[300px]">
-                                        <div class="flex items-center gap-3 w-full sm:w-auto">
-                                            <div
-                                                class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
-                                                <img alt="News" class="w-full h-full object-cover"
-                                                    data-alt="Soccer player on field stadium"
-                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYzfU3mHcMB2T8w__JN2qegq8Fmo9u4sMIUlzn7Cazcyg8YpSqYeMRNQlGU0C0rtkblmnDd_yicwpZKesqN8mA-Ak3RksUb-zmoCzAVRAKwMNZOnba3E0s1fKV4YyIak10Yp1zoxjYAAnPD6Vj_E6yuyXXOgQNiVwIFVHZbXcg7ecCqDxiAqKLAZBIYNyNGS4vZxi2FO0XmwChLyJ0bESIECaHDQCYg1h7FL7_gM1ArUeIZnPVPGH7KT39LO3IiqgxqEPvnoNj3Q" />
-                                            </div>
-                                            <span
-                                                class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">Rekapitulasi
-                                                Liga Champion: Derby Malam Ini</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Olahraga</span>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"><span
-                                                class="size-1.5 rounded-full bg-green-600"></span>Published</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-slate-500">21 Okt 2023, 08:00</td>
-                                    <td class="px-6 py-4 text-right space-x-2">
-                                        <button class="p-2 text-slate-400 hover:text-primary transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">edit</span></button>
-                                        <button class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">delete</span></button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                                    <td class="px-6 py-4 whitespace-normal min-w-[300px]">
-                                        <div class="flex items-center gap-3 w-full sm:w-auto">
-                                            <div
-                                                class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
-                                                <img alt="News" class="w-full h-full object-cover"
-                                                    data-alt="Scenic mountain landscape with lake"
-                                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZNVQ0lOjYhlG_0VOo79SAHGRvYFywWP6_z3qiXiGb6rw7zSb9meoKH-xxoycl4cFHqePpOmEImYzWDydtAH5dR5wOwqflRi5xUJSquro9BF7qpqx8wW9qawN-T_zhILii6Ln_8V0BXt7uDm6_rnGWcDnQFHu7kz_FHRPZGTb-BJa5cGp78CogPP-Bvd9JnFgqzuVXOCC9iDlsmbWJm8PB05UvbCEJlg4cRwezN0dw1BaCNNVbuJkwZIiEEd55_Em5K7PvOxZb1Q" />
-                                            </div>
-                                            <span
-                                                class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">Destinasi
-                                                Liburan Akhir Tahun Paling Irit</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">Wisata</span>
-                                    </td>
-                                    <td class="px-6 py-4"><span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"><span
-                                                class="size-1.5 rounded-full bg-yellow-600"></span>Draft</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-slate-500">-</td>
-                                    <td class="px-6 py-4 text-right space-x-2">
-                                        <button class="p-2 text-slate-400 hover:text-primary transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">edit</span></button>
-                                        <button class="p-2 text-slate-400 hover:text-red-500 transition-colors"><span
-                                                class="material-symbols-outlined text-[20px]">delete</span></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div
-                        class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                        <span class="text-xs text-slate-500">Menampilkan 5 dari 128 berita</span>
-                        <div class="flex gap-2">
-                            <button
-                                class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 transition-colors">Previous</button>
-                            <button class="px-3 py-1 bg-primary text-white rounded text-xs font-medium">1</button>
-                            <button
-                                class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 transition-colors">2</button>
-                            <button
-                                class="px-3 py-1 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium hover:bg-slate-50 transition-colors">Next</button>
+
+            {{-- Form Tambah Kategori --}}
+            <div class="xl:col-span-4">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-lg font-bold text-heading dark:text-slate-100 mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">add</span>
+                        Tambah Kategori Baru
+                    </h3>
+                    <form class="space-y-4" action="{{ route('admin.kategori_blog.store') }}" method="POST">
+                        @csrf
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Nama Kategori</label>
+                            <input
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none @error('nama_kategori') border-red-400 @enderror"
+                                placeholder="Masukkan nama kategori..."
+                                type="text"
+                                name="nama_kategori"
+                                value="{{ old('nama_kategori') }}"
+                                required />
+                            @error('nama_kategori')
+                                <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Editor/Form Section -->
-            <div class="xl:col-span-12">
-                <div
-                    class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-8 shadow-sm">
-                    <div
-                        class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">
-                        <h3 class="text-xl font-bold text-heading dark:text-slate-100 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary">edit_note</span>
-                            Edit / Buat Berita
-                        </h3>
-                        <div class="flex gap-3 w-full sm:w-auto">
-                            <button
-                                class="px-6 py-2 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-sm font-bold hover:bg-slate-50 transition-colors flex-1 sm:flex-none">Simpan
-                                Draft</button>
-                            <button
-                                class="px-6 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary/90 transition-colors flex-1 sm:flex-none">Publikasikan</button>
-                        </div>
-                    </div>
-                    <form class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <!-- Main Info -->
-                        <div class="lg:col-span-2 space-y-6">
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Judul
-                                    Berita</label>
-                                <input
-                                    class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none"
-                                    placeholder="Masukkan judul yang menarik..." type="text" />
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Konten
-                                    Berita</label>
-                                <div class="rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-                                    <div
-                                        class="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-3 py-2 flex gap-4 text-slate-500">
-                                        <span
-                                            class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">format_bold</span>
-                                        <span
-                                            class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">format_italic</span>
-                                        <span
-                                            class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">format_underlined</span>
-                                        <span
-                                            class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">format_list_bulleted</span>
-                                        <span
-                                            class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">link</span>
-                                        <span
-                                            class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">image</span>
-                                    </div>
-                                    <textarea class="w-full px-4 py-3 h-80 bg-white dark:bg-slate-900 text-sm focus:outline-none border-none resize-none"
-                                        placeholder="Mulai menulis berita di sini..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Side Options -->
-                        <div
-                            class="space-y-6 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
-                            <div class="space-y-4">
-                                <div class="space-y-2">
-                                    <label
-                                        class="text-sm font-bold text-slate-700 dark:text-slate-300">Kategori</label>
-                                    <select
-                                        class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none">
-                                        <option>Pilih Kategori</option>
-                                        <option>Bisnis</option>
-                                        <option>Teknologi</option>
-                                        <option>Kesehatan</option>
-                                        <option>Olahraga</option>
-                                    </select>
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Status
-                                        Publikasi</label>
-                                    <select
-                                        class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none">
-                                        <option>Published</option>
-                                        <option>Draft</option>
-                                        <option>Pending</option>
-                                    </select>
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Tanggal
-                                        Publikasi</label>
-                                    <input
-                                        class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none"
-                                        type="date" />
-                                </div>
-                            </div>
-                            <!-- Dual Image Upload -->
-                            <div class="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                                <div class="space-y-2">
-                                    <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Thumbnail
-                                        Berita (1:1)</label>
-                                    <div
-                                        class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-4 bg-white dark:bg-slate-900 flex flex-col items-center justify-center text-center">
-                                        <div
-                                            class="size-16 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center mb-2">
-                                            <span class="material-symbols-outlined text-slate-400">add_a_photo</span>
-                                        </div>
-                                        <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">
-                                            Klik untuk unggah</p>
-                                    </div>
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Gambar
-                                        Utama (16:9)</label>
-                                    <div
-                                        class="relative group border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg h-32 bg-slate-100 dark:bg-slate-900 overflow-hidden flex flex-col items-center justify-center">
-                                        <img alt="Preview"
-                                            class="absolute inset-0 w-full h-full object-cover opacity-50"
-                                            data-alt="Blue and purple abstract gradient background"
-                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvSB3S0a2xpA7jGZqr5b8zz5FURishcZaTOCNBFtOcS_6a_8Tz8wBLkEza935lHfdfoN2k4Yruc_LWaXifkNTOGAKZ4GhHeoOE5-TMY7NPXqXTqLwrrf37-TZDCisI8ew-1vcsRwKVcwfByG0SiHhR2-iCn8CP5GDhMqqoNLOWyydwwif9gGstiRsPgc-aAqiboFE93okitbyf_O-qdEaDsg6Y6S9ISEfOkhsSSETqmrB6jDGGFV1sihtSJGCnna39KOJ7-mPmSw" />
-                                        <div class="relative z-10 text-center">
-                                            <span
-                                                class="material-symbols-outlined text-heading dark:text-slate-200">upload_file</span>
-                                            <p class="text-xs font-bold text-heading dark:text-slate-200">Ubah
-                                                Gambar</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button type="submit"
+                            class="w-full bg-primary text-white px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/90 shadow-sm transition-all active:scale-95">
+                            Tambah Kategori
+                        </button>
                     </form>
                 </div>
             </div>
+
+            {{-- Daftar Kategori --}}
+            <div class="xl:col-span-8">
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
+                    <h3 class="text-lg font-bold text-heading dark:text-slate-100 mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">category</span>
+                        Daftar Kategori
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        @forelse($categories as $category)
+                            <div class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="text-sm font-semibold text-heading dark:text-slate-200">
+                                        {{ $category->nama_kategori }}
+                                    </h4>
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="toggleEditForm({{ $category->id }})"
+                                            class="p-1 text-slate-400 hover:text-primary transition-colors">
+                                            <span class="material-symbols-outlined text-[16px]">edit</span>
+                                        </button>
+                                        <form action="{{ route('admin.kategori_blog.destroy', $category->id) }}" method="POST"
+                                            onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="p-1 text-slate-400 hover:text-red-500 transition-colors">
+                                                <span class="material-symbols-outlined text-[16px]">delete</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500">{{ $category->blogs_count }} berita</p>
+
+                                {{-- Hidden edit form --}}
+                                <form id="edit-form-{{ $category->id }}" class="mt-2 hidden"
+                                    action="{{ route('admin.kategori_blog.update', $category->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="flex gap-2">
+                                        <input type="text" name="nama_kategori" value="{{ $category->nama_kategori }}" required
+                                            class="w-full px-3 py-2 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm" />
+                                        <button type="submit" class="px-3 bg-green-500 text-white rounded text-sm">Save</button>
+                                        <button type="button" onclick="toggleEditForm({{ $category->id }})"
+                                            class="px-3 bg-gray-300 text-gray-700 rounded text-sm">X</button>
+                                    </div>
+                                </form>
+                            </div>
+                        @empty
+                            <p class="text-sm text-slate-500 col-span-3">Belum ada kategori.</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
         </div>
+
+        {{-- ===================== BLOG TABLE ===================== --}}
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left whitespace-nowrap">
+                    <thead class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+                        <tr>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Judul Berita</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Kategori</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Tanggal Rilis</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                        @forelse($blogs as $blog)
+                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+
+                                {{-- Judul --}}
+                                <td class="px-6 py-4 whitespace-normal min-w-[300px]">
+                                    <div class="flex items-center gap-3">
+                                        <div class="size-10 rounded bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
+                                            @if($blog->thumbnail)
+                                                <img src="{{ asset($blog->thumbnail) }}" alt="{{ $blog->title }}"
+                                                    class="w-full h-full object-cover" />
+                                            @elseif($blog->image)
+                                                <img src="{{ asset($blog->image) }}" alt="{{ $blog->title }}"
+                                                    class="w-full h-full object-cover" />
+                                            @else
+                                                <div class="w-full h-full flex items-center justify-center">
+                                                    <span class="material-symbols-outlined text-slate-400 text-[18px]">image</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <span class="text-sm font-semibold text-heading dark:text-slate-200 line-clamp-2">
+                                            {{ $blog->title }}
+                                        </span>
+                                    </div>
+                                </td>
+
+                                {{-- Kategori --}}
+                                <td class="px-6 py-4">
+                                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">
+                                        {{ $blog->category?->nama_kategori ?? '-' }}
+                                    </span>
+                                </td>
+
+                                {{-- Status --}}
+                                <td class="px-6 py-4">
+                                    @if($blog->status === 'publish')
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                                            <span class="size-1.5 rounded-full bg-green-600"></span>Published
+                                        </span>
+                                    @elseif($blog->status === 'draft')
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">
+                                            <span class="size-1.5 rounded-full bg-yellow-600"></span>Draft
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                                            <span class="size-1.5 rounded-full bg-slate-500"></span>Archived
+                                        </span>
+                                    @endif
+                                </td>
+
+                                {{-- Tanggal --}}
+                                <td class="px-6 py-4 text-sm text-slate-500">
+                                    {{ $blog->published_at ? $blog->published_at->format('d M Y, H:i') : '-' }}
+                                </td>
+
+                                {{-- Aksi --}}
+                                <td class="px-6 py-4 text-right space-x-1">
+                                    <a href="{{ route('admin.blog.edit', $blog->id) }}"
+                                        class="inline-flex p-2 text-slate-400 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+                                    <form action="{{ route('admin.blog.destroy', $blog->id) }}" method="POST"
+                                        class="inline" onsubmit="return confirm('Yakin ingin menghapus berita ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="px-6 py-12 text-center text-slate-400">
+                                    <span class="material-symbols-outlined text-[40px] mb-2 block">article</span>
+                                    Belum ada berita. Klik "Buat Berita Baru" untuk memulai.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            {{-- Pagination / Footer Info --}}
+            <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span class="text-xs text-slate-500">Menampilkan {{ $blogs->count() }} berita</span>
+                {{-- Jika menggunakan paginate() di controller, ganti baris di atas dengan: --}}
+                {{-- {{ $blogs->links() }} --}}
+            </div>
+        </div>
+
+        {{-- ===================== CREATE FORM (hidden by default) ===================== --}}
+        <div id="create-form-section" class="hidden">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-8 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">
+                    <h3 class="text-xl font-bold text-heading dark:text-slate-100 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">edit_note</span>
+                        Buat Berita Baru
+                    </h3>
+                    <button type="button" onclick="hideCreateForm()"
+                        class="px-6 py-2 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-sm font-bold hover:bg-slate-50 transition-colors">
+                        Batal
+                    </button>
+                </div>
+
+                <form action="{{ route('admin.blog.store') }}" method="POST" enctype="multipart/form-data"
+                    class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    @csrf
+
+                    {{-- Main Content --}}
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Judul Berita <span class="text-red-500">*</span></label>
+                            <input
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none @error('title') border-red-400 @enderror"
+                                placeholder="Masukkan judul yang menarik..."
+                                type="text"
+                                name="title"
+                                value="{{ old('title') }}" />
+                            @error('title')
+                                <p class="text-red-600 text-xs">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Excerpt / Ringkasan</label>
+                            <textarea
+                                class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none resize-none h-20"
+                                placeholder="Ringkasan singkat berita (opsional, maks 500 karakter)..."
+                                name="excerpt"
+                                maxlength="500">{{ old('excerpt') }}</textarea>
+                            @error('excerpt')
+                                <p class="text-red-600 text-xs">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Konten Berita <span class="text-red-500">*</span></label>
+                            <textarea
+                                class="w-full px-4 py-3 h-80 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-1 focus:ring-primary outline-none resize-none @error('content') border-red-400 @enderror"
+                                placeholder="Mulai menulis berita di sini..."
+                                name="content">{{ old('content') }}</textarea>
+                            @error('content')
+                                <p class="text-red-600 text-xs">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Side Options --}}
+                    <div class="space-y-6 bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div class="space-y-4">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Kategori <span class="text-red-500">*</span></label>
+                                <select name="category_id"
+                                    class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none @error('category_id') border-red-400 @enderror">
+                                    <option value="" disabled selected>Pilih Kategori</option>
+                                    @foreach($categories as $cat)
+                                        <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
+                                            {{ $cat->nama_kategori }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                    <p class="text-red-600 text-xs">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Status Publikasi <span class="text-red-500">*</span></label>
+                                <select name="status"
+                                    class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none">
+                                    <option value="draft" {{ old('status') === 'draft' ? 'selected' : '' }}>Draft</option>
+                                    <option value="publish" {{ old('status') === 'publish' ? 'selected' : '' }}>Published</option>
+                                    <option value="archived" {{ old('status') === 'archived' ? 'selected' : '' }}>Archived</option>
+                                </select>
+                                @error('status')
+                                    <p class="text-red-600 text-xs">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Tanggal Publikasi</label>
+                                <input
+                                    class="w-full px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                    type="datetime-local"
+                                    name="published_at"
+                                    value="{{ old('published_at') }}" />
+                                @error('published_at')
+                                    <p class="text-red-600 text-xs">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- Image Uploads --}}
+                        <div class="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Thumbnail (1:1)</label>
+                                <input type="file" name="thumbnail" accept="image/jpeg,image/png,image/jpg,image/gif"
+                                    class="w-full text-sm text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary file:text-white file:text-xs file:font-bold hover:file:bg-primary/90 cursor-pointer" />
+                                @error('thumbnail')
+                                    <p class="text-red-600 text-xs">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Gambar Utama (16:9)</label>
+                                <input type="file" name="image" accept="image/jpeg,image/png,image/jpg,image/gif"
+                                    class="w-full text-sm text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-primary file:text-white file:text-xs file:font-bold hover:file:bg-primary/90 cursor-pointer" />
+                                @error('image')
+                                    <p class="text-red-600 text-xs">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-primary text-white px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/90 shadow-sm transition-all active:scale-95">
+                            Simpan Berita
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
+
+    {{-- ===================== JAVASCRIPT ===================== --}}
+    <script>
+        // Toggle kategori edit form
+        function toggleEditForm(id) {
+            const form = document.getElementById('edit-form-' + id);
+            if (form) form.classList.toggle('hidden');
+        }
+
+        // Tampilkan form create dan scroll ke sana
+        function showCreateForm() {
+            const section = document.getElementById('create-form-section');
+            section.classList.remove('hidden');
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Sembunyikan form create
+        function hideCreateForm() {
+            const section = document.getElementById('create-form-section');
+            section.classList.add('hidden');
+        }
+
+        // Jika ada validation error dari create blog, otomatis tampilkan form
+        @if($errors->any() && old('title'))
+            document.addEventListener('DOMContentLoaded', function () {
+                showCreateForm();
+            });
+        @endif
+    </script>
 
 </x-admin.app-layout>
