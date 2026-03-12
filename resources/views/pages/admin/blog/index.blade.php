@@ -15,6 +15,7 @@
                 Buat Berita Baru
             </button>
         </div>
+
         <!-- Tabs -->
         <div class="border-b border-slate-200 dark:border-slate-800">
             <nav class="flex gap-8 overflow-x-auto whitespace-nowrap scrollbar-hide">
@@ -28,6 +29,109 @@
                     href="#">Terjadwal</a>
             </nav>
         </div>
+
+        <!-- Category Management Section -->
+        <div class="space-y-6 lg:space-y-8 max-w-7xl mx-auto w-full">
+
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                <!-- Form Section -->
+                <div class="xl:col-span-4">
+                    <div
+                        class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-heading dark:text-slate-100 mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">add</span>
+                            Tambah Kategori Baru
+                        </h3>
+                        @if(session('success'))
+                            <div class="px-4 py-2 mb-4 bg-green-100 text-green-800 rounded">
+                                {{ session('success') }}
+                            </div>
+                        @elseif(session('error'))
+                            <div class="px-4 py-2 mb-4 bg-red-100 text-red-800 rounded">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        <form class="space-y-4" action="{{ route('admin.kategori_blog.store') }}" method="POST">
+                            @csrf
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Nama Kategori</label>
+                                <input
+                                    class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none"
+                                    placeholder="Masukkan nama kategori..." type="text" name="nama_kategori" required />
+                                @error('nama_kategori')
+                                    <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-primary text-white px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/90 shadow-sm transition-all active:scale-95">
+                                Tambah Kategori
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Categories Cards Section -->
+                <div class="xl:col-span-8">
+                    <div
+                        class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-heading dark:text-slate-100 mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">category</span>
+                            Daftar Kategori
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            @forelse($categories as $category)
+                                <div
+                                    class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="text-sm font-semibold text-heading dark:text-slate-200" id="cat-name-{{ $category->id }}">{{ $category->nama_kategori }}</h4>
+                                        <div class="flex gap-1">
+                                            <button type="button" onclick="toggleEditForm({{ $category->id }})" class="p-1 text-slate-400 hover:text-primary transition-colors">
+                                                <span class="material-symbols-outlined text-[16px]">edit</span>
+                                            </button>
+                                            <form action="{{ route('admin.kategori_blog.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="p-1 text-slate-400 hover:text-red-500 transition-colors">
+                                                    <span class="material-symbols-outlined text-[16px]">delete</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-slate-500">{{ $category->blogs_count }} berita</p>
+
+                                    <!-- hidden edit form -->
+                                    <form id="edit-form-{{ $category->id }}" class="mt-2 hidden" action="{{ route('admin.kategori_blog.update', $category->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="flex gap-2">
+                                            <input type="text" name="nama_kategori" value="{{ $category->nama_kategori }}" required
+                                                class="w-full px-3 py-2 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm" />
+                                            @error('nama_kategori')
+                                                <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
+                                            @enderror
+                                            <button type="submit" class="px-3 bg-green-500 text-white rounded">Save</button>
+                                            <button type="button" onclick="toggleEditForm({{ $category->id }})" class="px-3 bg-gray-300 text-gray-700 rounded">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @empty
+                                <p class="text-sm text-slate-500">Belum ada kategori.</p>
+                            @endforelse
+                        </div>
+
+                        <script>
+                            function toggleEditForm(id) {
+                                const form = document.getElementById('edit-form-' + id);
+                                if (form) {
+                                    form.classList.toggle('hidden');
+                                }
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
             <!-- Table Section -->
             <div class="xl:col-span-12">
@@ -340,4 +444,5 @@
             </div>
         </div>
     </div>
+
 </x-admin.app-layout>

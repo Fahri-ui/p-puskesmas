@@ -26,7 +26,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/forgot-password', [Auth\ForgotPasswordController::class, 'submit'])->name('forgot-password');
     Route::get('/reset-password', [Auth\ResetPasswordController::class, 'showForm']);
     Route::post('/reset-password', [Auth\ResetPasswordController::class, 'submit'])->name('reset-password');
-}); 
+});
 
 Route::middleware('auth')->group(function () {
 
@@ -36,11 +36,15 @@ Route::middleware('auth')->group(function () {
         // dashboard
         Route::get('/admin/dashboard',[Admin\DashboardController::class,'index'])->name('admin.dashboard');
         // blog
-        Route::get('/admin/beirta',[Admin\BlogController::class,'index'])->name('admin.blog');
+        Route::get('/admin/blog',[Admin\BlogController::class,'index'])->name('admin.blog');
         Route::post('/admin/blog',[Admin\BlogController::class,'store'])->name('admin.blog.store');
         Route::get('/admin/blog/{id}/edit',[Admin\BlogController::class,'edit'])->name('admin.blog.edit');
         Route::put('/admin/blog/{id}',[Admin\BlogController::class,'update'])->name('admin.blog.update');
         Route::delete('/admin/blog/{id}',[Admin\BlogController::class,'destroy'])->name('admin.blog.destroy');
+        // category blog
+        Route::post('/admin/kategori-blog',[Admin\BlogController::class,'storeKategory'])->name('admin.kategori_blog.store');
+        Route::put('/admin/kategori-blog/{id}',[Admin\BlogController::class,'updateKategory'])->name('admin.kategori_blog.update');
+        Route::delete('/admin/kategori-blog/{id}',[Admin\BlogController::class,'destroyKategory'])->name('admin.kategori_blog.destroy');
         // service
         Route::get('/admin/layanan',[Admin\LayananController::class,'index'])->name('admin.layanan');
         Route::post('/admin/layanan',[Admin\LayananController::class,'store'])->name('admin.layanan.store');
@@ -55,11 +59,6 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/staf/{id}',[Admin\StafController::class,'update'])->name('admin.staf.update');
         Route::delete('/admin/staf/{id}',[Admin\StafController::class,'destroy'])->name('admin.staf.destroy');
         Route::patch('/admin/staf/{id}/toggle-status',[Admin\StafController::class,'toggleStatus'])->name('admin.staf.toggle-status');
-        // category blog
-        Route::get('/admin/kategori-berita',[Admin\KategoriBlogController::class,'index'])->name('admin.kategori_blog');
-        Route::post('/admin/kategori-blog',[Admin\KategoriBlogController::class,'store'])->name('admin.kategori_blog.store');
-        Route::put('/admin/kategori-blog/{id}',[Admin\KategoriBlogController::class,'update'])->name('admin.kategori_blog.update');
-        Route::delete('/admin/kategori-blog/{id}',[Admin\KategoriBlogController::class,'destroy'])->name('admin.kategori_blog.destroy');
         // gallery
         Route::get('/admin/gallery', [Admin\GalleryController::class, 'index'])->name('admin.gallery');
     });

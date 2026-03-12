@@ -7,17 +7,16 @@
                     <span class="sitename">Puskesmas Binong</span>
                 </a>
                 <div class="footer-contact pt-3">
-                    <p>[Alamat Lengkap Puskesmas Binong]</p>
+                    <p>Alamat Lengkap Puskesmas Binong</p>
                     <p>Desa/Kecamatan Binong, Kabupaten Subang<br>Jawa Barat 41253</p>
-                    <p class="mt-3"><strong>Telepon:</strong> <span>(0260) XXXX-XXXX</span></p>
-                    <p><strong>Email:</strong> <span>[email resmi]</span></p>
+                    <p class="mt-3"><strong>Telepon:</strong> <span>0260453308</span></p>
+                    <p><strong>Email:</strong> <span>pkm.binong@gmail.com</span></p>
                 </div>
                 <div class="social-links d-flex mt-4">
                     <!-- Ganti tautan jika akun media sosial sudah tersedia -->
-                    <a href="#" aria-label="Twitter/X"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
                     <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="bi bi-youtube"></i></a>
                     <!-- Opsional: tambahkan keterangan di bawah jika perlu -->
                     <!-- <small class="d-block mt-2 text-muted">[Akun media sosial akan segera hadir]</small> -->
                 </div>
@@ -62,7 +61,7 @@
         <p>© 2026 Puskesmas Binong</p>
         <div class="credits">
             <!-- Required by BootstrapMade Free License -->
-            Designed by <a href="https://bootstrapmade.com/">siti barokah</a>
+         <a href="https://bootstrapmade.com/"></a>
         </div>
     </div>
 

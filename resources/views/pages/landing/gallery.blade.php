@@ -13,7 +13,7 @@
 
         <div class="title-wrapper">
             <h1>Gallery</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+            <p>Dokumentasi Kegiatan</p>
         </div>
     </div><!-- End Page Title -->
 
@@ -31,8 +31,8 @@
                                 <img src="{{ asset('MediTrust/assets/img/gallery/WhatsApp Image 2026-02-24 at 07.44.06 (1).jpeg') }}" class="img-fluid" alt="Gallery Image" loading="lazy">
                                 <div class="gallery-overlay">
                                     <div class="gallery-info">
-                                        {{-- <h4>Nature Exploration</h4> --}}
-                                        {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> --}}
+                                         <h4>Koordinasi Internal & Pertemuan Rutin</h4>
+                                         <p>Pelaksanaan rapat koordinasi di kantor puskesmas guna membahas evaluasi kinerja dan peningkatan mutu layanan bagi masyarakat Kecamatan Binong.</p>
                                         <a href="{{ asset('MediTrust/assets/img/gallery/WhatsApp Image 2026-02-24 at 07.44.06 (1).jpeg') }}" class="glightbox gallery-link" data-gallery="gallery-images">
                                             <i class="bi bi-plus-circle"></i>
                                         </a>

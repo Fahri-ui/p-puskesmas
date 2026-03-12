@@ -9,11 +9,6 @@
             </div>
             <div class="flex items-center gap-3">
                 <button
-                    class="flex items-center gap-2 px-4 py-2 border border-primary/20 text-primary bg-primary/5 font-semibold rounded-lg hover:bg-primary/10 transition-all text-sm">
-                    <span class="material-symbols-outlined text-lg">download</span>
-                    Export
-                </button>
-                <button
                     class="flex items-center gap-2 px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 text-sm">
                     <span class="material-symbols-outlined text-lg">add</span>
                     Add Service

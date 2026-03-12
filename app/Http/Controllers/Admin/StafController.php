@@ -10,15 +10,20 @@ use Exception;
 
 class StafController extends Controller
 {
+
     public function index()
     {
-        $staf = Staf::orderBy('urutan', 'asc')->get();
-        $totalStaf = $staf->count();
-        $stafAktif = $staf->where('status', 'Aktif')->count();
-        $stafTidakAktif = $staf->where('status', 'Tidak Aktif')->count();
-
-        return view('pages.admin.staf', compact('staf', 'totalStaf', 'stafAktif', 'stafTidakAktif'));
+        return view('pages.admin.staf');
     }
+    // public function index()
+    // {
+    //     $staf = Staf::orderBy('urutan', 'asc')->get();
+    //     $totalStaf = $staf->count();
+    //     $stafAktif = $staf->where('status', 'Aktif')->count();
+    //     $stafTidakAktif = $staf->where('status', 'Tidak Aktif')->count();
+
+    //     return view('pages.admin.staf', compact('staf', 'totalStaf', 'stafAktif', 'stafTidakAktif'));
+    // }
 
     public function show($id)
     {
