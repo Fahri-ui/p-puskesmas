@@ -10,11 +10,19 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        return view('pages.landing.service');
+        $services = Service::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('pages.landing.service.index', compact('services'));
     }
 
-    public function show()
+    public function show(string $slug)
     {
-        return view('pages.landing.service-show');
+        $service = Service::where('slug', $slug)
+            ->where('is_active', true)
+            ->firstOrFail();
+
+        return view('pages.landing.service.show', compact('service'));
     }
 }

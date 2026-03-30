@@ -6,52 +6,47 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Exception;
+use Illuminate\Support\Facades\Storage;
 
 class LayananController extends Controller
 {
     public function index()
     {
-        return view('pages.admin.service.index');
+        $services = Service::orderBy('sort_order')->orderBy('id')->get();
+
+        return view('pages.admin.service.index', compact('services'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_layanan' => ['required', 'string', 'max:255'],
-            'deskripsi' => ['nullable', 'string', 'max:1000'],
-            'icon' => ['nullable', 'string', 'max:255'],
-            'aktif' => ['boolean'],
-            'urutan' => ['required', 'integer', 'min:0'],
+            'name'       => 'required|string|max:255',
+            'image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'excerpt'    => 'nullable|string|max:500',
+            'deskripsi'  => 'nullable|string',
+            'is_active'  => 'boolean',
+            'sort_order' => 'integer|min:0',
         ]);
 
-        // Cek apakah urutan sudah ada
-        if (Service::where('urutan', $validated['urutan'])->exists()) {
-            return redirect()->back()->withInput()->with('error', 'Nomor urutan sudah digunakan. Silakan pilih nomor urutan yang berbeda.');
+        $validated['slug']      = Str::slug($validated['name']);
+        $validated['is_active'] = $request->boolean('is_active');
+
+        // Ensure unique slug
+        $slug  = $validated['slug'];
+        $count = 1;
+        while (Service::where('slug', $validated['slug'])->exists()) {
+            $validated['slug'] = $slug . '-' . $count++;
         }
 
-        try {
-            $slug = Str::slug($validated['nama_layanan']);
-            $counter = 1;
-            while (Service::where('slug', $slug)->exists()) {
-                $slug = Str::slug($validated['nama_layanan']) . '-' . $counter;
-                $counter++;
-            }
-
-            Service::create([
-                'nama_layanan' => $validated['nama_layanan'],
-                'slug' => $slug,
-                'deskripsi' => $validated['deskripsi'] ?? null,
-                'icon' => $validated['icon'] ?? null,
-                'aktif' => $validated['aktif'] ?? true,
-                'urutan' => $validated['urutan'],
-            ]);
-
-            return redirect()->route(''pages.admin.service.index')->with('success', 'Layanan berhasil ditambahkan.');
-        } catch (Exception $e) {
-            \Log::error('Error creating service: ' . $e->getMessage());
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menyimpan layanan: ' . $e->getMessage());
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('services', 'public');
         }
+
+        Service::create($validated);
+
+        return redirect()->route('admin.layanan')
+            ->with('success', 'Layanan berhasil ditambahkan.');
     }
 
     public function update(Request $request, $id)
@@ -59,67 +54,64 @@ class LayananController extends Controller
         $service = Service::findOrFail($id);
 
         $validated = $request->validate([
-            'nama_layanan' => ['required', 'string', 'max:255'],
-            'deskripsi' => ['nullable', 'string', 'max:1000'],
-            'icon' => ['nullable', 'string', 'max:255'],
-            'aktif' => ['boolean'],
-            'urutan' => ['required', 'integer', 'min:0'],
+            'name'       => 'required|string|max:255',
+            'image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'excerpt'    => 'nullable|string|max:500',
+            'deskripsi'  => 'nullable|string',
+            'is_active'  => 'boolean',
+            'sort_order' => 'integer|min:0',
         ]);
 
-        // Cek apakah urutan sudah ada (kecuali untuk service yang sedang diupdate)
-        if (Service::where('urutan', $validated['urutan'])->where('id', '!=', $service->id)->exists()) {
-            return redirect()->back()->withInput()->with('error', 'Nomor urutan sudah digunakan. Silakan pilih nomor urutan yang berbeda.');
-        }
-
-        try {
-            $slug = Str::slug($validated['nama_layanan']);
-            $counter = 1;
-            while (Service::where('slug', $slug)->where('id', '!=', $service->id)->exists()) {
-                $slug = Str::slug($validated['nama_layanan']) . '-' . $counter;
-                $counter++;
+        // Regenerate slug if name changed
+        if ($service->name !== $validated['name']) {
+            $slug    = Str::slug($validated['name']);
+            $count   = 1;
+            $newSlug = $slug;
+            while (Service::where('slug', $newSlug)->where('id', '!=', $id)->exists()) {
+                $newSlug = $slug . '-' . $count++;
             }
-
-            $service->update([
-                'nama_layanan' => $validated['nama_layanan'],
-                'slug' => $slug,
-                'deskripsi' => $validated['deskripsi'] ?? null,
-                'icon' => $validated['icon'] ?? null,
-                'aktif' => $validated['aktif'] ?? true,
-                'urutan' => $validated['urutan'],
-            ]);
-
-            return redirect()->route(''pages.admin.service.index')->with('success', 'Layanan berhasil diperbarui.');
-        } catch (Exception $e) {
-            \Log::error('Error updating service: ' . $e->getMessage());
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat memperbarui layanan: ' . $e->getMessage());
+            $validated['slug'] = $newSlug;
         }
+
+        $validated['is_active'] = $request->boolean('is_active');
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($service->image) {
+                Storage::disk('public')->delete($service->image);
+            }
+            $validated['image'] = $request->file('image')->store('services', 'public');
+        }
+
+        $service->update($validated);
+
+        return redirect()->route('admin.layanan')
+            ->with('success', 'Layanan berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         $service = Service::findOrFail($id);
 
-        try {
-            $service->delete();
-            return redirect()->route(''pages.admin.service.index')->with('success', 'Layanan berhasil dihapus.');
-        } catch (Exception $e) {
-            return redirect()->route(''pages.admin.service.index')->with('error', 'Terjadi kesalahan saat menghapus layanan.');
+        // Delete image if exists
+        if ($service->image) {
+            Storage::disk('public')->delete($service->image);
         }
+
+        $service->delete();
+
+        return redirect()->route('admin.layanan')
+            ->with('success', 'Layanan berhasil dihapus.');
     }
 
     public function toggleStatus($id)
     {
-        $service = Service::findOrFail($id);
+        $service            = Service::findOrFail($id);
+        $service->is_active = !$service->is_active;
+        $service->save();
 
-        try {
-            $service->update([
-                'aktif' => !$service->aktif,
-            ]);
-
-            $status = $service->aktif ? 'diaktifkan' : 'dinonaktifkan';
-            return redirect()->route(''pages.admin.service.index')->with('success', "Layanan berhasil {$status}.");
-        } catch (Exception $e) {
-            return redirect()->route(''pages.admin.service.index')->with('error', 'Terjadi kesalahan saat mengubah status layanan.');
-        }
+        return redirect()->route('admin.layanan')
+            ->with('success', 'Status layanan berhasil diubah.');
     }
 }

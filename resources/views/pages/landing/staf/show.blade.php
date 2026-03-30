@@ -25,9 +25,8 @@
             <div class="staff-hero">
                 <div class="staff-photo-wrapper">
                     <div class="photo-ring">
-                        <img src="{{ asset('assets/img/default-avatar.png') }}"
-                            alt="Foto Fahri"
-                            class="staff-photo">
+                        <img src="{{ asset($staf->foto) }}" alt="{{ $staf->nama }}"
+                            alt="Foto {{ $staf->nama }}" class="staff-photo">
                     </div>
                     <div class="status-badge">
                         <span class="status-dot"></span>
@@ -36,31 +35,46 @@
                 </div>
 
                 <div class="staff-identity">
-                    <span class="staff-profesi">Dokter Umum</span>
-                    <h2 class="staff-nama">Fahri, S.Ked</h2>
-                    <p class="staff-jabatan">Dokter Pelayanan Umum</p>
+                    <span class="staff-profesi">{{ $staf->profesi }}</span>
+                    <h2 class="staff-nama">{{ $staf->nama }}</h2>
+                    <p class="staff-jabatan">{{ $staf->jabatan }}</p>
 
                     <div class="staff-quick-meta">
-                        <span class="meta-pill">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                            </svg>
-                            NIP: 19900515 201903 1 001
-                        </span>
-                        <span class="meta-pill">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 8a16 16 0 0 0 6 6l.06-.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z" />
-                            </svg>
-                            0812-3456-7890
-                        </span>
-                        <span class="meta-pill">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                <polyline points="22 4 12 14.01 9 11.01" />
-                            </svg>
-                            Bergabung 2019
-                        </span>
+                        @if ($staf->nip)
+                            <span class="meta-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                                </svg>
+                                NIP: {{ $staf->nip }}
+                            </span>
+                        @endif
+
+                        @if ($staf->telepon)
+                            <span class="meta-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 8a16 16 0 0 0 6 6l.06-.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z" />
+                                </svg>
+                                {{ $staf->telepon }}
+                            </span>
+                        @endif
+
+                        @if ($staf->bergabung_sejak)
+                            <span class="meta-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                                Bergabung {{ \Carbon\Carbon::parse($staf->bergabung_sejak)->format('Y') }}
+                            </span>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -72,18 +86,15 @@
                 <div class="staff-col-left">
 
                     <!-- About -->
-                    <div class="content-block">
-                        <div class="block-label">
-                            <span class="label-line"></span>
-                            <span>Tentang</span>
+                    @if ($staf->deskripsi)
+                        <div class="content-block">
+                            <div class="block-label">
+                                <span class="label-line"></span>
+                                <span>Tentang</span>
+                            </div>
+                            <p class="staff-bio">{{ $staf->deskripsi }}</p>
                         </div>
-                        <p class="staff-bio">
-                            Dokter Fahri adalah tenaga medis berpengalaman di bidang pelayanan kesehatan dasar. 
-                            Fokus pada pencegahan penyakit, edukasi kesehatan masyarakat, dan pelayanan prima 
-                            untuk warga sekitar Puskesmas Binong. Aktif dalam program posyandu dan penyuluhan 
-                            kesehatan lingkungan.
-                        </p>
-                    </div>
+                    @endif
 
                     <!-- Contact Info -->
                     <div class="content-block">
@@ -92,41 +103,59 @@
                             <span>Kontak</span>
                         </div>
                         <ul class="info-list">
-                            <li class="info-item">
-                                <span class="info-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                                        <polyline points="22,6 12,13 2,6" />
-                                    </svg>
-                                </span>
-                                <div class="info-content">
-                                    <span class="info-label">Email</span>
-                                    <a href="mailto:fahri@puskesmasbinong.go.id" class="info-value">fahri@puskesmasbinong.go.id</a>
-                                </div>
-                            </li>
-                            <li class="info-item">
-                                <span class="info-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 8a16 16 0 0 0 6 6l.06-.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z" />
-                                    </svg>
-                                </span>
-                                <div class="info-content">
-                                    <span class="info-label">Telepon</span>
-                                    <a href="tel:081234567890" class="info-value">0812-3456-7890</a>
-                                </div>
-                            </li>
-                            <li class="info-item">
-                                <span class="info-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                </span>
-                                <div class="info-content">
-                                    <span class="info-label">Alamat</span>
-                                    <span class="info-value">Jl. Kesehatan No. 45, Binong, Kab. Tangerang</span>
-                                </div>
-                            </li>
+                            @if ($staf->email)
+                                <li class="info-item">
+                                    <span class="info-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path
+                                                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                            <polyline points="22,6 12,13 2,6" />
+                                        </svg>
+                                    </span>
+                                    <div class="info-content">
+                                        <span class="info-label">Email</span>
+                                        <a href="mailto:{{ $staf->email }}"
+                                            class="info-value">{{ $staf->email }}</a>
+                                    </div>
+                                </li>
+                            @endif
+
+                            @if ($staf->telepon)
+                                <li class="info-item">
+                                    <span class="info-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path
+                                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8 8a16 16 0 0 0 6 6l.06-.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z" />
+                                        </svg>
+                                    </span>
+                                    <div class="info-content">
+                                        <span class="info-label">Telepon</span>
+                                        <a href="tel:{{ $staf->telepon }}"
+                                            class="info-value">{{ $staf->telepon }}</a>
+                                    </div>
+                                </li>
+                            @endif
+
+                            @if ($staf->alamat)
+                                <li class="info-item">
+                                    <span class="info-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                            <circle cx="12" cy="10" r="3" />
+                                        </svg>
+                                    </span>
+                                    <div class="info-content">
+                                        <span class="info-label">Alamat</span>
+                                        <span class="info-value">{{ $staf->alamat }}</span>
+                                    </div>
+                                </li>
+                            @endif
                         </ul>
                     </div>
 
@@ -142,45 +171,72 @@
                             <span>Data Pribadi</span>
                         </div>
                         <dl class="data-grid">
-                            <div class="data-row">
-                                <dt>Jenis Kelamin</dt>
-                                <dd>Laki-laki</dd>
-                            </div>
-                            <div class="data-row">
-                                <dt>Tanggal Lahir</dt>
-                                <dd>15 Mei 1990</dd>
-                            </div>
-                            <div class="data-row">
-                                <dt>Pendidikan Terakhir</dt>
-                                <dd>S1 Kedokteran Umum</dd>
-                            </div>
-                            <div class="data-row">
-                                <dt>Bergabung Sejak</dt>
-                                <dd>15 Maret 2019</dd>
-                            </div>
-                            <div class="data-row">
-                                <dt>NIP</dt>
-                                <dd class="mono">19900515 201903 1 001</dd>
-                            </div>
-                            <div class="data-row">
-                                <dt>Jabatan</dt>
-                                <dd>Dokter Pelayanan Umum</dd>
-                            </div>
+                            @if ($staf->jenis_kelamin)
+                                <div class="data-row">
+                                    <dt>Jenis Kelamin</dt>
+                                    <dd>{{ $staf->jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan' }}</dd>
+                                </div>
+                            @endif
+
+                            @if ($staf->tanggal_lahir)
+                                <div class="data-row">
+                                    <dt>Tanggal Lahir</dt>
+                                    <dd>{{ \Carbon\Carbon::parse($staf->tanggal_lahir)->translatedFormat('d F Y') }}
+                                    </dd>
+                                </div>
+                            @endif
+
+                            @if ($staf->pendidikan_terakhir)
+                                <div class="data-row">
+                                    <dt>Pendidikan Terakhir</dt>
+                                    <dd>{{ $staf->pendidikan_terakhir }}</dd>
+                                </div>
+                            @endif
+
+                            @if ($staf->bergabung_sejak)
+                                <div class="data-row">
+                                    <dt>Bergabung Sejak</dt>
+                                    <dd>{{ \Carbon\Carbon::parse($staf->bergabung_sejak)->translatedFormat('d F Y') }}
+                                    </dd>
+                                </div>
+                            @endif
+
+                            @if ($staf->nip)
+                                <div class="data-row">
+                                    <dt>NIP</dt>
+                                    <dd class="mono">{{ $staf->nip }}</dd>
+                                </div>
+                            @endif
+
+                            @if ($staf->jabatan)
+                                <div class="data-row">
+                                    <dt>Jabatan</dt>
+                                    <dd>{{ $staf->jabatan }}</dd>
+                                </div>
+                            @endif
                         </dl>
                     </div>
 
                     <!-- Tenure Visual -->
-                    <div class="tenure-block">
-                        <div class="tenure-label">Masa Bergabung</div>
-                        <div class="tenure-years">
-                            6
-                            <span>Tahun</span>
+                    {{-- @if ($staf->bergabung_sejak)
+                        @php
+                            $tahunBergabung = \Carbon\Carbon::parse($staf->bergabung_sejak)->year;
+                            $masaKerja = \Carbon\Carbon::now()->year - $tahunBergabung;
+                            // Asumsi max karir 30 tahun untuk lebar progress bar
+                            $persenBar = min(($masaKerja / 30) * 100, 100);
+                        @endphp
+                        <div class="tenure-block">
+                            <div class="tenure-label">Masa Bergabung</div>
+                            <div class="tenure-years">
+                                {{ $masaKerja }}
+                                <span>Tahun</span>
+                            </div>
+                            <div class="tenure-sub">bersama tim kami</div>
+                            <div class="tenure-bar">
+                                <div class="tenure-fill" style="width: {{ $persenBar }}%"></div>
+                            </div>
                         </div>
-                        <div class="tenure-sub">bersama tim kami</div>
-                        <div class="tenure-bar">
-                            <div class="tenure-fill" style="width: 30%"></div>
-                        </div>
-                    </div>
+                    @endif --}}
 
                 </div>
             </div>
