@@ -5,6 +5,21 @@ use App\Http\Controllers\Landing;
 use App\Http\Controllers\Auth;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\LayananController;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+
+RateLimiter::for('contact-form', function (Request $request) {
+    // Nonaktifkan rate limit saat development
+    if (app()->environment('local')) {
+        return Limit::none();
+    }
+
+    return [
+        Limit::perMinutes(10, 3)->by($request->ip()),
+        Limit::perHour(5)->by($request->input('email')),
+    ];
+});
 
 Route::middleware('guest')->group(function () {
     // landing route
@@ -26,6 +41,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/galeri', [Landing\GalleryController::class, 'index'])->name('gallery');
     // kontak
     Route::get('/kontak', [Landing\ContactController::class, 'index'])->name('contact');
+    Route::post('/kontak', [Landing\ContactController::class, 'store'])
+        ->middleware('throttle:contact-form')
+        ->name('contact.store');
 
     // authentication routes
     Route::get('/login', [Auth\LoginController::class, 'showLoginForm']);

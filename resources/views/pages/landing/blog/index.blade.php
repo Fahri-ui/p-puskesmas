@@ -24,13 +24,15 @@
             <div class="row">
                 <!-- Main Content -->
                 <div class="col-lg-8">
+
                     <!-- Featured News -->
                     @if($featuredNews)
                     <div class="featured-news mb-5" data-aos="fade-up">
                         <div class="card border-0 shadow-lg overflow-hidden">
                             <div class="row g-0">
                                 <div class="col-md-6">
-                                    <div class="featured-image" style="height: 100%; min-height: 350px; background: url('{{ $featuredNews->image ? asset($featuredNews->image) : asset('MediTrust/assets/img/gallery/gallery-1.webp') }}') center/cover;">
+                                    {{-- Gunakan kolom `image` sebagai gambar utama --}}
+                                    <div class="featured-image" style="height: 100%; min-height: 350px; background: url('{{ $featuredNews->image ? asset($featuredNews->image) : asset('MediTrust/assets/img/gallery/gallery-1.webp') }}') center/cover; position: relative;">
                                         <div class="featured-badge" style="position: absolute; top: 20px; left: 20px; background-color: #349953; color: white; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600;">
                                             <i class="bi bi-star-fill me-1"></i>Terbaru
                                         </div>
@@ -76,7 +78,8 @@
                             <div class="card border-0 shadow-sm hover-card">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <div class="news-thumbnail" style="height: 100%; min-height: 200px; background: url('{{ $item->thumbnail ? asset($item->thumbnail) : ($item->image ? asset($item->image) : asset('MediTrust/assets/img/gallery/gallery-1.webp')) }}') center/cover; border-radius: 8px 0 0 8px;">
+                                        {{-- Tidak ada kolom thumbnail; gunakan `image` sebagai gantinya --}}
+                                        <div class="news-thumbnail" style="height: 100%; min-height: 200px; background: url('{{ $item->image ? asset($item->image) : asset('MediTrust/assets/img/gallery/gallery-1.webp') }}') center/cover; border-radius: 8px 0 0 8px; position: relative;">
                                             <div class="category-badge" style="position: absolute; top: 15px; left: 15px; background-color: #349953; color: white; padding: 5px 12px; border-radius: 15px; font-size: 11px; font-weight: 600;">
                                                 {{ $item->category?->nama_kategori ?? 'Umum' }}
                                             </div>
@@ -120,6 +123,7 @@
                         {{ $news->links('vendor.pagination.bootstrap-5') }}
                     </div>
                     @endif
+
                 </div>
 
                 <!-- Sidebar -->
@@ -136,7 +140,7 @@
 
                                     <form action="{{ route('blog') }}" method="GET" class="mb-3">
                                         <div class="input-group">
-                                            <input type="search" name="q" class="form-control" placeholder="Cari berita atau kategori..." value="{{ request('q') }}">
+                                            <input type="search" name="q" class="form-control" placeholder="Cari berita atau kategori..." value="{{ $search ?? '' }}">
                                             <button class="btn" type="submit" style="background-color: #349953; color: white;">
                                                 <i class="bi bi-search"></i>
                                             </button>
@@ -149,13 +153,17 @@
                                     <ul class="list-unstyled mb-0">
                                         <li class="mb-2">
                                             <a href="{{ route('blog') }}" class="d-flex justify-content-between align-items-center text-decoration-none {{ !$categoryId ? 'text-success fw-bold' : 'text-dark' }} hover-link">
-                                                <span><i class="bi bi-chevron-right me-2" style="color: {{ !$categoryId ? '#349953' : '#6c757d' }};"></i>Semua Kategori</span>
+                                                <span>
+                                                    <i class="bi bi-chevron-right me-2" style="color: {{ !$categoryId ? '#349953' : '#6c757d' }};"></i>Semua Kategori
+                                                </span>
                                             </a>
                                         </li>
                                         @foreach($categories as $category)
                                         <li class="mb-2">
                                             <a href="{{ route('blog', ['category' => $category->id]) }}" class="d-flex justify-content-between align-items-center text-decoration-none {{ $categoryId == $category->id ? 'text-success fw-bold' : 'text-dark' }} hover-link">
-                                                <span><i class="bi bi-chevron-right me-2" style="color: {{ $categoryId == $category->id ? '#349953' : '#6c757d' }};"></i>{{ $category->nama_kategori }}</span>
+                                                <span>
+                                                    <i class="bi bi-chevron-right me-2" style="color: {{ $categoryId == $category->id ? '#349953' : '#6c757d' }};"></i>{{ $category->nama_kategori }}
+                                                </span>
                                             </a>
                                         </li>
                                         @endforeach
@@ -164,7 +172,7 @@
                             </div>
                         </div>
 
-                        <!-- Popular News -->
+                        <!-- Berita Terbaru (Sidebar) -->
                         @if($popularNews->count() > 0)
                         <div class="sidebar-widget popular-news mb-4">
                             <div class="card border-0 shadow-sm">
@@ -176,7 +184,8 @@
                                     @foreach($popularNews as $popular)
                                     <div class="popular-item mb-3 pb-3 {{ !$loop->last ? 'border-bottom' : '' }}">
                                         <div class="d-flex">
-                                            <div class="popular-thumbnail me-3" style="width: 80px; height: 80px; background: url('{{ $popular->thumbnail ? asset($popular->thumbnail) : ($popular->image ? asset($popular->image) : asset('MediTrust/assets/img/gallery/gallery-1.webp')) }}') center/cover; border-radius: 8px; flex-shrink: 0;"></div>
+                                            {{-- Gunakan `image` sebagai gambar sidebar --}}
+                                            <div class="popular-thumbnail me-3" style="width: 80px; height: 80px; background: url('{{ $popular->image ? asset($popular->image) : asset('MediTrust/assets/img/gallery/gallery-1.webp') }}') center/cover; border-radius: 8px; flex-shrink: 0;"></div>
                                             <div>
                                                 <h6 class="mb-2" style="font-size: 14px; line-height: 1.4;">
                                                     <a href="{{ route('blog.show', $popular->slug) }}" class="text-dark text-decoration-none hover-link">
@@ -195,6 +204,7 @@
                             </div>
                         </div>
                         @endif
+
                     </aside>
                 </div>
             </div>
@@ -203,204 +213,37 @@
 
     <!-- Additional CSS -->
     <style>
-        /* Pagination Styling */
-        .pagination-wrapper {
-            margin-top: 40px;
-        }
-
-        .pagination-wrapper .pagination {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 5px;
-            padding: 0;
-            margin: 0;
-        }
-
-        .pagination-wrapper .page-link {
-            padding: 0.5rem 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid #dee2e6;
-            color: #6c757d;
-            background-color: #fff;
-            border-radius: 8px !important;
-            min-width: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        .pagination-wrapper .page-link:hover {
-            background-color: rgba(52, 153, 83, 0.1);
-            color: #349953;
-            border-color: #349953;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 153, 83, 0.15);
-        }
-
-        .pagination-wrapper .page-item.active .page-link {
-            background-color: #349953;
-            border-color: #349953;
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(52, 153, 83, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .pagination-wrapper .page-item.disabled .page-link {
-            color: #adb5bd;
-            background-color: #f8f9fa;
-            border-color: #dee2e6;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-            opacity: 0.6;
-        }
-
-        .pagination-wrapper .page-item:first-child .page-link,
-        .pagination-wrapper .page-item:last-child .page-link {
-            border-radius: 8px !important;
-        }
-
-        /* Responsive Pagination */
-        @media (max-width: 768px) {
-            .pagination-wrapper {
-                margin-top: 30px;
-            }
-
-            .pagination-wrapper .page-link {
-                padding: 0.4rem 0.7rem;
-                font-size: 0.875rem;
-                min-width: 36px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .pagination-wrapper .page-link {
-                padding: 0.35rem 0.5rem;
-                font-size: 0.8rem;
-                min-width: 32px;
-            }
-
-            .pagination-wrapper .page-link .d-none {
-                display: none !important;
-            }
-        }
-
-        .news-section {
-            background-color: #f8f9fa;
-        }
-
-        .featured-news .card {
-            transition: all 0.3s ease;
-        }
-
-        .featured-news .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(52, 153, 83, 0.2) !important;
-        }
-
-        .hover-link {
-            transition: color 0.3s ease;
-        }
-
-        .hover-link:hover {
-            color: #349953 !important;
-        }
-
-        .hover-card {
-            transition: all 0.3s ease;
-        }
-
-        .hover-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(52, 153, 83, 0.15) !important;
-        }
-
-        .news-thumbnail {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .category-badge {
-            transition: all 0.3s ease;
-        }
-
-        .hover-card:hover .category-badge {
-            transform: scale(1.1);
-        }
-
-        .category-btn {
-            transition: all 0.3s ease;
-        }
-
-        .category-btn:hover {
-            background-color: #349953 !important;
-            color: white !important;
-            border-color: #349953 !important;
-        }
-
-        .active-category {
-            box-shadow: 0 3px 10px rgba(52, 153, 83, 0.3);
-        }
-
-        .sidebar {
-            position: sticky;
-            top: 100px;
-        }
-
-        .sidebar-widget .card {
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-widget .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(52, 153, 83, 0.15) !important;
-        }
-
-        .popular-thumbnail {
-            transition: all 0.3s ease;
-        }
-
-        .popular-item:hover .popular-thumbnail {
-            transform: scale(1.05);
-        }
-
-        .btn {
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 153, 83, 0.3);
-        }
+        .pagination-wrapper { margin-top: 40px; }
+        .pagination-wrapper .pagination { display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; padding: 0; margin: 0; }
+        .pagination-wrapper .page-link { padding: 0.5rem 1rem; font-weight: 500; transition: all 0.3s ease; border: 1px solid #dee2e6; color: #6c757d; background-color: #fff; border-radius: 8px !important; min-width: 40px; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .pagination-wrapper .page-link:hover { background-color: rgba(52, 153, 83, 0.1); color: #349953; border-color: #349953; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(52, 153, 83, 0.15); }
+        .pagination-wrapper .page-item.active .page-link { background-color: #349953; border-color: #349953; color: #fff; box-shadow: 0 5px 15px rgba(52, 153, 83, 0.3); transform: translateY(-2px); }
+        .pagination-wrapper .page-item.disabled .page-link { color: #adb5bd; background-color: #f8f9fa; border-color: #dee2e6; cursor: not-allowed; transform: none; box-shadow: none; opacity: 0.6; }
+        .featured-news .card { transition: all 0.3s ease; }
+        .featured-news .card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(52, 153, 83, 0.2) !important; }
+        .hover-link { transition: color 0.3s ease; }
+        .hover-link:hover { color: #349953 !important; }
+        .hover-card { transition: all 0.3s ease; }
+        .hover-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(52, 153, 83, 0.15) !important; }
+        .news-thumbnail { position: relative; overflow: hidden; }
+        .category-badge { transition: all 0.3s ease; }
+        .hover-card:hover .category-badge { transform: scale(1.1); }
+        .sidebar { position: sticky; top: 100px; }
+        .sidebar-widget .card { transition: all 0.3s ease; }
+        .sidebar-widget .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(52, 153, 83, 0.15) !important; }
+        .popular-thumbnail { transition: all 0.3s ease; }
+        .popular-item:hover .popular-thumbnail { transform: scale(1.05); }
+        .btn { transition: all 0.3s ease; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(52, 153, 83, 0.3); }
 
         @media (max-width: 992px) {
-            .sidebar {
-                position: relative;
-                top: 0;
-                margin-top: 40px;
-            }
-
-            .featured-news .row {
-                flex-direction: column;
-            }
-
-            .featured-news .featured-image {
-                min-height: 250px !important;
-            }
+            .sidebar { position: relative; top: 0; margin-top: 40px; }
+            .featured-news .row { flex-direction: column; }
+            .featured-news .featured-image { min-height: 250px !important; }
         }
-
         @media (max-width: 768px) {
-            .news-item .row {
-                flex-direction: column;
-            }
-
-            .news-thumbnail {
-                min-height: 180px !important;
-                border-radius: 8px 8px 0 0 !important;
-            }
+            .news-item .row { flex-direction: column; }
+            .news-thumbnail { min-height: 180px !important; border-radius: 8px 8px 0 0 !important; }
         }
     </style>
 

@@ -84,14 +84,12 @@ class BlogController extends Controller
             'category_id'  => ['required', 'exists:blog_categories,id'],
             'content'      => ['required', 'string', 'min:10'],
             'excerpt'      => ['nullable', 'string', 'max:500'],
-            'status'       => ['required', 'in:draft,publish,archived'],
-            'thumbnail'    => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'status'       => ['required', 'in:draft,published'],
             'image'        => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'published_at' => ['nullable', 'date'],
         ]);
 
         try {
-            // Generate unique slug
             $slug = Str::slug($validated['title']);
             $counter = 1;
             while (Blog::where('slug', $slug)->exists()) {
@@ -108,23 +106,15 @@ class BlogController extends Controller
                 'status'      => $validated['status'],
             ];
 
-            // Handle published_at
-            if ($validated['status'] === 'publish') {
+            if ($validated['status'] === 'published') {
                 $data['published_at'] = $validated['published_at'] ?? now();
+            } else {
+                $data['published_at'] = null;
             }
 
-            // Handle thumbnail upload
-            if ($request->hasFile('thumbnail')) {
-                $file     = $request->file('thumbnail');
-                $filename = time() . '_thumb_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads/blogs'), $filename);
-                $data['thumbnail'] = 'uploads/blogs/' . $filename;
-            }
-
-            // Handle featured image upload
             if ($request->hasFile('image')) {
                 $file     = $request->file('image');
-                $filename = time() . '_featured_' . $file->getClientOriginalName();
+                $filename = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('uploads/blogs'), $filename);
                 $data['image'] = 'uploads/blogs/' . $filename;
             }
@@ -154,14 +144,12 @@ class BlogController extends Controller
             'category_id'  => ['required', 'exists:blog_categories,id'],
             'content'      => ['required', 'string', 'min:10'],
             'excerpt'      => ['nullable', 'string', 'max:500'],
-            'status'       => ['required', 'in:draft,publish,archived'],
-            'thumbnail'    => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'status'       => ['required', 'in:draft,published'],
             'image'        => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'published_at' => ['nullable', 'date'],
         ]);
 
         try {
-            // Generate unique slug (exclude current blog)
             $slug    = Str::slug($validated['title']);
             $counter = 1;
             while (Blog::where('slug', $slug)->where('id', '!=', $blog->id)->exists()) {
@@ -178,33 +166,18 @@ class BlogController extends Controller
                 'status'      => $validated['status'],
             ];
 
-            // Handle published_at
-            if ($validated['status'] === 'publish') {
+            if ($validated['status'] === 'published') {
                 $data['published_at'] = $validated['published_at'] ?? $blog->published_at ?? now();
             } else {
                 $data['published_at'] = null;
             }
 
-            // Handle thumbnail upload
-            if ($request->hasFile('thumbnail')) {
-                // Hapus thumbnail lama
-                if ($blog->thumbnail && file_exists(public_path($blog->thumbnail))) {
-                    unlink(public_path($blog->thumbnail));
-                }
-                $file     = $request->file('thumbnail');
-                $filename = time() . '_thumb_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads/blogs'), $filename);
-                $data['thumbnail'] = 'uploads/blogs/' . $filename;
-            }
-
-            // Handle featured image upload
             if ($request->hasFile('image')) {
-                // Hapus image lama
                 if ($blog->image && file_exists(public_path($blog->image))) {
                     unlink(public_path($blog->image));
                 }
                 $file     = $request->file('image');
-                $filename = time() . '_featured_' . $file->getClientOriginalName();
+                $filename = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('uploads/blogs'), $filename);
                 $data['image'] = 'uploads/blogs/' . $filename;
             }
@@ -222,12 +195,7 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
 
         try {
-            // Hapus thumbnail jika ada
-            if ($blog->thumbnail && file_exists(public_path($blog->thumbnail))) {
-                unlink(public_path($blog->thumbnail));
-            }
-
-            // Hapus featured image jika ada
+            // Hapus image jika ada
             if ($blog->image && file_exists(public_path($blog->image))) {
                 unlink(public_path($blog->image));
             }
