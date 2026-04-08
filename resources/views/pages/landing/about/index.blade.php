@@ -22,41 +22,25 @@
             <div class="row gy-4 align-items-center">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
                     <div class="image-wrapper">
-                        <img src="{{asset('MediTrust/assets/img/gallery/gallery-1.webp')}}" class="img-fluid rounded-4" alt="Tentang Kami">
-                        <div class="image-badge">
+                        @if(!empty($profil) && $profil->image)
+                            <img src="{{ Storage::url($profil->image) }}" class="img-fluid rounded-4" alt="{{ $profil->title }}">
+                        @else
+                            <img src="{{ asset('MediTrust/assets/img/gallery/gallery-1.webp') }}" class="img-fluid rounded-4" alt="Tentang Kami">
+                        @endif
+                        {{-- <div class="image-badge">
                             <i class="bi bi-patch-check-fill"></i>
                             <span>Terpercaya Sejak 2014</span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
                     <div class="content-wrapper">
-                        <h2 class="section-title" style="margin-bottom: -30px; color:#349953;">Dedikasi Sepenuh Hati untuk Kesehatan Anda</h2>
-                        <p class="lead-text">Memberikan pelayanan kesehatan yang ramah, cepat, dan berkualitas bagi masyarakat </p>
+                        <h2 class="section-title" style="margin-bottom: -30px; color:#349953;">
+                            {{ $profil->title ?? 'Dedikasi Sepenuh Hati untuk Kesehatan Anda' }}
+                        </h2>
                         <p class="description-text">
-                            Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan individu
-                            dan institusi dalam meningkatkan standar kesehatan mereka. Tim profesional kami
-                            yang berpengalaman siap memberikan solusi terbaik yang disesuaikan dengan
-                            kebutuhan Anda.
+                            {!! $profil && $profil->description ? nl2br(e($profil->description)) : 'Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan individu dan institusi dalam meningkatkan standar kesehatan mereka. Tim profesional kami yang berpengalaman siap memberikan solusi terbaik yang disesuaikan dengan kebutuhan Anda.' !!}
                         </p>
-                        <div class="feature-list">
-                            <div class="feature-item">
-                                <i class="bi bi-check-circle-fill"></i>
-                                <span>Layanan berkualitas internasional</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="bi bi-check-circle-fill"></i>
-                                <span>Tenaga medis berpengalaman dan bersertifikat</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="bi bi-check-circle-fill"></i>
-                                <span>Teknologi medis modern dan canggih</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="bi bi-check-circle-fill"></i>
-                                <span>Komitmen pada kepuasan pasien</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -82,9 +66,7 @@
                         </div>
                         <h3 class="vm-title">Visi Kami</h3>
                         <p class="vm-description">
-                            Menjadi institusi kesehatan terdepan di Indonesia yang diakui secara nasional
-                            dan internasional, dengan standar pelayanan berkelas dunia yang mengutamakan
-                            keselamatan, kenyamanan, dan kesembuhan pasien.
+                            {{ $visi ? $visi->content : 'Menjadi institusi kesehatan terdepan di Indonesia yang diakui secara nasional dan internasional, dengan standar pelayanan berkelas dunia yang mengutamakan keselamatan, kenyamanan, dan kesembuhan pasien.' }}
                         </p>
                         <div class="vm-decoration"></div>
                     </div>
@@ -99,11 +81,15 @@
                         </div>
                         <h3 class="vm-title">Misi Kami</h3>
                         <ul class="vm-list">
-                            <li><i class="bi bi-check2-circle"></i>Memberikan pelayanan kesehatan yang berkualitas, aman, dan terjangkau</li>
-                            <li><i class="bi bi-check2-circle"></i>Mengembangkan SDM yang kompeten dan berintegritas tinggi</li>
-                            <li><i class="bi bi-check2-circle"></i>Menerapkan teknologi medis terkini untuk hasil optimal</li>
-                            <li><i class="bi bi-check2-circle"></i>Membangun kemitraan strategis untuk peningkatan kualitas layanan</li>
-                            <li><i class="bi bi-check2-circle"></i>Berkontribusi aktif dalam program kesehatan masyarakat</li>
+                            @forelse($misis as $misi)
+                                <li><i class="bi bi-check2-circle"></i>{{ $misi->content }}</li>
+                            @empty
+                                <li><i class="bi bi-check2-circle"></i>Memberikan pelayanan kesehatan yang berkualitas, aman, dan terjangkau</li>
+                                <li><i class="bi bi-check2-circle"></i>Mengembangkan SDM yang kompeten dan berintegritas tinggi</li>
+                                <li><i class="bi bi-check2-circle"></i>Menerapkan teknologi medis terkini untuk hasil optimal</li>
+                                <li><i class="bi bi-check2-circle"></i>Membangun kemitraan strategis untuk peningkatan kualitas layanan</li>
+                                <li><i class="bi bi-check2-circle"></i>Berkontribusi aktif dalam program kesehatan masyarakat</li>
+                            @endforelse
                         </ul>
                         <div class="vm-decoration"></div>
                     </div>

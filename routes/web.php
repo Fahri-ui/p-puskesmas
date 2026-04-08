@@ -10,11 +10,6 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 
 RateLimiter::for('contact-form', function (Request $request) {
-    // Nonaktifkan rate limit saat development
-    if (app()->environment('local')) {
-        return Limit::none();
-    }
-
     return [
         Limit::perMinutes(10, 3)->by($request->ip()),
         Limit::perHour(5)->by($request->input('email')),
@@ -91,5 +86,23 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/gallery/{id}/edit', [Admin\GalleryController::class, 'edit'])->name('admin.gallery.edit');
         Route::put('/admin/gallery/{id}', [Admin\GalleryController::class, 'update'])->name('admin.gallery.update');
         Route::delete('/admin/gallery/{id}', [Admin\GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
+        // message
+        Route::get('/admin/message', [Admin\MessageController::class, 'index'])->name('admin.message');
+        Route::delete('/messages/{message}', [Admin\MessageController::class, 'destroy'])->name('admin.messages.destroy');
+        // profil
+        Route::get('/admin/profil', [Admin\ProfilController::class, 'index'])->name('admin.profil');
+        Route::post('/admin/profil', [Admin\ProfilController::class, 'store'])->name('admin.profil.store');
+        Route::get('/admin/profil/edit', [Admin\ProfilController::class, 'edit'])->name('admin.profil.edit');
+        Route::put('/admin/profil', [Admin\ProfilController::class, 'update'])->name('admin.profil.update');
+        // Delete route dihilangkan dari UI, tapi bisa tetap ada untuk keperluan teknis
+        // Route::delete('/profil/{profil}', [Admin\ProfilController::class, 'destroy'])->name('admin.profil.destroy');
+        // VisiMisi
+        Route::get('/admin/visi-misi', [Admin\VisiMisiController::class, 'index'])->name('admin.visi-misi.index');
+        Route::post('/admin/visi-misi/visi', [Admin\VisiMisiController::class, 'storeVisi'])->name('admin.visi-misi.store-visi');
+        Route::post('/admin/visi-misi/misi', [Admin\VisiMisiController::class, 'storeMisi'])->name('admin.visi-misi.store-misi');
+        Route::put('/admin/visi-misi/visi/{visi}', [Admin\VisiMisiController::class, 'updateVisi'])->name('admin.visi-misi.update-visi');
+        Route::put('/admin/visi-misi/misi/{misi}', [Admin\VisiMisiController::class, 'updateMisi'])->name('admin.visi-misi.update-misi');
+        Route::delete('/admin/visi-misi/misi/{misi}', [Admin\VisiMisiController::class, 'destroyMisi'])->name('admin.visi-misi.destroy-misi');
+
     });
 });
