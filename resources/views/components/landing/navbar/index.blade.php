@@ -4,7 +4,7 @@
         <li><x-landing.navbar.nav-link href="{{ route('about') }}" route="about">Profil</x-landing.navbar.nav-link></li>
         <li><x-landing.navbar.nav-link href="{{ route('service') }}" route="service">Layanan</x-landing.navbar.nav-link></li>
         <li><x-landing.navbar.nav-link href="{{ route('inovasi') }}" route="inovasi">Inovasi</x-landing.navbar.nav-link></li>
-        <li><x-landing.navbar.nav-link href="{{ route('staf') }}" route="staf">Staff</x-landing.navbar.nav-link></li>
+        <li><x-landing.navbar.nav-link href="{{ route('staf') }}" route="staf">Staf</x-landing.navbar.nav-link></li>
         <li><x-landing.navbar.nav-link href="{{ route('blog') }}" route="blog">Berita</x-landing.navbar.nav-link></li>
         <li><x-landing.navbar.nav-link href="{{ route('gallery') }}" route="gallery">Galeri</x-landing.navbar.nav-link></li>
         <li><x-landing.navbar.nav-link href="{{ route('contact') }}" route="contact">Kontak</x-landing.navbar.nav-link></li>

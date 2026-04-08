@@ -62,8 +62,7 @@
                     <select name="status" required
                         class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none">
                         <option value="draft" {{ old('status', $blog->status)=='draft' ? 'selected' : '' }}>Draft</option>
-                        <option value="publish" {{ old('status', $blog->status)=='publish' ? 'selected' : '' }}>Publish</option>
-                        <option value="archived" {{ old('status', $blog->status)=='archived' ? 'selected' : '' }}>Archived</option>
+                        <option value="published" {{ old('status', $blog->status)=='published' ? 'selected' : '' }}>published</option>
                     </select>
                     @error('status')
                         <p class="text-red-600 text-xs mt-1">{{ $message }}</p>

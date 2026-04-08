@@ -6,24 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Staf;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Exception;
 
 class StafController extends Controller
 {
-
     public function index()
     {
-        return view('pages.admin.staf');
-    }
-    // public function index()
-    // {
-    //     $staf = Staf::orderBy('urutan', 'asc')->get();
-    //     $totalStaf = $staf->count();
-    //     $stafAktif = $staf->where('status', 'Aktif')->count();
-    //     $stafTidakAktif = $staf->where('status', 'Tidak Aktif')->count();
+        $staf        = Staf::orderBy('urutan', 'asc')->paginate(10);
+        $totalStaf   = Staf::count();
 
-    //     return view('pages.admin.staf', compact('staf', 'totalStaf', 'stafAktif', 'stafTidakAktif'));
-    // }
+        return view('pages.admin.staff.index', compact('staf', 'totalStaf'));
+    }
 
     public function show($id)
     {
@@ -39,46 +33,67 @@ class StafController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'jabatan' => 'required|string|max:255',
-            'bidang' => 'nullable|string|max:255',
-            'deskripsi' => 'nullable|string|max:1000',
-            'email' => 'nullable|email|max:255|unique:staf,email',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'required|in:Aktif,Tidak Aktif',
-            'urutan' => 'required|integer|min:0',
-        ]);
-
         try {
+            // Cek urutan sudah dipakai
+            $urutanSudahAda = Staf::where('urutan', $request->urutan)->exists();
+            if ($urutanSudahAda) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Urutan telah dipilih, harap gunakan urutan lain.');
+            }
+
+            $validated = $request->validate([
+                'nama'                => 'required|string|max:255',
+                'jabatan'             => 'required|string|max:255',
+                'profesi'             => 'nullable|string|max:255',
+                'nip'                 => 'nullable|string|max:100|unique:staf,nip',
+                'email'               => 'nullable|email|max:255|unique:staf,email',
+                'telepon'             => 'nullable|string|max:20',
+                'jenis_kelamin'       => 'nullable|in:Laki-laki,Perempuan',
+                'tanggal_lahir'       => 'nullable|date',
+                'pendidikan_terakhir' => 'nullable|string|max:255',
+                'bergabung_sejak'     => 'nullable|date',
+                'alamat'              => 'nullable|string|max:1000',
+                'deskripsi'           => 'nullable|string|max:2000',
+                'foto'                => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'urutan'              => 'required|integer|min:0',
+            ], [
+                'nip.unique'      => 'NIP sudah ada, harap rubah nomor NIP.',
+                'email.unique'    => 'Email telah terdaftar.',
+                'urutan.required' => 'Harap pilih urutan.',
+                'urutan.integer'  => 'Harap pilih urutan.',
+                'urutan.min'      => 'Harap pilih urutan.',
+            ]);
+
             $fotoPath = null;
             if ($request->hasFile('foto')) {
-                $file = $request->file('foto');
-                $destinationPath = public_path('uploads/staf');
-                if (!file_exists($destinationPath)) {
-                    mkdir($destinationPath, 0755, true);
-                }
-                $originalName = preg_replace('/[^A-Za-z0-9\-_.]/', '_', $file->getClientOriginalName());
-                $fileName = uniqid() . '_' . $originalName;
-                $file->move($destinationPath, $fileName);
-                $fotoPath = 'uploads/staf/' . $fileName;
+                $fotoPath = self::uploadFoto($request->file('foto'));
             }
 
             Staf::create([
-                'name' => $validated['name'],
-                'jabatan' => $validated['jabatan'],
-                'bidang' => $validated['bidang'] ?? null,
-                'deskripsi' => $validated['deskripsi'] ?? null,
-                'email' => $validated['email'] ?? null,
-                'foto' => $fotoPath,
-                'status' => $validated['status'],
-                'urutan' => $validated['urutan'],
+                'nama'                => $validated['nama'],
+                'jabatan'             => $validated['jabatan'],
+                'profesi'             => $validated['profesi']             ?? null,
+                'nip'                 => $validated['nip']                 ?? null,
+                'email'               => $validated['email']               ?? null,
+                'telepon'             => $validated['telepon']             ?? null,
+                'jenis_kelamin'       => $validated['jenis_kelamin']       ?? null,
+                'tanggal_lahir'       => $validated['tanggal_lahir']       ?? null,
+                'pendidikan_terakhir' => $validated['pendidikan_terakhir'] ?? null,
+                'bergabung_sejak'     => $validated['bergabung_sejak']     ?? null,
+                'alamat'              => $validated['alamat']              ?? null,
+                'deskripsi'           => $validated['deskripsi']           ?? null,
+                'foto'                => $fotoPath,
+                'urutan'              => $validated['urutan'],
             ]);
 
-            return redirect()->route('pages.admin.staf')->with('success', 'Staf berhasil ditambahkan.');
+            return redirect()->route('admin.staf')->with('success', 'Staf berhasil ditambahkan.');
+        } catch (ValidationException $e) {
+            // Ambil pesan error pertama dari semua field
+            $firstError = collect($e->errors())->flatten()->first();
+            return redirect()->back()->withInput()->with('error', $firstError);
         } catch (Exception $e) {
-            \Log::error('Error creating staf: ' . $e->getMessage());
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menambahkan staf: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -86,54 +101,71 @@ class StafController extends Controller
     {
         $staf = Staf::findOrFail($id);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'jabatan' => 'required|string|max:255',
-            'bidang' => 'nullable|string|max:255',
-            'deskripsi' => 'nullable|string|max:1000',
-            'email' => ['nullable','email','max:255', Rule::unique('staf', 'email')->ignore($staf->id)],
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'required|in:Aktif,Tidak Aktif',
-            'urutan' => 'required|integer|min:0',
-        ]);
-
         try {
+            // Cek urutan sudah dipakai staf lain
+            $urutanSudahAda = Staf::where('urutan', $request->urutan)
+                ->where('id', '!=', $id)
+                ->exists();
+            if ($urutanSudahAda) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Urutan telah dipilih, harap gunakan urutan lain.');
+            }
+
+            $validated = $request->validate([
+                'nama'                => 'required|string|max:255',
+                'jabatan'             => 'required|string|max:255',
+                'profesi'             => 'nullable|string|max:255',
+                'nip'                 => ['nullable', 'string', 'max:100', Rule::unique('staf', 'nip')->ignore($staf->id)],
+                'email'               => ['nullable', 'email', 'max:255', Rule::unique('staf', 'email')->ignore($staf->id)],
+                'telepon'             => 'nullable|string|max:20',
+                'jenis_kelamin'       => 'nullable|in:Laki-laki,Perempuan',
+                'tanggal_lahir'       => 'nullable|date',
+                'pendidikan_terakhir' => 'nullable|string|max:255',
+                'bergabung_sejak'     => 'nullable|date',
+                'alamat'              => 'nullable|string|max:1000',
+                'deskripsi'           => 'nullable|string|max:2000',
+                'foto'                => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'urutan'              => 'required|integer|min:0',
+            ], [
+                'nip.unique'      => 'NIP sudah ada, harap rubah nomor NIP.',
+                'email.unique'    => 'Email telah terdaftar.',
+                'urutan.required' => 'Harap pilih urutan.',
+                'urutan.integer'  => 'Harap pilih urutan.',
+                'urutan.min'      => 'Harap pilih urutan.',
+            ]);
+
             $fotoPath = $staf->foto;
             if ($request->hasFile('foto')) {
-                // Hapus foto lama jika ada (disimpan sebagai path relatif e.g. uploads/staf/xxx)
-                if ($staf->foto) {
-                    $old = public_path($staf->foto);
-                    if (file_exists($old)) {
-                        @unlink($old);
-                    }
+                if ($staf->foto && file_exists(public_path($staf->foto))) {
+                    @unlink(public_path($staf->foto));
                 }
-
-                $file = $request->file('foto');
-                $destinationPath = public_path('uploads/staf');
-                if (!file_exists($destinationPath)) {
-                    mkdir($destinationPath, 0755, true);
-                }
-                $originalName = preg_replace('/[^A-Za-z0-9\-_.]/', '_', $file->getClientOriginalName());
-                $fileName = uniqid() . '_' . $originalName;
-                $file->move($destinationPath, $fileName);
-                $fotoPath = 'uploads/staf/' . $fileName;
+                $fotoPath = self::uploadFoto($request->file('foto'));
             }
 
             $staf->update([
-                'name' => $validated['name'],
-                'jabatan' => $validated['jabatan'],
-                'bidang' => $validated['bidang'] ?? null,
-                'deskripsi' => $validated['deskripsi'] ?? null,
-                'email' => $validated['email'] ?? null,
-                'foto' => $fotoPath,
-                'status' => $validated['status'],
-                'urutan' => $validated['urutan'],
+                'nama'                => $validated['nama'],
+                'jabatan'             => $validated['jabatan'],
+                'profesi'             => $validated['profesi']             ?? null,
+                'nip'                 => $validated['nip']                 ?? null,
+                'email'               => $validated['email']               ?? null,
+                'telepon'             => $validated['telepon']             ?? null,
+                'jenis_kelamin'       => $validated['jenis_kelamin']       ?? null,
+                'tanggal_lahir'       => $validated['tanggal_lahir']       ?? null,
+                'pendidikan_terakhir' => $validated['pendidikan_terakhir'] ?? null,
+                'bergabung_sejak'     => $validated['bergabung_sejak']     ?? null,
+                'alamat'              => $validated['alamat']              ?? null,
+                'deskripsi'           => $validated['deskripsi']           ?? null,
+                'foto'                => $fotoPath,
+                'urutan'              => $validated['urutan'],
             ]);
 
-            return redirect()->route('pages.admin.staf')->with('success', 'Staf berhasil diperbarui.');
+            return redirect()->route('admin.staf')->with('success', 'Staf berhasil diperbarui.');
+        } catch (ValidationException $e) {
+            $firstError = collect($e->errors())->flatten()->first();
+            return redirect()->back()->withInput()->with('error', $firstError);
         } catch (Exception $e) {
-            \Log::error('Error updating staf: ' . $e->getMessage());
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat memperbarui staf: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -142,34 +174,26 @@ class StafController extends Controller
         $staf = Staf::findOrFail($id);
 
         try {
-            // Hapus foto jika ada (file berada di public/uploads/staf/...)
-            if ($staf->foto) {
-                $old = public_path($staf->foto);
-                if (file_exists($old)) {
-                    @unlink($old);
-                }
+            if ($staf->foto && file_exists(public_path($staf->foto))) {
+                @unlink(public_path($staf->foto));
             }
-
             $staf->delete();
-            return redirect()->route('pages.admin.staf')->with('success', 'Staf berhasil dihapus.');
+            return redirect()->route('admin.staf')->with('success', 'Staf berhasil dihapus.');
         } catch (Exception $e) {
-            \Log::error('Error deleting staf: ' . $e->getMessage());
-            return redirect()->route('pages.admin.staf')->with('error', 'Terjadi kesalahan saat menghapus staf: ' . $e->getMessage());
+            return redirect()->route('admin.staf')->with('error', 'Terjadi kesalahan saat menghapus staf.');
         }
     }
 
-    public function toggleStatus($id)
+    // ─── Helper ───────────────────────────────────────────────────────────────
+
+    private static function uploadFoto($file): string
     {
-        $staf = Staf::findOrFail($id);
-
-        try {
-            $staf->update([
-                'status' => $staf->status === 'Aktif' ? 'Tidak Aktif' : 'Aktif'
-            ]);
-
-            return redirect()->route('pages.admin.staf')->with('success', 'Status staf berhasil diubah.');
-        } catch (Exception $e) {
-            return redirect()->route('pages.admin.staf')->with('error', 'Terjadi kesalahan saat mengubah status staf.');
+        $dest = public_path('uploads/staf');
+        if (!file_exists($dest)) {
+            mkdir($dest, 0755, true);
         }
+        $name = uniqid() . '_' . preg_replace('/[^A-Za-z0-9\-_.]/', '_', $file->getClientOriginalName());
+        $file->move($dest, $name);
+        return 'uploads/staf/' . $name;
     }
 }

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends Model
 {
@@ -17,7 +16,6 @@ class Blog extends Model
         'slug',
         'content',
         'excerpt',
-        'thumbnail',
         'image',
         'category_id',
         'status',
@@ -28,17 +26,18 @@ class Blog extends Model
         'published_at' => 'datetime',
     ];
 
-    // Relationship
+    // App\Models\Blog.php
     public function category()
     {
-        return $this->belongsTo(BlogCategory::class, 'category_id');
+        return $this->belongsTo(BlogCategory::class, 'category_id'); // ✅
     }
 
-    // Scope untuk blog yang dipublish
     public function scopePublished($query)
     {
-        return $query->where('status', 'publish')
-                     ->whereNotNull('published_at')
-                     ->where('published_at', '<=', now());
+        return $query->where('status', 'published')
+            ->where(function ($q) {
+                $q->whereNull('published_at')
+                    ->orWhere('published_at', '<=', now());
+            });
     }
 }

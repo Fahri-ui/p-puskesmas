@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
+            $table->string('title');
             $table->string('slug')->unique();
-            $table->text('isi');
-            $table->string('gambar')->nullable();
-            $table->foreignId('kategori_id')->constrained('blog_categories')->onDelete('cascade');
-            $table->foreignId('penulis_id')->constrained('users')->onDelete('cascade');
-            $table->enum('status', ['draft', 'publish', 'archived'])->default('draft');
-            $table->timestamp('tanggal_publish')->nullable();
+            $table->longText('content');
+            $table->text('excerpt')->nullable();
+            $table->string('image')->nullable();
+            $table->foreignId('category_id')->constrained('blog_categories')->cascadeOnDelete();
+            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }

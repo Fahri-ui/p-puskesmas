@@ -23,18 +23,27 @@
 
             <div class="row gy-4">
 
+                @forelse ($stafs as $staf)
                 <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="doctor-card">
                         <div class="doctor-image">
-                            <img src="{{asset('MediTrust/assets/img/health/staff-3.webp')}}" alt="Dr. Jennifer Martinez" class="img-fluid">
+                            <img src="{{ asset($staf->foto) }}" alt="{{ $staf->nama }}"
+                                alt="{{ $staf->nama }}"
+                                class="img-fluid">
                         </div>
                         <div class="doctor-content">
-                            <h4 class="doctor-name">Fahri, S.Ked</h4>
-                            <span class="doctor-specialty">Dokter Umum</span>
-                            <a href="{{ route('staf.show', 1) }}" class="btn-appointment">Selengkapnya</a>
+                            <h4 class="doctor-name">{{ $staf->nama }}</h4>
+                            <span class="doctor-specialty">{{ $staf->profesi }}</span>
+                            <a href="{{ route('staf.show', $staf->id) }}" class="btn-appointment">Selengkapnya</a>
                         </div>
                     </div>
                 </div><!-- End Doctor Card -->
+                @empty
+                <div class="col-12 text-center">
+                    <p class="text-muted">Belum ada data staf tersedia.</p>
+                </div>
+                @endforelse
+
             </div>
 
         </div>

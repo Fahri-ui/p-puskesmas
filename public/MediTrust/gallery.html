@@ -9,8 +9,8 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="{{asset()}}assets/img/favicon.png" rel="icon">
+  <link href="{{asset()}}assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -44,7 +44,7 @@
 
       <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.webp" alt=""> -->
+        <!-- <img src="{{asset()}}assets/img/logo.webp" alt=""> -->
         <svg class="my-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g id="bgCarrier" stroke-width="0"></g>
           <g id="tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -155,12 +155,12 @@
             <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-nature">
               <div class="gallery-card">
                 <div class="gallery-img">
-                  <img src="assets/img/gallery/gallery-1.webp" class="img-fluid" alt="Gallery Image" loading="lazy">
+                  <img src="{{asset('MediTrust/assets/img/gallery/gallery-1.webp')}}" class="img-fluid" alt="Gallery Image" loading="lazy">
                   <div class="gallery-overlay">
                     <div class="gallery-info">
                       <h4>Nature Exploration</h4>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      <a href="assets/img/gallery/gallery-1.webp" class="glightbox gallery-link" data-gallery="gallery-images">
+                      <a href="{{asset('MediTrust/assets/img/gallery/gallery-1.webp')}}" class="glightbox gallery-link" data-gallery="gallery-images">
                         <i class="bi bi-plus-circle"></i>
                       </a>
                     </div>
@@ -172,12 +172,12 @@
             <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-architecture">
               <div class="gallery-card">
                 <div class="gallery-img">
-                  <img src="assets/img/gallery/gallery-2.webp" class="img-fluid" alt="Gallery Image" loading="lazy">
+                  <img src="{{asset('MediTrust/assets/img/gallery/gallery-2.webp')}}" class="img-fluid" alt="Gallery Image" loading="lazy">
                   <div class="gallery-overlay">
                     <div class="gallery-info">
                       <h4>Modern Architecture</h4>
                       <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                      <a href="assets/img/gallery/gallery-2.webp" class="glightbox gallery-link" data-gallery="gallery-images">
+                      <a href="{{asset('MediTrust/assets/img/gallery/gallery-2.webp')}}" class="glightbox gallery-link" data-gallery="gallery-images">
                         <i class="bi bi-plus-circle"></i>
                       </a>
                     </div>
@@ -189,12 +189,12 @@
             <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-people">
               <div class="gallery-card">
                 <div class="gallery-img">
-                  <img src="assets/img/gallery/gallery-3.webp" class="img-fluid" alt="Gallery Image" loading="lazy">
+                  <img src="{{asset('MediTrust/assets/img/gallery/gallery-3.webp')}}" class="img-fluid" alt="Gallery Image" loading="lazy">
                   <div class="gallery-overlay">
                     <div class="gallery-info">
                       <h4>Urban Life</h4>
                       <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris.</p>
-                      <a href="assets/img/gallery/gallery-3.webp" class="glightbox gallery-link" data-gallery="gallery-images">
+                      <a href="{{asset('MediTrust/assets/img/gallery/gallery-3.webp')}}" class="glightbox gallery-link" data-gallery="gallery-images">
                         <i class="bi bi-plus-circle"></i>
                       </a>
                     </div>
@@ -203,90 +203,6 @@
               </div>
             </div><!-- End Gallery Item -->
 
-            <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-travel">
-              <div class="gallery-card">
-                <div class="gallery-img">
-                  <img src="assets/img/gallery/gallery-4.webp" class="img-fluid" alt="Gallery Image" loading="lazy">
-                  <div class="gallery-overlay">
-                    <div class="gallery-info">
-                      <h4>Travel Destinations</h4>
-                      <p>Aenean lacinia bibendum nulla sed consectetur.</p>
-                      <a href="assets/img/gallery/gallery-4.webp" class="glightbox gallery-link" data-gallery="gallery-images">
-                        <i class="bi bi-plus-circle"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Gallery Item -->
-
-            <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-nature">
-              <div class="gallery-card">
-                <div class="gallery-img">
-                  <img src="assets/img/gallery/gallery-5.webp" class="img-fluid" alt="Gallery Image" loading="lazy">
-                  <div class="gallery-overlay">
-                    <div class="gallery-info">
-                      <h4>Natural Wonders</h4>
-                      <p>Cras mattis consectetur purus sit amet fermentum.</p>
-                      <a href="assets/img/gallery/gallery-5.webp" class="glightbox gallery-link" data-gallery="gallery-images">
-                        <i class="bi bi-plus-circle"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Gallery Item -->
-
-            <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-architecture">
-              <div class="gallery-card">
-                <div class="gallery-img">
-                  <img src="assets/img/gallery/gallery-6.webp" class="img-fluid" alt="Gallery Image" loading="lazy">
-                  <div class="gallery-overlay">
-                    <div class="gallery-info">
-                      <h4>Historic Buildings</h4>
-                      <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                      <a href="assets/img/gallery/gallery-6.webp" class="glightbox gallery-link" data-gallery="gallery-images">
-                        <i class="bi bi-plus-circle"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Gallery Item -->
-
-            <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-people">
-              <div class="gallery-card">
-                <div class="gallery-img">
-                  <img src="assets/img/gallery/gallery-7.webp" class="img-fluid" alt="Gallery Image" loading="lazy">
-                  <div class="gallery-overlay">
-                    <div class="gallery-info">
-                      <h4>Community Events</h4>
-                      <p>Donec ullamcorper nulla non metus auctor fringilla.</p>
-                      <a href="assets/img/gallery/gallery-7.webp" class="glightbox gallery-link" data-gallery="gallery-images">
-                        <i class="bi bi-plus-circle"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Gallery Item -->
-
-            <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-travel">
-              <div class="gallery-card">
-                <div class="gallery-img">
-                  <img src="assets/img/gallery/gallery-8.webp" class="img-fluid" alt="Gallery Image" loading="lazy">
-                  <div class="gallery-overlay">
-                    <div class="gallery-info">
-                      <h4>Exotic Locations</h4>
-                      <p>Sed posuere consectetur est at lobortis.</p>
-                      <a href="assets/img/gallery/gallery-8.webp" class="glightbox gallery-link" data-gallery="gallery-images">
-                        <i class="bi bi-plus-circle"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Gallery Item -->
           </div><!-- End Gallery Container -->
         </div>
 

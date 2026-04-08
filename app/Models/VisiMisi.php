@@ -5,16 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Service extends Model
+class VisiMisi extends Model
 {
     use HasFactory;
+
+    protected $table = 'visi_misis';
+
     protected $fillable = [
-        'name',
-        'slug',
-        'image',
-        'excerpt',
-        'deskripsi',
-        'is_active',
-        'sort_order'
+        'type',
+        'content',
+    ];
+
+    protected $casts = [
+        'type' => 'string',
     ];
 }
