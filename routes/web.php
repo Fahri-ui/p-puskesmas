@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Landing;
 use App\Http\Controllers\Auth;
-use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\LayananController;
+use App\Http\Controllers\ErrorController;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
+use App\Http\Controllers\Landing;
+use App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 
 RateLimiter::for('contact-form', function (Request $request) {
@@ -62,6 +63,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/blog/{id}/edit', [Admin\BlogController::class, 'edit'])->name('admin.blog.edit');
         Route::put('/admin/blog/{id}', [Admin\BlogController::class, 'update'])->name('admin.blog.update');
         Route::delete('/admin/blog/{id}', [Admin\BlogController::class, 'destroy'])->name('admin.blog.destroy');
+        Route::patch('/admin/layanan/{layanan}/toggle-status', [LayananController::class, 'toggleStatus'])->name('admin.layanan.toggle-status');
         // category blog
         Route::post('/admin/kategori-blog', [Admin\BlogController::class, 'storeKategory'])->name('admin.kategori_blog.store');
         Route::put('/admin/kategori-blog/{id}', [Admin\BlogController::class, 'updateKategory'])->name('admin.kategori_blog.update');
@@ -69,9 +71,9 @@ Route::middleware('auth')->group(function () {
         // service
         Route::get('/admin/layanan', [LayananController::class, 'index'])->name('admin.layanan');
         Route::post('/admin/layanan', [LayananController::class, 'store'])->name('admin.layanan.store');
-        Route::put('/admin/layanan/{id}', [LayananController::class, 'update'])->name('admin.layanan.update');
-        Route::delete('/admin/layanan/{id}', [LayananController::class, 'destroy'])->name('admin.layanan.destroy');
-        Route::patch('/admin/layanan/{id}/toggle-status', [LayananController::class, 'toggleStatus'])->name('admin.layanan.toggle-status');
+        Route::put('/admin/layanan/{layanan}', [LayananController::class, 'update'])->name('admin.layanan.update');
+        Route::delete('/admin/layanan/{layanan}', [LayananController::class, 'destroy'])->name('admin.layanan.destroy');
+        Route::patch('/admin/layanan/{layanan}/toggle-status', [LayananController::class, 'toggleStatus'])->name('admin.layanan.toggle-status');
         // staf
         Route::get('/admin/staff', [Admin\StafController::class, 'index'])->name('admin.staf');
         Route::post('/admin/staf', [Admin\StafController::class, 'store'])->name('admin.staf.store');
@@ -83,9 +85,9 @@ Route::middleware('auth')->group(function () {
         // gallery
         Route::get('/admin/gallery', [Admin\GalleryController::class, 'index'])->name('admin.gallery');
         Route::post('/admin/gallery', [Admin\GalleryController::class, 'store'])->name('admin.gallery.store');
-        Route::get('/admin/gallery/{id}/edit', [Admin\GalleryController::class, 'edit'])->name('admin.gallery.edit');
-        Route::put('/admin/gallery/{id}', [Admin\GalleryController::class, 'update'])->name('admin.gallery.update');
-        Route::delete('/admin/gallery/{id}', [Admin\GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
+        Route::get('/admin/gallery/{gallery}/edit', [Admin\GalleryController::class, 'edit'])->name('admin.gallery.edit');
+        Route::put('/admin/gallery/{gallery}', [Admin\GalleryController::class, 'update'])->name('admin.gallery.update');
+        Route::delete('/admin/gallery/{gallery}', [Admin\GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
         // message
         Route::get('/admin/message', [Admin\MessageController::class, 'index'])->name('admin.message');
         Route::delete('/messages/{message}', [Admin\MessageController::class, 'destroy'])->name('admin.messages.destroy');
@@ -103,6 +105,17 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/visi-misi/visi/{visi}', [Admin\VisiMisiController::class, 'updateVisi'])->name('admin.visi-misi.update-visi');
         Route::put('/admin/visi-misi/misi/{misi}', [Admin\VisiMisiController::class, 'updateMisi'])->name('admin.visi-misi.update-misi');
         Route::delete('/admin/visi-misi/misi/{misi}', [Admin\VisiMisiController::class, 'destroyMisi'])->name('admin.visi-misi.destroy-misi');
-
+        // Certificate
+        Route::get('/admin/certificate', [Admin\CertificateController::class, 'index'])->name('admin.certificate');
+        Route::post('/admin/certificate', [Admin\CertificateController::class, 'store'])->name('admin.certificate.store');
+        Route::put('/admin/certificate/{certificate}', [Admin\CertificateController::class, 'update'])->name('admin.certificate.update');
+        Route::delete('/admin/certificate/{certificate}', [Admin\CertificateController::class, 'destroy'])->name('admin.certificate.destroy');
+        // inovasi
+        Route::get('/admin/inovasi', [Admin\InovasiController::class, 'index'])->name('admin.inovasi');
+        Route::post('/admin/inovasi', [Admin\InovasiController::class, 'store'])->name('admin.inovasi.store');
+        Route::put('/admin/inovasi/{inovasi}', [Admin\InovasiController::class, 'update'])->name('admin.inovasi.update');
+        Route::delete('/admin/inovasi/{inovasi}', [Admin\InovasiController::class, 'destroy'])->name('admin.inovasi.destroy');
     });
 });
+
+Route::fallback([ErrorController::class, 'notFound']);

@@ -4,7 +4,8 @@
         <div class="breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('welcome') }}"><i class="bi bi-house"></i> Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('welcome') }}"><i class="bi bi-house"></i> Beranda</a>
+                    </li>
                     <li class="breadcrumb-item active current">Profil</li>
                 </ol>
             </nav>
@@ -22,10 +23,12 @@
             <div class="row gy-4 align-items-center">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
                     <div class="image-wrapper">
-                        @if(!empty($profil) && $profil->image)
-                            <img src="{{ Storage::url($profil->image) }}" class="img-fluid rounded-4" alt="{{ $profil->title }}">
+                        @if (!empty($profil) && $profil->image)
+                            <img src="{{ Storage::url($profil->image) }}" class="img-fluid rounded-4"
+                                alt="{{ $profil->title }}">
                         @else
-                            <img src="{{ asset('MediTrust/assets/img/gallery/gallery-1.webp') }}" class="img-fluid rounded-4" alt="Tentang Kami">
+                            <img src="{{ asset('MediTrust/assets/img/gallery/gallery-1.webp') }}"
+                                class="img-fluid rounded-4" alt="Tentang Kami">
                         @endif
                         {{-- <div class="image-badge">
                             <i class="bi bi-patch-check-fill"></i>
@@ -39,7 +42,9 @@
                             {{ $profil->title ?? 'Dedikasi Sepenuh Hati untuk Kesehatan Anda' }}
                         </h2>
                         <p class="description-text">
-                            {!! $profil && $profil->description ? nl2br(e($profil->description)) : 'Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan individu dan institusi dalam meningkatkan standar kesehatan mereka. Tim profesional kami yang berpengalaman siap memberikan solusi terbaik yang disesuaikan dengan kebutuhan Anda.' !!}
+                            {!! $profil && $profil->description
+                                ? nl2br(e($profil->description))
+                                : 'Dengan pengalaman lebih dari satu dekade, kami telah membantu ribuan individu dan institusi dalam meningkatkan standar kesehatan mereka. Tim profesional kami yang berpengalaman siap memberikan solusi terbaik yang disesuaikan dengan kebutuhan Anda.' !!}
                         </p>
                     </div>
                 </div>
@@ -53,7 +58,8 @@
             <div class="section-header text-center" data-aos="fade-up">
                 <span class="section-badge">Visi & Misi</span>
                 <h2 class="section-title">Fondasi yang Menuntun Setiap Langkah Kami</h2>
-                <p class="section-description">Komitmen kami untuk memberikan layanan kesehatan terbaik bagi masyarakat</p>
+                <p class="section-description">Komitmen kami untuk memberikan layanan kesehatan terbaik bagi masyarakat
+                </p>
             </div>
 
             <div class="row gy-4 mt-4">
@@ -84,11 +90,16 @@
                             @forelse($misis as $misi)
                                 <li><i class="bi bi-check2-circle"></i>{{ $misi->content }}</li>
                             @empty
-                                <li><i class="bi bi-check2-circle"></i>Memberikan pelayanan kesehatan yang berkualitas, aman, dan terjangkau</li>
-                                <li><i class="bi bi-check2-circle"></i>Mengembangkan SDM yang kompeten dan berintegritas tinggi</li>
-                                <li><i class="bi bi-check2-circle"></i>Menerapkan teknologi medis terkini untuk hasil optimal</li>
-                                <li><i class="bi bi-check2-circle"></i>Membangun kemitraan strategis untuk peningkatan kualitas layanan</li>
-                                <li><i class="bi bi-check2-circle"></i>Berkontribusi aktif dalam program kesehatan masyarakat</li>
+                                <li><i class="bi bi-check2-circle"></i>Memberikan pelayanan kesehatan yang berkualitas,
+                                    aman, dan terjangkau</li>
+                                <li><i class="bi bi-check2-circle"></i>Mengembangkan SDM yang kompeten dan berintegritas
+                                    tinggi</li>
+                                <li><i class="bi bi-check2-circle"></i>Menerapkan teknologi medis terkini untuk hasil
+                                    optimal</li>
+                                <li><i class="bi bi-check2-circle"></i>Membangun kemitraan strategis untuk peningkatan
+                                    kualitas layanan</li>
+                                <li><i class="bi bi-check2-circle"></i>Berkontribusi aktif dalam program kesehatan
+                                    masyarakat</li>
                             @endforelse
                         </ul>
                         <div class="vm-decoration"></div>
@@ -99,12 +110,13 @@
     </section><!-- /Vision & Mission Section -->
 
     <!-- Core Values Section -->
-    <section class="core-values-section">
+    {{-- <section class="core-values-section">
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <span class="section-badge">Nilai-Nilai Kami</span>
                 <h2 class="section-title">Prinsip yang Menjadi Pedoman Kami</h2>
-                <p class="section-description">Nilai-nilai fundamental yang membentuk budaya kerja dan pelayanan kami</p>
+                <p class="section-description">Nilai-nilai fundamental yang membentuk budaya kerja dan pelayanan kami
+                </p>
             </div>
 
             <div class="row gy-4 mt-4">
@@ -114,7 +126,8 @@
                             <i class="bi bi-shield-check"></i>
                         </div>
                         <h4 class="value-title">Integritas</h4>
-                        <p class="value-description">Berpegang teguh pada kejujuran, transparansi, dan etika profesional dalam setiap tindakan</p>
+                        <p class="value-description">Berpegang teguh pada kejujuran, transparansi, dan etika profesional
+                            dalam setiap tindakan</p>
                     </div>
                 </div>
 
@@ -124,7 +137,8 @@
                             <i class="bi bi-heart-pulse"></i>
                         </div>
                         <h4 class="value-title">Empati</h4>
-                        <p class="value-description">Memahami dan peduli terhadap kebutuhan pasien dengan penuh kasih sayang dan perhatian</p>
+                        <p class="value-description">Memahami dan peduli terhadap kebutuhan pasien dengan penuh kasih
+                            sayang dan perhatian</p>
                     </div>
                 </div>
 
@@ -134,7 +148,8 @@
                             <i class="bi bi-lightbulb"></i>
                         </div>
                         <h4 class="value-title">Inovasi</h4>
-                        <p class="value-description">Terus berinovasi dan mengadopsi teknologi terkini untuk hasil pelayanan yang lebih baik</p>
+                        <p class="value-description">Terus berinovasi dan mengadopsi teknologi terkini untuk hasil
+                            pelayanan yang lebih baik</p>
                     </div>
                 </div>
 
@@ -144,222 +159,147 @@
                             <i class="bi bi-star"></i>
                         </div>
                         <h4 class="value-title">Keunggulan</h4>
-                        <p class="value-description">Berkomitmen pada standar tertinggi dalam setiap aspek pelayanan yang kami berikan</p>
+                        <p class="value-description">Berkomitmen pada standar tertinggi dalam setiap aspek pelayanan
+                            yang kami berikan</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!-- /Core Values Section -->
+    </section><!-- /Core Values Section --> --}}
 
     <!-- Organizational Structure Section -->
     <section id="struktur-organisasi" class="org-structure-section">
         <div class="container">
+
+            {{-- Header --}}
             <div class="section-header text-center" data-aos="fade-up">
                 <span class="section-badge">Struktur Organisasi</span>
-                <h2 class="section-title">Tim Kepemimpinan Kami</h2>
-                <p class="section-description">Dipimpin oleh para profesional berpengalaman di bidangnya</p>
+                <h2 class="section-title">Integrasi Layanan Primer UPTD Puskesmas Binong</h2>
+                <p class="section-description">Pemerintah Daerah Kabupaten Subang &mdash; Dinas Kesehatan</p>
             </div>
 
-            <!-- Board of Directors -->
-            <div class="org-level director-level" data-aos="fade-up" data-aos-delay="100">
-                <h3 class="org-level-title">Dewan Direksi</h3>
-                <div class="row justify-content-center gy-4">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="org-card director-card">
-                            <div class="org-card-header">
-                                <div class="org-avatar">
-                                    <i class="bi bi-person-circle"></i>
-                                </div>
-                            </div>
-                            <div class="org-card-body">
-                                <h4 class="org-name">Dr. Ahmad Wijaya, Sp.PD</h4>
-                                <p class="org-position">Direktur Utama</p>
-                                <p class="org-description">Spesialis Penyakit Dalam dengan pengalaman 20+ tahun di bidang manajemen kesehatan</p>
-                            </div>
+            {{-- Kepala Puskesmas --}}
+            @if ($kepala)
+                <div class="kepala-wrap" data-aos="fade-up" data-aos-delay="100">
+                    <div class="person-card-kepala">
+                        <div class="avatar-kepala">
+                            <img src="{{ asset($kepala->foto ?? '') }}" alt="{{ $kepala->nama }}"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                            <span class="initials" style="display:none">
+                                {{ collect(explode(' ', $kepala->nama))->map(fn($w) => strtoupper($w[0]))->take(2)->implode('') }}
+                            </span>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="org-card director-card">
-                            <div class="org-card-header">
-                                <div class="org-avatar">
-                                    <i class="bi bi-person-circle"></i>
-                                </div>
-                            </div>
-                            <div class="org-card-body">
-                                <h4 class="org-name">Dr. Sarah Kusuma, M.Kes</h4>
-                                <p class="org-position">Direktur Pelayanan Medis</p>
-                                <p class="org-description">Ahli manajemen pelayanan medis dengan fokus pada peningkatan kualitas layanan</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="org-card director-card">
-                            <div class="org-card-header">
-                                <div class="org-avatar">
-                                    <i class="bi bi-person-circle"></i>
-                                </div>
-                            </div>
-                            <div class="org-card-body">
-                                <h4 class="org-name">Budi Santoso, S.E., M.M.</h4>
-                                <p class="org-position">Direktur Keuangan & Operasional</p>
-                                <p class="org-description">Profesional berpengalaman dalam manajemen keuangan institusi kesehatan</p>
-                            </div>
-                        </div>
+                        <div class="jabatan-badge-kepala">{{ $kepala->jabatan }}</div>
+                        <div class="nama-kepala">{{ $kepala->nama }}</div>
+                        <div class="vm-decoration"></div>
                     </div>
                 </div>
+            @endif
+
+            <div class="connector-v"></div>
+
+            {{-- Grid Klaster --}}
+            <div class="klaster-grid" data-aos="fade-up" data-aos-delay="150">
+                @foreach ($klasters as $klaster)
+                    <div class="klaster-card">
+
+                        {{-- Header Klaster --}}
+                        <div class="klaster-head">
+                            <div class="icon-row">
+                                <div class="klaster-icon">
+                                    @if ($klaster['pj'])
+                                        <img src="{{ asset($klaster['pj']->foto ?? '') }}"
+                                            alt="{{ $klaster['pj']->nama }}"
+                                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                        <span class="initials" style="display:none">
+                                            {{ collect(explode(' ', $klaster['pj']->nama))->map(fn($w) => strtoupper($w[0]))->take(2)->implode('') }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <span class="klaster-label-badge">{{ $klaster['label'] }}</span>
+                            </div>
+                            <p class="klaster-nama">{{ $klaster['nama_klaster'] }}</p>
+                            <p class="klaster-pj">{{ $klaster['pj']?->nama ?? '-' }}</p>
+                        </div>
+
+                        <div class="klaster-divider"></div>
+
+                        {{-- Anggota Klaster --}}
+                        <div class="klaster-body">
+                            @foreach ($klaster['anggota'] as $staf)
+                                <div class="sub-item">
+                                    <div class="avatar-xs">
+                                        <img src="{{ asset($staf->foto ?? '') }}" alt="{{ $staf->nama }}"
+                                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                        <span class="initials" style="display:none">
+                                            {{ collect(explode(' ', $staf->nama))->map(fn($w) => strtoupper($w[0]))->take(2)->implode('') }}
+                                        </span>
+                                    </div>
+                                    <div class="sub-info">
+                                        <div class="sub-label">{{ $staf->jabatan }}</div>
+                                        <div class="sub-nama">{{ $staf->nama }}</div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div class="vm-decoration"></div>
+                    </div>
+                @endforeach
             </div>
 
-            <!-- Department Heads -->
-            <div class="org-level department-level mt-5" data-aos="fade-up" data-aos-delay="200">
-                <h3 class="org-level-title">Kepala Departemen</h3>
-                <div class="row gy-4">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="org-card dept-card">
-                            <div class="dept-icon">
-                                <i class="bi bi-heart-pulse-fill"></i>
-                            </div>
-                            <h5 class="dept-name">Departemen Medis</h5>
-                            <p class="dept-head">Dr. Rina Hartono, Sp.B</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="org-card dept-card">
-                            <div class="dept-icon">
-                                <i class="bi bi-clipboard2-pulse"></i>
-                            </div>
-                            <h5 class="dept-name">Departemen Keperawatan</h5>
-                            <p class="dept-head">Ns. Maya Putri, S.Kep., M.Kep</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="org-card dept-card">
-                            <div class="dept-icon">
-                                <i class="bi bi-graph-up-arrow"></i>
-                            </div>
-                            <h5 class="dept-name">Departemen Marketing</h5>
-                            <p class="dept-head">Dewi Lestari, S.Sos., M.M.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="org-card dept-card">
-                            <div class="dept-icon">
-                                <i class="bi bi-gear-fill"></i>
-                            </div>
-                            <h5 class="dept-name">Departemen IT & Sistem</h5>
-                            <p class="dept-head">Rahmat Hidayat, S.Kom., M.T.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </section><!-- /Organizational Structure Section -->
+    </section>
+    <!-- /Organizational Structure Section -->
 
     <!-- Accreditation Section -->
-    <section id="akreditasi" class="accreditation-section">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-                <span class="section-badge">Akreditasi & Sertifikasi</span>
-                <h2 class="section-title">Pengakuan Kualitas Layanan Kami</h2>
-                <p class="section-description">Komitmen kami terhadap standar kualitas internasional</p>
-            </div>
+    <section id="gallery" class="gallery section">
+        <div class="section-header text-center" data-aos="fade-up">
+            <span class="section-badge">Sertifikasi</span>
+            <h2 class="section-title">Pengakuan Kualitas Layanan Kami</h2>
+        </div>
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-            <!-- Main Accreditation -->
-            <div class="row gy-4 mt-4 justify-content-center">
-                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
-                    <div class="main-accreditation-card">
-                        <div class="accreditation-badge">
-                            <i class="bi bi-award-fill"></i>
-                        </div>
-                        <div class="accreditation-content">
-                            <h3 class="accreditation-title">Akreditasi Paripurna</h3>
-                            <p class="accreditation-issuer">Komisi Akreditasi Rumah Sakit (KARS)</p>
-                            <p class="accreditation-description">
-                                Telah meraih akreditasi tingkat Paripurna, standar tertinggi dalam pelayanan kesehatan
-                                di Indonesia yang mencakup keselamatan pasien, pelayanan medis, manajemen, dan
-                                peningkatan mutu berkelanjutan.
-                            </p>
-                            <div class="accreditation-year">
-                                <span class="year-badge">Berlaku: 2023 - 2026</span>
+            <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+                <div class="row g-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+                    @forelse ($certificates as $certificate)
+                        <div class="col-lg-4 col-md-6 gallery-item isotope-item filter-certificate">
+                            <div class="gallery-card">
+                                <div class="gallery-img">
+                                    <img src="{{ asset('storage/' . $certificate->image) }}" class="img-fluid"
+                                        alt="{{ $certificate->title }}" loading="lazy">
+                                    <div class="gallery-overlay">
+                                        <a href="{{ asset('storage/' . $certificate->image) }}"
+                                            class="glightbox gallery-link" data-gallery="gallery-images">
+                                            <div class="gallery-info">
+                                                <h4>{{ $certificate->title }}</h4>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Gallery Item -->
+                    @empty
+                        <div class="col-12 text-center py-5">
+                            <div class="empty-state">
+                                <i class="bi bi-image-alt text-muted" style="font-size: 3rem;"></i>
+                                <h5 class="mt-3 text-muted">Belum ada sertifikat yang ditampilkan</h5>
+                                <p class="text-muted">Sertifikat akan segera ditambahkan.</p>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    @endforelse
+                </div><!-- End Gallery Container -->
             </div>
 
-            <!-- Other Certifications -->
-            <div class="row gy-4 mt-4">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="bi bi-shield-fill-check"></i>
-                        </div>
-                        <h4 class="cert-title">ISO 9001:2015</h4>
-                        <p class="cert-description">Sistem Manajemen Mutu untuk memastikan konsistensi kualitas layanan</p>
-                        <span class="cert-status">Tersertifikasi</span>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="bi bi-file-medical-fill"></i>
-                        </div>
-                        <h4 class="cert-title">ISO 15189:2012</h4>
-                        <p class="cert-description">Standar internasional untuk laboratorium medis dan kualitas hasil pemeriksaan</p>
-                        <span class="cert-status">Tersertifikasi</span>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="cert-card">
-                        <div class="cert-icon">
-                            <i class="bi bi-clipboard-check-fill"></i>
-                        </div>
-                        <h4 class="cert-title">SNARS Edition 1.1</h4>
-                        <p class="cert-description">Standar Nasional Akreditasi Rumah Sakit untuk pelayanan yang aman dan bermutu</p>
-                        <span class="cert-status">Terakreditasi</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Achievements -->
-            <div class="achievements-wrapper mt-5" data-aos="fade-up" data-aos-delay="500">
-                <h3 class="achievements-title text-center mb-4">Penghargaan & Pencapaian</h3>
-                <div class="row gy-3">
-                    <div class="col-lg-6">
-                        <div class="achievement-item">
-                            <i class="bi bi-trophy-fill"></i>
-                            <span>Top 100 Rumah Sakit Terbaik Indonesia 2024</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="achievement-item">
-                            <i class="bi bi-trophy-fill"></i>
-                            <span>Hospital Safety Index (HSI) - Kategori A</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="achievement-item">
-                            <i class="bi bi-trophy-fill"></i>
-                            <span>Indonesia Hospital Patient Safety Award 2023</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="achievement-item">
-                            <i class="bi bi-trophy-fill"></i>
-                            <span>Green Hospital Award untuk Lingkungan Berkelanjutan</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </section><!-- /Accreditation Section -->
+
+    </section><!-- /Gallery Section --
 
     <!-- Additional CSS -->
     <style>
         /* Color Variables */
         :root {
-            --primary-color:#349953;
+            --primary-color: #349953;
             --primary-dark: #2d8347;
             --primary-light: #349953;
             --accent-color: #349953;
@@ -369,6 +309,49 @@
             --white: #ffffff;
             --shadow: rgba(52, 153, 83, 0.1);
             --shadow-hover: rgba(52, 153, 83, 0.2);
+        }
+
+        .gallery-overlay {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            inset: 0;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.35);
+            transition: background 0.3s ease;
+        }
+
+        .gallery-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .gallery-info h4 {
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .gallery-card:hover .gallery-overlay {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .gallery-link:hover .gallery-info h4 {
+            text-decoration: underline;
         }
 
         /* About Section */
@@ -637,127 +620,266 @@
         /* Organizational Structure Section */
         .org-structure-section {
             padding: 80px 0;
-            background: var(--bg-light);
         }
 
-        .org-level {
-            margin-bottom: 50px;
-        }
-
-        .org-level:last-child {
-            margin-bottom: 0;
-        }
-
-        .org-level-title {
-            font-size: 24px;
-            font-weight: 700;
+        /* Section Header */
+        .org-structure-section .section-badge {
+            display: inline-block;
+            background: rgba(52, 153, 83, 0.1);
             color: var(--primary-color);
-            margin-bottom: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            margin-bottom: 12px;
+        }
+
+        /* Kepala Card */
+        .person-card-kepala {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px 48px;
+            box-shadow: 0 10px 40px var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
             position: relative;
-            padding-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            min-width: 260px;
         }
 
-        .org-level-title::after {
+        .person-card-kepala:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px var(--shadow-hover);
+        }
+
+        .avatar-kepala {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(52, 153, 83, 0.12);
+            border: 3px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .avatar-kepala img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-kepala .initials {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .jabatan-badge-kepala {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 10px;
+        }
+
+        .nama-kepala {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .kepala-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 16px;
+        }
+
+        .connector-v {
+            display: flex;
+            justify-content: center;
+            height: 32px;
+        }
+
+        .connector-v::after {
             content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-light) 100%);
-            border-radius: 2px;
+            width: 2px;
+            background: rgba(52, 153, 83, 0.3);
+            display: block;
         }
 
-        .org-card {
+        /* Klaster Grid */
+        .klaster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        .klaster-card {
             background: var(--white);
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 40px var(--shadow);
             transition: all 0.3s ease;
-            height: 100%;
+            position: relative;
         }
 
-        .org-card:hover {
+        .klaster-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 60px var(--shadow-hover);
         }
 
-        .director-card .org-card-header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-            padding: 30px;
-            text-align: center;
+        .klaster-head {
+            padding: 28px 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
         }
 
-        .org-avatar {
-            font-size: 80px;
-            color: var(--white);
-            opacity: 0.9;
+        .klaster-head .icon-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 4px;
         }
 
-        .org-card-body {
-            padding: 30px;
-            text-align: center;
-        }
-
-        .org-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-        }
-
-        .org-position {
-            font-size: 16px;
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .org-description {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .dept-card {
-            padding: 30px 20px;
-            text-align: center;
-        }
-
-        .dept-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: rgba(52, 153, 83, 0.1);
+        .klaster-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 32px;
-            color: var(--primary-color);
-            transition: all 0.3s ease;
+            overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .dept-card:hover .dept-icon {
-            background: var(--primary-color);
-            color: var(--white);
-            transform: scale(1.1);
+        .klaster-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .dept-name {
+        .klaster-icon .initials {
             font-size: 18px;
             font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 10px;
+            color: #fff;
         }
 
-        .dept-head {
+        .klaster-label-badge {
+            background: rgba(52, 153, 83, 0.1);
+            color: var(--primary-color);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .klaster-nama {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .klaster-pj {
             font-size: 14px;
             color: var(--text-muted);
             margin: 0;
+        }
+
+        .klaster-divider {
+            height: 1px;
+            background: rgba(52, 153, 83, 0.1);
+            margin: 0 24px;
+        }
+
+        .klaster-body {
+            padding: 16px 24px 28px;
+        }
+
+        .sub-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(52, 153, 83, 0.08);
+        }
+
+        .sub-item:last-child {
+            border-bottom: none;
+        }
+
+        .avatar-xs {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(52, 153, 83, 0.08);
+            border: 1.5px solid rgba(52, 153, 83, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .avatar-xs img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-xs .initials {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .sub-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sub-label {
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .sub-nama {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .klaster-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .person-card-kepala {
+                padding: 24px 32px;
+            }
         }
 
         /* Accreditation Section */

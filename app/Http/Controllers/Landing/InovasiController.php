@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Inovasi;
 
 class InovasiController extends Controller
 {
     public function index()
     {
-        return view('pages.landing.inovasi');
+        $inovasis = Inovasi::latest()->get();
+
+        return view('pages.landing.inovasi.index', compact('inovasis'));
     }
 }

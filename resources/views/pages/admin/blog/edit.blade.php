@@ -70,6 +70,21 @@
                 </div>
 
                 <div class="space-y-2">
+                    <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Gambar</label>
+                    @if ($blog->image)
+                        <div class="mb-3 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                            <img src="{{ asset($blog->image) }}" alt="{{ $blog->title }}" class="w-full h-56 object-cover" />
+                        </div>
+                    @endif
+                    <input type="file" name="image" accept="image/*"
+                        class="w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary/90" />
+                    <p class="text-xs text-slate-500">Biarkan kosong jika tidak ingin mengganti gambar.</p>
+                    @error('image')
+                        <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="space-y-2">
                     <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Isi</label>
                     <textarea name="content" rows="5" required
                         class="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:ring-1 focus:ring-primary outline-none">{{ old('content', $blog->content) }}</textarea>

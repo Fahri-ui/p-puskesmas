@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
-use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
     public function index()
     {
         $services = Service::where('is_active', true)
-            ->orderBy('sort_order')
+            ->orderBy('id')
             ->get();
 
         return view('pages.landing.service.index', compact('services'));

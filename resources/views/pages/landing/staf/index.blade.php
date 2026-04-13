@@ -28,7 +28,6 @@
                     <div class="doctor-card">
                         <div class="doctor-image">
                             <img src="{{ asset($staf->foto) }}" alt="{{ $staf->nama }}"
-                                alt="{{ $staf->nama }}"
                                 class="img-fluid">
                         </div>
                         <div class="doctor-content">

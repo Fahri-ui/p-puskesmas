@@ -32,7 +32,7 @@
                             <div class="row g-0">
                                 <div class="col-md-6">
                                     {{-- Gunakan kolom `image` sebagai gambar utama --}}
-                                    <div class="featured-image" style="height: 100%; min-height: 350px; background: url('{{ $featuredNews->image ? asset($featuredNews->image) : asset('MediTrust/assets/img/gallery/gallery-1.webp') }}') center/cover; position: relative;">
+                                    <div class="featured-image" style="height: 100%; min-height: 350px; background: url('{{ $featuredNews->image ? asset($featuredNews->image) : asset('MediTrust/assets/img/gallery/anak.Jpg.webp') }}') center/cover; position: relative;">
                                         <div class="featured-badge" style="position: absolute; top: 20px; left: 20px; background-color: #349953; color: white; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 600;">
                                             <i class="bi bi-star-fill me-1"></i>Terbaru
                                         </div>
@@ -79,7 +79,7 @@
                                 <div class="row g-0">
                                     <div class="col-md-4">
                                         {{-- Tidak ada kolom thumbnail; gunakan `image` sebagai gantinya --}}
-                                        <div class="news-thumbnail" style="height: 100%; min-height: 200px; background: url('{{ $item->image ? asset($item->image) : asset('MediTrust/assets/img/gallery/gallery-1.webp') }}') center/cover; border-radius: 8px 0 0 8px; position: relative;">
+                                        <div class="news-thumbnail" style="height: 100%; min-height: 200px; background: url('{{ $item->image ? asset($item->image) : asset('MediTrust/assets/img/gallery/olahraga.webp') }}') center/cover; border-radius: 8px 0 0 8px; position: relative;">
                                             <div class="category-badge" style="position: absolute; top: 15px; left: 15px; background-color: #349953; color: white; padding: 5px 12px; border-radius: 15px; font-size: 11px; font-weight: 600;">
                                                 {{ $item->category?->nama_kategori ?? 'Umum' }}
                                             </div>
@@ -185,7 +185,7 @@
                                     <div class="popular-item mb-3 pb-3 {{ !$loop->last ? 'border-bottom' : '' }}">
                                         <div class="d-flex">
                                             {{-- Gunakan `image` sebagai gambar sidebar --}}
-                                            <div class="popular-thumbnail me-3" style="width: 80px; height: 80px; background: url('{{ $popular->image ? asset($popular->image) : asset('MediTrust/assets/img/gallery/gallery-1.webp') }}') center/cover; border-radius: 8px; flex-shrink: 0;"></div>
+                                            <div class="popular-thumbnail me-3" style="width: 80px; height: 80px; background: url('{{ $popular->image ? asset($popular->image) : asset('MediTrust/assets/img/gallery/stress.Jpg') }}') center/cover; border-radius: 8px; flex-shrink: 0;"></div>
                                             <div>
                                                 <h6 class="mb-2" style="font-size: 14px; line-height: 1.4;">
                                                     <a href="{{ route('blog.show', $popular->slug) }}" class="text-dark text-decoration-none hover-link">

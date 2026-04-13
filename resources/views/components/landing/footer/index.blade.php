@@ -57,10 +57,10 @@
     </div>
 
     <div class="container copyright text-center mt-4">
-        <p>© 2026 Puskesmas Binong</p>
+
+
         <div class="credits">
-            <!-- Required by BootstrapMade Free License -->
-         <a href="https://bootstrapmade.com/"></a>
+            <p>© 2026 Puskesmas Binong | Dibuat oleh <a href="https://erpeel.id/" target="_blank">RPL SMKN 1 Binong</a></p>
         </div>
     </div>
 

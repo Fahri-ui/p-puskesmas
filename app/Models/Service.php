@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Service extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'slug',
@@ -15,6 +16,8 @@ class Service extends Model
         'excerpt',
         'deskripsi',
         'is_active',
-        'sort_order'
+        'jam_buka',
+        'jam_tutup',
+        'open_days'
     ];
 }

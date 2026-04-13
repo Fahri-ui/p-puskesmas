@@ -9,7 +9,8 @@ class StafController extends Controller
 {
     public function index()
     {
-        $stafs = Staf::orderBy('urutan')->get();
+        $stafs = Staf::orderBy('nama', 'asc')->get();
+
         return view('pages.landing.staf.index', compact('stafs'));
     }
 

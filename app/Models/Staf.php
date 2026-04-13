@@ -24,6 +24,7 @@ class Staf extends Model
         'alamat',
         'pendidikan_terakhir',
         'bergabung_sejak',
-        'urutan'
+        'klaster',
+        'peran_klaster',
     ];
 }

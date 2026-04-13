@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('staf', function (Blueprint $table) {
             $table->id();
-
             $table->string('foto')->nullable(); // path file foto
             $table->string('nama');
             $table->string('telepon')->nullable();
@@ -27,7 +26,6 @@ return new class extends Migration
             $table->text('alamat')->nullable();
             $table->string('pendidikan_terakhir')->nullable();
             $table->date('bergabung_sejak')->nullable();
-            $table->integer('urutan')->default(0);
 
             $table->timestamps();
         });

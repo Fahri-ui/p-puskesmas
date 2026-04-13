@@ -14,8 +14,10 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run()
+    public function run(): void
     {
-        \App\Models\User::factory(1)->create();
+        $this->call([
+            StafSeeder::class,
+        ]);
     }
 }

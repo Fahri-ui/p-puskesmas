@@ -13,7 +13,7 @@ class StafController extends Controller
 {
     public function index()
     {
-        $staf        = Staf::orderBy('urutan', 'asc')->paginate(10);
+        $staf        = Staf::paginate(10);
         $totalStaf   = Staf::count();
 
         return view('pages.admin.staff.index', compact('staf', 'totalStaf'));
@@ -34,14 +34,6 @@ class StafController extends Controller
     public function store(Request $request)
     {
         try {
-            // Cek urutan sudah dipakai
-            $urutanSudahAda = Staf::where('urutan', $request->urutan)->exists();
-            if ($urutanSudahAda) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Urutan telah dipilih, harap gunakan urutan lain.');
-            }
-
             $validated = $request->validate([
                 'nama'                => 'required|string|max:255',
                 'jabatan'             => 'required|string|max:255',
@@ -56,13 +48,9 @@ class StafController extends Controller
                 'alamat'              => 'nullable|string|max:1000',
                 'deskripsi'           => 'nullable|string|max:2000',
                 'foto'                => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'urutan'              => 'required|integer|min:0',
             ], [
                 'nip.unique'      => 'NIP sudah ada, harap rubah nomor NIP.',
                 'email.unique'    => 'Email telah terdaftar.',
-                'urutan.required' => 'Harap pilih urutan.',
-                'urutan.integer'  => 'Harap pilih urutan.',
-                'urutan.min'      => 'Harap pilih urutan.',
             ]);
 
             $fotoPath = null;
@@ -84,7 +72,6 @@ class StafController extends Controller
                 'alamat'              => $validated['alamat']              ?? null,
                 'deskripsi'           => $validated['deskripsi']           ?? null,
                 'foto'                => $fotoPath,
-                'urutan'              => $validated['urutan'],
             ]);
 
             return redirect()->route('admin.staf')->with('success', 'Staf berhasil ditambahkan.');
@@ -102,16 +89,6 @@ class StafController extends Controller
         $staf = Staf::findOrFail($id);
 
         try {
-            // Cek urutan sudah dipakai staf lain
-            $urutanSudahAda = Staf::where('urutan', $request->urutan)
-                ->where('id', '!=', $id)
-                ->exists();
-            if ($urutanSudahAda) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Urutan telah dipilih, harap gunakan urutan lain.');
-            }
-
             $validated = $request->validate([
                 'nama'                => 'required|string|max:255',
                 'jabatan'             => 'required|string|max:255',
@@ -126,13 +103,9 @@ class StafController extends Controller
                 'alamat'              => 'nullable|string|max:1000',
                 'deskripsi'           => 'nullable|string|max:2000',
                 'foto'                => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'urutan'              => 'required|integer|min:0',
             ], [
                 'nip.unique'      => 'NIP sudah ada, harap rubah nomor NIP.',
                 'email.unique'    => 'Email telah terdaftar.',
-                'urutan.required' => 'Harap pilih urutan.',
-                'urutan.integer'  => 'Harap pilih urutan.',
-                'urutan.min'      => 'Harap pilih urutan.',
             ]);
 
             $fotoPath = $staf->foto;
@@ -157,7 +130,6 @@ class StafController extends Controller
                 'alamat'              => $validated['alamat']              ?? null,
                 'deskripsi'           => $validated['deskripsi']           ?? null,
                 'foto'                => $fotoPath,
-                'urutan'              => $validated['urutan'],
             ]);
 
             return redirect()->route('admin.staf')->with('success', 'Staf berhasil diperbarui.');

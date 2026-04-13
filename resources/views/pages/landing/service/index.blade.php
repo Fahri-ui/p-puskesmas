@@ -322,13 +322,25 @@
                         <div class="service-image">
                             <img src="{{ $service->image ? asset('storage/' . $service->image) : 'https://placehold.co/400x300/349953/ffffff?text=' . urlencode($service->name) }}"
                                 alt="{{ $service->name }}">
-                            <div class="service-icon-badge">
-                                <i class="bi bi-heart-pulse"></i>
-                            </div>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title">{{ $service->name }}</h3>
                             <p class="service-description">{{ $service->excerpt }}</p>
+                            @if($service->jam_buka || $service->jam_tutup)
+                                <p class="text-sm text-slate-600 mt-3">
+                                    Jam Operasional:
+                                    @if($service->jam_buka && $service->jam_tutup)
+                                        {{ $service->jam_buka }} - {{ $service->jam_tutup }}
+                                    @elseif($service->jam_buka)
+                                        {{ $service->jam_buka }}
+                                    @else
+                                        {{ $service->jam_tutup }}
+                                    @endif
+                                </p>
+                            @endif
+                            @if($service->open_days)
+                                <p class="text-sm text-slate-600 mt-2">Open Days: {{ $service->open_days }}</p>
+                            @endif
                             <div class="service-cta">
                                 <a href="{{ route('service.show', $service->slug) }}">
                                     <i class="bi bi-arrow-right"></i> Selengkapnya

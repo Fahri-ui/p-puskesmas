@@ -31,6 +31,11 @@
             <span>Gallery</span>
         </x-admin.navbar.nav-link>
 
+        <x-admin.navbar.nav-link href="{{ route('admin.certificate') }}" route="admin.certificate">
+            <span class="material-symbols-outlined">verified</span>
+            <span>Certificate</span>
+        </x-admin.navbar.nav-link>
+
         <x-admin.navbar.nav-link href="{{ route('admin.message') }}" route="admin.message">
             <span class="material-symbols-outlined">mail</span>
             <span>Message</span>
@@ -43,6 +48,10 @@
         <x-admin.navbar.nav-link href="{{ route('admin.visi-misi.index') }}" route="admin.visi-misi.index">
             <span class="material-symbols-outlined">visibility</span>
             <span>Visi & Misi</span>
+        </x-admin.navbar.nav-link>
+        <x-admin.navbar.nav-link href="{{ route('admin.inovasi') }}" route="admin.inovasi">
+            <span class="material-symbols-outlined">light_mode</span>
+            <span>Inovasi</span>
         </x-admin.navbar.nav-link>
     </nav>
     <!-- User Profile & Logout - Always Visible -->

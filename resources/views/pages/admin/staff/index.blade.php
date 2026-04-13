@@ -361,14 +361,6 @@
                             <input type="date" name="bergabung_sejak" id="f-bergabung_sejak"
                                 class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition text-sm">
                         </div>
-                        {{-- Urutan --}}
-                        <div>
-                            <label
-                                class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Urutan
-                                <span class="text-red-500">*</span></label>
-                            <input type="number" name="urutan" id="f-urutan" required min="0" value="0"
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition text-sm">
-                        </div>
                         {{-- Alamat --}}
                         <div class="md:col-span-2">
                             <label
@@ -576,7 +568,6 @@
             form.reset();
             document.getElementById('foto-preview').classList.add('hidden');
             document.getElementById('foto-placeholder').classList.remove('hidden');
-            document.getElementById('f-urutan').value = 0;
         }
 
         function fillForm(d) {
@@ -593,7 +584,6 @@
             set('f-bergabung_sejak',     d.bergabung_sejak);
             set('f-alamat',              d.alamat);
             set('f-deskripsi',           d.deskripsi);
-            set('f-urutan',              d.urutan ?? 0);
 
             if (d.foto) {
                 const img = document.getElementById('foto-preview');

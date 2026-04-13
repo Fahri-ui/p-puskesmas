@@ -20,6 +20,16 @@ class GalleryController extends Controller
     }
 
     /**
+     * Tampilkan form edit gallery.
+     */
+    public function edit(Gallery $gallery)
+    {
+        // Karena UI edit menggunakan modal pada halaman index,
+        // rute ini hanya menjaga route binding tetap valid.
+        return redirect()->route('admin.gallery');
+    }
+
+    /**
      * Simpan gallery baru ke database.
      */
     public function store(Request $request)

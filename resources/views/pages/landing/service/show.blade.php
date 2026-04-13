@@ -38,6 +38,20 @@
                 <!-- Service Long Description -->
                 <div class="col-lg-6" data-aos="fade-left">
                     <div class="service-content">
+                        @if($service->jam_buka || $service->jam_tutup)
+                            <p class="text-sm text-slate-600 mb-4"><strong>Jam Operasional:</strong>
+                                @if($service->jam_buka && $service->jam_tutup)
+                                    {{ $service->jam_buka }} - {{ $service->jam_tutup }}
+                                @elseif($service->jam_buka)
+                                    {{ $service->jam_buka }}
+                                @else
+                                    {{ $service->jam_tutup }}
+                                @endif
+                            </p>
+                        @endif
+                        @if($service->open_days)
+                            <p class="text-sm text-slate-600 mb-4"><strong>Open Days:</strong> {{ $service->open_days }}</p>
+                        @endif
                         <div class="long-description">
                             {!! nl2br(e($service->deskripsi)) !!}
                         </div>
