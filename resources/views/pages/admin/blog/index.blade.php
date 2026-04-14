@@ -40,11 +40,11 @@
                 </a>
                 <a href="{{ route('admin.blog', ['status' => 'published']) }}"
                     class="{{ request('status') === 'published' ? 'border-b-2 border-primary text-primary font-bold' : 'border-b-2 border-transparent text-slate-500 hover:text-slate-700 font-medium' }} py-3 px-1 text-sm">
-                    Published
+                    Publik
                 </a>
                 <a href="{{ route('admin.blog', ['status' => 'draft']) }}"
                     class="{{ request('status') === 'draft' ? 'border-b-2 border-primary text-primary font-bold' : 'border-b-2 border-transparent text-slate-500 hover:text-slate-700 font-medium' }} py-3 px-1 text-sm">
-                    Draft
+                    Draf
                 </a>
             </nav>
         </div>

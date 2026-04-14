@@ -334,8 +334,8 @@
         <div class="reset-right">
             <div class="reset-header">
                 <div class="logo">⚕</div>
-                <h2>Reset Password</h2>
-                <p>Buat password baru untuk akun Anda</p>
+                <h2>Reset Kata Sandi</h2>
+                <p>Buat kata sandi baru untuk akun Anda</p>
             </div>
 
             @if(session('success'))
@@ -357,10 +357,10 @@
 
                 <div class="form-group">
                     <label for="password">Password Baru</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
                         placeholder="Masukkan password baru Anda"
                         required
                     >
@@ -372,10 +372,10 @@
 
                 <div class="form-group">
                     <label for="password_confirmation">Konfirmasi Password</label>
-                    <input 
-                        type="password" 
-                        id="password_confirmation" 
-                        name="password_confirmation" 
+                    <input
+                        type="password"
+                        id="password_confirmation"
+                        name="password_confirmation"
                         placeholder="Konfirmasi password baru Anda"
                         required
                     >
@@ -385,7 +385,7 @@
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn-submit">Reset Password</button>
+                    <button type="submit" class="btn-submit">Setel Ulang Kata Sandi</button>
                     <a href="/login" class="btn-back">Kembali ke Login</a>
                 </div>
             </form>
@@ -400,14 +400,14 @@
         passwordInput.addEventListener('input', function() {
             const password = this.value;
             const strength = checkPasswordStrength(password);
-            
+
             passwordStrengthDiv.className = 'password-strength ' + strength.class;
             passwordStrengthDiv.textContent = strength.text;
         });
 
         function checkPasswordStrength(password) {
             let strength = 0;
-            
+
             if (password.length >= 8) strength++;
             if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
             if (/\d/.test(password)) strength++;
@@ -430,10 +430,10 @@
 
         document.getElementById('resetForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
             const password = document.getElementById('password').value;
             const passwordConfirmation = document.getElementById('password_confirmation').value;
-            
+
             // Validate passwords match
             if (password !== passwordConfirmation) {
                 showError('Password tidak cocok. Silakan cek kembali.');
@@ -450,13 +450,13 @@
             const submitBtn = document.querySelector('.btn-submit');
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sedang Memproses...';
-            
+
             try {
                 const formData = new FormData();
                 formData.append('password', password);
                 formData.append('password_confirmation', passwordConfirmation);
                 formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-                
+
                 const response = await fetch('{{ route("reset-password") }}', {
                     method: 'POST',
                     headers: {
@@ -464,9 +464,9 @@
                     },
                     body: formData
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (response.ok) {
                     // Show success message and redirect
                     showSuccess(data.message || 'Password berhasil direset. Anda akan diarahkan ke halaman login...');
@@ -483,23 +483,23 @@
             } finally {
                 // Re-enable button
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Reset Password';
+                submitBtn.textContent = 'Setel Ulang Kata Sandi';
             }
         });
-        
+
         function showError(message) {
             // Remove existing error
             const existingError = document.querySelector('.error-message');
             if (existingError) existingError.remove();
-            
+
             // Add new error
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
             errorDiv.textContent = message;
-            
+
             const form = document.getElementById('resetForm');
             form.insertBefore(errorDiv, form.firstChild);
-            
+
             // Auto hide after 5 seconds
             setTimeout(() => {
                 if (errorDiv.parentNode) {
@@ -512,12 +512,12 @@
             // Remove existing alert
             const existingAlert = document.querySelector('.alert');
             if (existingAlert) existingAlert.remove();
-            
+
             // Add new success alert
             const alertDiv = document.createElement('div');
             alertDiv.className = 'alert alert-success';
             alertDiv.textContent = message;
-            
+
             const header = document.querySelector('.reset-header');
             header.insertAdjacentElement('afterend', alertDiv);
         }

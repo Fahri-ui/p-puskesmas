@@ -269,12 +269,9 @@
                                     <img src="{{ asset('storage/' . $certificate->image) }}" class="img-fluid"
                                         alt="{{ $certificate->title }}" loading="lazy">
                                     <div class="gallery-overlay">
-                                        <a href="{{ asset('storage/' . $certificate->image) }}"
-                                            class="glightbox gallery-link" data-gallery="gallery-images">
-                                            <div class="gallery-info">
-                                                <h4>{{ $certificate->title }}</h4>
-                                            </div>
-                                        </a>
+                                        <div class="gallery-info">
+                                            <h4>{{ $certificate->title }}</h4>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -326,7 +323,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 1rem;
+            padding: 6rem;
         }
 
         .gallery-info h4 {
@@ -362,9 +359,15 @@
 
         .image-wrapper {
             position: relative;
+            border: 3px solid #349953;
+            border-radius: 1rem;
+            overflow: hidden;
         }
 
         .image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
             box-shadow: 0 20px 60px var(--shadow);
         }
 

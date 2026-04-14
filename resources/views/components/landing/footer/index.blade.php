@@ -9,14 +9,12 @@
                 <div class="footer-contact pt-3">
                     <p>Alamat Lengkap Puskesmas Binong</p>
                     <p>Desa/Kecamatan Binong, Kabupaten Subang<br>Jawa Barat 41253</p>
-                    <p class="mt-3"><strong>Telepon:</strong> <span>0260453308</span></p>
-                    <p><strong>Email:</strong> <span>pkm.binong@gmail.com</span></p>
                 </div>
                 <div class="social-links d-flex mt-4">
                     <!-- Ganti tautan jika akun media sosial sudah tersedia -->
-                    <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="bi bi-youtube"></i></a>
+                    <a href="https://wa.me/6281234567890" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/pkmbinong/?hl=en" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.youtube.com/@PuskesmasBinong" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
                     <!-- Opsional: tambahkan keterangan di bawah jika perlu -->
                     <!-- <small class="d-block mt-2 text-muted">[Akun media sosial akan segera hadir]</small> -->
                 </div>
@@ -36,18 +34,22 @@
             <div class="col-lg-2 col-md-3 footer-links">
                 <h4>Layanan Utama</h4>
                 <ul>
-                    <li><a href="#">Poli Umum</a></li>
-                    <li><a href="#">KIA & Imunisasi</a></li>
-                    <li><a href="#">Pemeriksaan Laboratorium</a></li>
-                    <li><a href="#">Surat Keterangan Sehat</a></li>
-                    <li><a href="#">Program Posyandu</a></li>
+                    @forelse($footerServices as $service)
+                        <li>
+                            <a href="{{ route('service.show', $service->slug) }}">
+                                {{ $service->name }}
+                            </a>
+                        </li>
+                    @empty
+                        <li><a href="#">Layanan sedang diperbarui</a></li>
+                    @endforelse
                 </ul>
             </div>
 
             <div class="col-lg-4 col-md-6 footer-links">
                 <h4>Jam Operasional</h4>
                 <ul>
-                    <li>Senin–Sabtu: 08.00–01.00 WIB</li>
+                    <li>Senin–Sabtu: 08.00–15.00 WIB</li>
                     <li>Minggu & Hari Libur Nasional: Tutup</li>
                 </ul>
                 <!-- Opsional: tambahkan catatan -->
@@ -60,7 +62,7 @@
 
 
         <div class="credits">
-            <p>© 2026 Puskesmas Binong | Dibuat oleh <a href="https://erpeel.id/" target="_blank">RPL SMKN 1 Binong</a></p>
+            <p>© 2026 Puskesmas Binong | Dibuat oleh <a href="https://erpeel.id/" target="_blank">RPL SMKN 1 Binong</a> Angkatan 10</p>
         </div>
     </div>
 

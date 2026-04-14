@@ -5,13 +5,13 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#"><i class="bi bi-house"></i> Home</a></li>
-                    <li class="breadcrumb-item active current">Gallery</li>
+                    <li class="breadcrumb-item active current">Galeri</li>
                 </ol>
             </nav>
         </div>
 
         <div class="title-wrapper">
-            <h1>Gallery</h1>
+            <h1>Galeri</h1>
             <p>Dokumentasi Kegiatan</p>
         </div>
     </div><!-- End Page Title -->

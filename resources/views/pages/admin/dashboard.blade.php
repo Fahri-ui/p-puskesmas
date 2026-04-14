@@ -31,7 +31,7 @@
                 </div>
                 <div class="mt-4 flex items-center text-xs font-medium text-slate-400">
                     <span class="material-symbols-outlined text-sm mr-1">horizontal_rule</span>
-                    <span>No change</span>
+                    <span>Tidak ada perubahan</span>
                 </div>
             </div>
             <div
@@ -47,7 +47,7 @@
                 </div>
                 <div class="mt-4 flex items-center text-xs font-medium text-emerald-600">
                     <span class="material-symbols-outlined text-sm mr-1">trending_up</span>
-                    <span>+12 new this week</span>
+                    <span>+12 baru minggu ini</span>
                 </div>
             </div>
             <div
@@ -63,7 +63,7 @@
                 </div>
                 <div class="mt-4 flex items-center text-xs font-medium text-emerald-600">
                     <span class="material-symbols-outlined text-sm mr-1">add_circle</span>
-                    <span>+5 new updates</span>
+                    <span>+5 pembaruan baru</span>
                 </div>
             </div>
         </div>
@@ -73,10 +73,10 @@
             <div
                 class="lg:col-span-5 bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 rounded-xl p-6 shadow-sm">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="font-bold text-lg">System Activity</h2>
+                    <h2 class="font-bold text-lg">Aktivitas Sistem</h2>
                     <select class="text-xs bg-slate-50 dark:bg-slate-800 border-none rounded-lg focus:ring-primary">
-                        <option>Last 7 Days</option>
-                        <option>Last 30 Days</option>
+                        <option>7 Hari Terakhir</option>
+                        <option>30 Hari Terakhir</option>
                     </select>
                 </div>
                 <div class="space-y-6">
@@ -84,35 +84,35 @@
                         <div
                             class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-white dark:border-background-dark">
                         </div>
-                        <p class="text-sm font-bold">New Staff Registered</p>
-                        <p class="text-xs text-slate-500 mt-1">2 hours ago • By Administrator</p>
+                        <p class="text-sm font-bold">Staf Baru Terdaftar</p>
+                        <p class="text-xs text-slate-500 mt-1">2 jam lalu • Oleh Administrator</p>
                     </div>
                     <div class="relative pl-8 pb-6 border-l-2 border-slate-100 dark:border-slate-800 last:border-0">
                         <div
                             class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-amber-500 border-4 border-white dark:border-background-dark">
                         </div>
-                        <p class="text-sm font-bold">System Maintenance Completed</p>
-                        <p class="text-xs text-slate-500 mt-1">5 hours ago • System</p>
+                        <p class="text-sm font-bold">Pemeliharaan Sistem Selesai</p>
+                        <p class="text-xs text-slate-500 mt-1">5 jam lalu • Sistem</p>
                     </div>
                     <div class="relative pl-8 pb-6 border-l-2 border-slate-100 dark:border-slate-800 last:border-0">
                         <div
                             class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-blue-500 border-4 border-white dark:border-background-dark">
                         </div>
-                        <p class="text-sm font-bold">New Service "Cloud Storage" Added</p>
-                        <p class="text-xs text-slate-500 mt-1">Yesterday • Content Manager</p>
+                        <p class="text-sm font-bold">Layanan Baru "Cloud Storage" Ditambahkan</p>
+                        <p class="text-xs text-slate-500 mt-1">Kemarin • Manajer Konten</p>
                     </div>
                     <div class="relative pl-8 pb-6 border-l-2 border-slate-100 dark:border-slate-800 last:border-0">
                         <div
                             class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-400 border-4 border-white dark:border-background-dark">
                         </div>
-                        <p class="text-sm font-bold">Gallery Archive Created</p>
-                        <p class="text-xs text-slate-500 mt-1">2 days ago • Staff User</p>
+                        <p class="text-sm font-bold">Arsip Galeri Dibuat</p>
+                        <p class="text-xs text-slate-500 mt-1">2 hari lalu • Pengguna Staf</p>
                     </div>
                 </div>
                 <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
                     <button
                         class="w-full py-2 text-sm text-primary font-medium hover:bg-primary/5 rounded-lg transition-colors">
-                        View All Activity
+                        Lihat Semua Aktivitas
                     </button>
                 </div>
             </div>
@@ -120,18 +120,18 @@
             <div
                 class="lg:col-span-7 bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
                 <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                    <h2 class="font-bold text-lg">Recent News</h2>
-                    <button class="text-sm text-primary font-medium hover:underline">Manage All</button>
+                    <h2 class="font-bold text-lg">Berita Terbaru</h2>
+                    <button class="text-sm text-primary font-medium hover:underline">Kelola Semua</button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead
                             class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wider">
                             <tr>
-                                <th class="px-6 py-4 font-semibold">Title</th>
-                                <th class="px-6 py-4 font-semibold">Date</th>
+                                <th class="px-6 py-4 font-semibold">Judul</th>
+                                <th class="px-6 py-4 font-semibold">Tanggal</th>
                                 <th class="px-6 py-4 font-semibold">Status</th>
-                                <th class="px-6 py-4 font-semibold text-right">Action</th>
+                                <th class="px-6 py-4 font-semibold text-right">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
@@ -143,15 +143,14 @@
                                             <img alt="News" data-alt="News thumbnail of a newspaper"
                                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg8INfOyIqKKZkuIu2N7FFifJtJ043S0_qC8AUrmxUDsu5WPFG1ax2k738FN3GVR9CpyS8UpH7zSoG1LlA6eJH9YyJKw026T6grj6slt8V63AugjLisomfz1lxH7zRRa1ZDTzbFFw87ADZ3-DZFmYOGAPUH2ESxRjeWS2CBTVXZewHSOothC3Pb2Qy2UirlDp1xkPLZXj4lU_5ycHn4EWSaZcdr9WnxTNKCTJiMTQtc-fILpid8m2ahnDBzwIAzAdoOnwUnsPnwWI" />
                                         </div>
-                                        <span class="text-sm font-medium line-clamp-1">Annual System
-                                            Performance Report 2024</span>
+                                        <span class="text-sm font-medium line-clamp-1">Laporan Kinerja Sistem Tahunan 2024</span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
                                     Oct 12, 2024</td>
                                 <td class="px-6 py-4">
                                     <span
-                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">Published</span>
+                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">Dipublikasikan</span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <button class="text-slate-400 hover:text-primary"><span
@@ -166,15 +165,14 @@
                                             <img alt="News" data-alt="News thumbnail of digital world"
                                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTykvJz3QjwO0DEyHtuVh7e4TsGOtwdERg2X87ebhPnFWr8cp5u4BWCP5AgjXA3ItNjKhVIuV3JXmvKaNPjUzQfGYH3JiVyUCXzl8cy9BYocRgERtfL36aIaRqTPmTgsvPzMY8-Nbp-XdN7FKYybLMR_S7ZqAO1LvzkFKhhAe93W5j9BYdlmBbOU1xQuKPnQwMqMi2E9mzLUkREoUSQ-fFyJcEnnSHa8QqWXNspZgtgZuAw-dj11dpqx0XWL7yi4Kg4S--6kqKmWc" />
                                         </div>
-                                        <span class="text-sm font-medium line-clamp-1">New Security Protocols
-                                            Implementation</span>
+                                        <span class="text-sm font-medium line-clamp-1">Implementasi Protokol Keamanan Baru</span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
                                     Oct 10, 2024</td>
                                 <td class="px-6 py-4">
                                     <span
-                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Draft</span>
+                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Draf</span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <button class="text-slate-400 hover:text-primary"><span
@@ -189,15 +187,14 @@
                                             <img alt="News" data-alt="News thumbnail of team meeting"
                                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGt1-cyK6R99odcemalEoSFqCj9n5oeHG0Y--qn3Wxy1LjcVhTYbtg2PWh2OBaUQVTcD-0BBP_pVXvUeVoJrQYCqD5D8GMBX7W0oGnWNuZc9P9x0vn5yKutx--8y9qO_22WqGbZstdFoOUEnKWqGf657-oioP8qufCGdbIjd0Om4TZsWNgV6D2xClS8rOWqOlrqfH6f8U7pBSIDjssEGGTjpSag7WsUt9yn5N5w4Fgy30Ax1JdoPSsdvdxYZ3AKkbZru4qnc1x5SE" />
                                         </div>
-                                        <span class="text-sm font-medium line-clamp-1">Welcoming Our New IT
-                                            Specialists</span>
+                                        <span class="text-sm font-medium line-clamp-1">Menyambut Spesialis TI Baru</span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
                                     Oct 08, 2024</td>
                                 <td class="px-6 py-4">
                                     <span
-                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">Published</span>
+                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">Dipublikasikan</span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <button class="text-slate-400 hover:text-primary"><span
@@ -212,15 +209,14 @@
                                             <img alt="News" data-alt="News thumbnail of laptop development"
                                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuyWlCtjx3aPxUIWVmxNz7CdYXrf2JLqDeB4cNv8TINoam7LJ5K0IzKw7lycluzdDiDWkIWjtqlM4DjvUwZCYTaVAJffMKZh342nQ3dpa-s3rXKL3mds8P_u3YmC48y3vbXgqAd_RnJvkUKp5tb1Yp7OywUV5CTWXcBzL0UUcacBihDAeCLdOLvim8X9VG_4zWZUocnyTscFrPnlOzi9pnYrywbepGFakkT9YRNiAYaGGzw9jl4mPFiODqdTwzbelqIkI4b2S2D1s" />
                                         </div>
-                                        <span class="text-sm font-medium line-clamp-1">Updating Developer Tools
-                                            &amp; SDKs</span>
+                                        <span class="text-sm font-medium line-clamp-1">Memperbarui Alat Pengembang &amp; SDK</span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
                                     Oct 05, 2024</td>
                                 <td class="px-6 py-4">
                                     <span
-                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Scheduled</span>
+                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">Terjadwal</span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <button class="text-slate-400 hover:text-primary"><span
@@ -235,15 +231,14 @@
                                             <img alt="News" data-alt="News thumbnail of students together"
                                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYPJEq6QNULqJFiVuZ2y7z1lJ0r6xez6fsuxd0-dqGxfEY3ZacX2MSIVNXQKvdscxKrL-ehiz4mqmz-HAaSe1r1gjgP9XgiOmigUd2wPndTN8MnFEtjvtksR7zGZrM7pgSYu7gwZtxNzPWQlazdWy0DsB9YS1YRFC0aSoYNLc4yFKt5lYpcYky_AuDIDeKTvuTaR9W0NeWXy2lK82xY6lZi9J4EGCkqSdMrry0f4_YOj53NsZdBdEGjlJuCCPMyT3Qu9-RqHajaU4" />
                                         </div>
-                                        <span class="text-sm font-medium line-clamp-1">Staff Workshop: Cyber
-                                            Awareness</span>
+                                        <span class="text-sm font-medium line-clamp-1">Workshop Staf: Kesadaran Siber</span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
                                     Oct 01, 2024</td>
                                 <td class="px-6 py-4">
                                     <span
-                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">Published</span>
+                                        class="px-2 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">Dipublikasikan</span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <button class="text-slate-400 hover:text-primary"><span

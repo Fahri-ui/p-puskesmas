@@ -77,10 +77,11 @@
         /* Services Grid Styles */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
-            padding: 2rem;
+            padding: 0;
             margin: 0 auto;
+            width: min(100%, 1400px);
         }
 
         .service-card {
@@ -91,9 +92,8 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
-            height: 100%;
+            min-height: 100%;
             border: 1px solid rgba(52, 153, 83, 0.1);
-            margin: 0;
         }
 
         .service-card:hover {
@@ -103,13 +103,14 @@
 
         .service-image {
             width: 100%;
-            height: 180px;
+            min-height: 220px;
             object-fit: cover;
             background: linear-gradient(135deg, #349953 0%, #2d8a4a 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
         }
 
         .service-image img {
@@ -165,6 +166,42 @@
             line-height: 1.7;
             margin: 0;
             flex-grow: 1;
+        }
+
+        .service-meta {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .service-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.9rem 1rem;
+            border-radius: 14px;
+            background: rgba(52, 153, 83, 0.08);
+            border: 1px solid rgba(52, 153, 83, 0.12);
+            color: #2b4d32;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .service-meta-item i {
+            flex-shrink: 0;
+            font-size: 1.1rem;
+            color: #349953;
+        }
+
+        .service-meta-item span {
+            display: inline-block;
+        }
+
+        .service-meta-item .meta-label {
+            display: block;
+            font-weight: 600;
+            color: #1a3b26;
         }
 
         .service-cta {
@@ -316,9 +353,8 @@
         <div class="services-grid">
 
             <!-- Services Section Wrapper -->
-            <div class="services-grid">
-                @forelse ($services as $service)
-                    <div class="service-card">
+            @forelse ($services as $service)
+                <div class="service-card">
                         <div class="service-image">
                             <img src="{{ $service->image ? asset('storage/' . $service->image) : 'https://placehold.co/400x300/349953/ffffff?text=' . urlencode($service->name) }}"
                                 alt="{{ $service->name }}">
@@ -326,21 +362,6 @@
                         <div class="service-content">
                             <h3 class="service-title">{{ $service->name }}</h3>
                             <p class="service-description">{{ $service->excerpt }}</p>
-                            @if($service->jam_buka || $service->jam_tutup)
-                                <p class="text-sm text-slate-600 mt-3">
-                                    Jam Operasional:
-                                    @if($service->jam_buka && $service->jam_tutup)
-                                        {{ $service->jam_buka }} - {{ $service->jam_tutup }}
-                                    @elseif($service->jam_buka)
-                                        {{ $service->jam_buka }}
-                                    @else
-                                        {{ $service->jam_tutup }}
-                                    @endif
-                                </p>
-                            @endif
-                            @if($service->open_days)
-                                <p class="text-sm text-slate-600 mt-2">Open Days: {{ $service->open_days }}</p>
-                            @endif
                             <div class="service-cta">
                                 <a href="{{ route('service.show', $service->slug) }}">
                                     <i class="bi bi-arrow-right"></i> Selengkapnya

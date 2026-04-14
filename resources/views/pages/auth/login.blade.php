@@ -251,10 +251,10 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">Email Admin</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
                         placeholder="admin@puskesmasbinong.go.id"
                         required
                     >
@@ -262,10 +262,10 @@
 
                 <div class="form-group">
                     <label for="password">Kata Sandi</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
                         placeholder="Masukkan kata sandi Anda"
                         required
                     >
@@ -276,7 +276,6 @@
                         <input type="checkbox" id="remember" name="remember">
                         <label for="remember">ingat saya</label>
                     </div>
-                    <a href="{{ route('forgot-password') }}" class="forgot-password">Lupa kata sandi?</a>
                 </div>
 
                 <button type="submit" class="btn-login">Masuk ke Dashboard</button>
@@ -287,23 +286,23 @@
     <script>
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const remember = document.getElementById('remember').checked;
-            
+
             // Disable button
             const submitBtn = document.querySelector('.btn-login');
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sedang Memproses...';
-            
+
             try {
                 const formData = new FormData();
                 formData.append('email', email);
                 formData.append('password', password);
                 formData.append('remember', remember);
                 formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-                
+
                 const response = await fetch('/login', {
                     method: 'POST',
                     headers: {
@@ -311,9 +310,9 @@
                     },
                     body: formData
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (response.ok) {
                     // Login berhasil
                     window.location.href = data.redirect || '/admin/dashboard';
@@ -330,12 +329,12 @@
                 submitBtn.textContent = 'Masuk ke Dashboard';
             }
         });
-        
+
         function showError(message) {
             // Remove existing error
             const existingError = document.querySelector('.error-message');
             if (existingError) existingError.remove();
-            
+
             // Add new error
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
@@ -349,10 +348,10 @@
                 font-size: 14px;
             `;
             errorDiv.textContent = message;
-            
+
             const form = document.getElementById('loginForm');
             form.insertBefore(errorDiv, form.firstChild);
-            
+
             // Auto hide after 5 seconds
             setTimeout(() => {
                 if (errorDiv.parentNode) {

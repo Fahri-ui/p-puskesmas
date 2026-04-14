@@ -73,9 +73,9 @@
                     <div class="social-links-panel">
                         <h5>Ikuti Kami</h5>
                         <div class="social-icons">
-                            <a href="#"><i class="bi bi-whatsapp"></i></a>
-                            <a href="#"><i class="bi bi-instagram"></i></a>
-                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="https://wa.me/6281234567890"><i class="bi bi-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/pkmbinong/?hl=en"><i class="bi bi-instagram"></i></a>
+                            <a href="https://www.youtube.com/@PuskesmasBinong"><i class="bi bi-youtube"></i></a>
                         </div>
                     </div>
                 </div>
@@ -92,48 +92,45 @@
                     <div class="form-container">
                         <h3>Berikan kami saran</h3>
                         <p>Saran dan kritik anda sangat berharga bagi kami</p>
-                        <form action="{{ route('contact.store') }}" method="post" class="php-email-form"
+                        <form action="{{ route('contact.store') }}" method="post" class="contact-form"
                             id="contactForm">
                             @csrf
 
-                            <!-- Honeypot: disembunyikan via CSS, JANGAN gunakan display:none -->
-                            <div style="position:absolute; left:-9999px; opacity:0; height:0; overflow:hidden;"
-                                aria-hidden="true">
-                                <label for="website">Leave this field empty</label>
-                                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                            <div class="my-3">
+                                @if(session('success'))
+                                    <div class="sent-message">{{ session('success') }}</div>
+                                @endif
+                                @if(session('error'))
+                                    <div class="error-message">{{ session('error') }}</div>
+                                @endif
+                                @if($errors->any())
+                                    <div class="error-message">{{ implode(' ', $errors->all()) }}</div>
+                                @endif
                             </div>
 
                             <!-- Field form yang sudah ada tetap sama -->
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="nameInput" name="name"
-                                    placeholder="Full Name" required>
+                                    placeholder="Nama Lengkap Anda" value="{{ old('name') }}" required>
                                 <label for="nameInput">Nama Lengkap</label>
                             </div>
 
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="emailInput" name="email"
-                                    placeholder="Email Address" required="">
+                                    placeholder="Alamat Email" value="{{ old('email') }}" required="">
                                 <label for="emailInput">Pastikan alamat email Anda benar</label>
                             </div>
 
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="subjectInput" name="subject"
-                                    placeholder="Subject" required="">
+                                    placeholder="Judul Pesan" value="{{ old('subject') }}" required="">
                                 <label for="subjectInput">Tujuan</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="messageInput" name="message" rows="5" placeholder="Your Message"
-                                    style="height: 150px" required=""></textarea>
+                                <textarea class="form-control" id="messageInput" name="message" rows="5" placeholder="Pesan Anda"
+                                    style="height: 150px" required="">{{ old('message') }}</textarea>
                                 <label for="messageInput">Pesan Anda</label>
-                            </div>
-
-                            <div class="my-3">
-                                <div class="loading" style="display:none">Loading</div>
-                                <div class="error-message" style="display:none"></div>
-                                <div class="sent-message" style="display:none">Pesan anda telah terkirim. Terima
-                                    kasih!
-                                </div>
                             </div>
 
                             <div class="d-grid">
@@ -148,53 +145,5 @@
         </div>
     </section><!-- /Contact Section -->
 
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const form = e.target;
-            const loading = form.querySelector('.loading');
-            const errorBox = form.querySelector('.error-message');
-            const sentBox = form.querySelector('.sent-message');
-            const btn = form.querySelector('button[type=submit]');
-
-            loading.style.display = 'block';
-            errorBox.style.display = 'none';
-            sentBox.style.display = 'none';
-            btn.disabled = true;
-
-            try {
-                const res = await fetch(form.action, {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
-                    },
-                    body: new FormData(form),
-                });
-
-                const data = await res.json();
-
-                if (data.success) {
-                    sentBox.textContent = data.message;
-                    sentBox.style.display = 'block';
-                    form.reset();
-                } else {
-                    // Tampilkan error validasi
-                    const errors = data.errors ?
-                        Object.values(data.errors).flat().join(' ') :
-                        data.message;
-                    errorBox.textContent = errors;
-                    errorBox.style.display = 'block';
-                }
-            } catch {
-                errorBox.textContent = 'Terjadi kesalahan jaringan. Silakan coba lagi.';
-                errorBox.style.display = 'block';
-            } finally {
-                loading.style.display = 'none';
-                btn.disabled = false;
-            }
-        });
-    </script>
 
 </x-landing.app-layout>

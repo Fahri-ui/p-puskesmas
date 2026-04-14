@@ -3,22 +3,22 @@
         <div class="p-2 bg-white/20 rounded-lg">
             <span class="material-symbols-outlined text-white">shield_person</span>
         </div>
-        <span class="font-bold text-xl tracking-tight">SystemAdmin</span>
+        <span class="font-bold text-xl tracking-tight">Admin Sistem</span>
     </div>
     <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto max-h-96 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
         <x-admin.navbar.nav-link href="{{ route('admin.dashboard') }}" route="admin.dashboard">
             <span class="material-symbols-outlined">dashboard</span>
-            <span>Dashboard</span>
+            <span>Beranda</span>
         </x-admin.navbar.nav-link>
 
         <x-admin.navbar.nav-link href="{{ route('admin.layanan') }}" route="admin.layanan">
             <span class="material-symbols-outlined">settings_suggest</span>
-            <span>Services</span>
+            <span>Layanan</span>
         </x-admin.navbar.nav-link>
 
         <x-admin.navbar.nav-link href="{{ route('admin.staf') }}" route="admin.staf">
             <span class="material-symbols-outlined">badge</span>
-            <span>Staff</span>
+            <span>Staf</span>
         </x-admin.navbar.nav-link>
 
         <x-admin.navbar.nav-link href="{{ route('admin.blog') }}" route="admin.blog">
@@ -28,17 +28,17 @@
 
         <x-admin.navbar.nav-link href="{{ route('admin.gallery') }}" route="admin.gallery">
             <span class="material-symbols-outlined">gallery_thumbnail</span>
-            <span>Gallery</span>
+            <span>Galeri</span>
         </x-admin.navbar.nav-link>
 
         <x-admin.navbar.nav-link href="{{ route('admin.certificate') }}" route="admin.certificate">
             <span class="material-symbols-outlined">verified</span>
-            <span>Certificate</span>
+            <span>Sertifikat</span>
         </x-admin.navbar.nav-link>
 
         <x-admin.navbar.nav-link href="{{ route('admin.message') }}" route="admin.message">
             <span class="material-symbols-outlined">mail</span>
-            <span>Message</span>
+            <span>Pesan</span>
         </x-admin.navbar.nav-link>
 
         <x-admin.navbar.nav-link href="{{ route('admin.profil') }}" route="admin.profil">
@@ -63,8 +63,8 @@
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuC35y_pkeFeEwcyfd-OejOvQQ_dczxwrjqsoOasORw-W2wyictOa88gXo7xPVrAMlgYCVoJtM0ZNxZuOXy3djKu4rVNh2F5KVPK3D2aMLUyOxLQZwtsUONcwf8S3S8WZlXuHXzbL3RVuWMb192BaIJsfRKlYcHVUkiW6I_1vECw3CllEXV2V_okLDV6tGTQds1PQWBPWaK6ZWf8zws9bPbGE0oH4wGqcxYlrfRd-EfI9sDsd7fNh05JTiJJP4LzdqqAb9lD41x2vEc" />
             </div>
             <div>
-                <p class="text-sm font-bold">Admin User</p>
-                <p class="text-xs text-white/60">System Manager</p>
+                <p class="text-sm font-bold">Admin Panel</p>
+                <p class="text-xs text-white/60">Manajemen Sistem</p>
             </div>
         </div>
         <div class="mt-4">
@@ -72,7 +72,7 @@
                 @csrf
                 <button type="submit"
                     class="w-full px-4 py-2 text-sm font-bold text-center text-white bg-red-600 rounded hover:bg-red-700 transition-colors">
-                    Logout
+                    Keluar
                 </button>
             </form>
         </div>

@@ -65,6 +65,9 @@
                             <a href="{{ asset('storage/' . $inovasi->file_path) }}" target="_blank" class="btn-more">
                                 Unduh PPT <i class="bi bi-arrow-up-right"></i>
                             </a>
+                            <a href="https://view.officeapps.live.com/op/view.aspx?src={{ urlencode(asset('storage/' . $inovasi->file_path)) }}" target="_blank" class="btn-more">
+                                Lihat PPT <i class="bi bi-arrow-up-right"></i>
+                            </a>
                         @else
                             <span class="text-sm text-slate-500">File belum tersedia.</span>
                         @endif

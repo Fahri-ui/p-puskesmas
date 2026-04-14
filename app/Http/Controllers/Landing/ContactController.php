@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Landing;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactFormRequest;
 use App\Models\ContactMessage;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\RedirectResponse;
 
 class ContactController extends Controller
 {
@@ -15,17 +15,8 @@ class ContactController extends Controller
         return view('pages.landing.contact.index');
     }
 
-    public function store(ContactFormRequest $request): JsonResponse
+    public function store(ContactFormRequest $request): RedirectResponse
     {
-        // Cek honeypot — jika field 'website' terisi, abaikan diam-diam
-        if ($request->filled('website')) {
-            // Kembalikan respons sukses palsu agar bot tidak tahu
-            return response()->json([
-                'success' => true,
-                'message' => 'Pesan Anda telah terkirim. Terima kasih!',
-            ]);
-        }
-
         try {
             ContactMessage::create([
                 'name'       => $request->validated('name'),
@@ -36,20 +27,14 @@ class ContactController extends Controller
                 'user_agent' => $request->userAgent(),
             ]);
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Pesan Anda telah terkirim. Terima kasih!',
-            ]);
+            return redirect()->route('contact')->with('success', 'Pesan Anda telah terkirim. Terima kasih!');
         } catch (\Exception $e) {
             Log::error('Contact form error: ' . $e->getMessage(), [
                 'email' => $request->validated('email'),
                 'ip'    => $request->ip(),
             ]);
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Terjadi kesalahan. Silakan coba lagi.',
-            ], 500);
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan. Silakan coba lagi.');
         }
     }
 }

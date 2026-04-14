@@ -18,9 +18,6 @@ class ContactFormRequest extends FormRequest
             'email'    => ['required', 'email:rfc,dns', 'max:150'],
             'subject'  => ['required', 'string', 'min:3', 'max:200'],
             'message'  => ['required', 'string', 'min:10', 'max:3000'],
-
-            // Honeypot field — harus kosong (bot biasanya mengisi semua field)
-            'website'  => ['nullable', 'max:0'],
         ];
     }
 
@@ -36,7 +33,6 @@ class ContactFormRequest extends FormRequest
             'message.required' => 'Pesan wajib diisi.',
             'message.min'      => 'Pesan minimal 10 karakter.',
             'message.max'      => 'Pesan maksimal 3000 karakter.',
-            'website.max'      => 'Terdeteksi sebagai bot.',
         ];
     }
 

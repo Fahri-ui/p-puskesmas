@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard</title>
+<title>Dashboard Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -16,7 +16,7 @@
     --sidebar-bg: #18444c;
     --sidebar-text: #a8c8cc;
     --sidebar-active: #349953;
-    --text: #374151;  
+    --text: #374151;
     --text-light: #6b7280;
     --border: #e5e7eb;
     --surface: #f9fafb;
@@ -887,7 +887,7 @@
       <div class="logo-icon">🌿</div>
       <div class="logo-text">
         SisInfo Admin
-        <span>Management Panel</span>
+        <span>Panel Manajemen</span>
       </div>
     </div>
 
@@ -896,7 +896,7 @@
 
       <div class="nav-item active" onclick="showPage('dashboard', this)">
         <div class="nav-icon">📊</div>
-        Dashboard
+        Beranda
       </div>
 
       <div class="nav-section-label">Konten</div>
@@ -969,7 +969,7 @@
     <header class="topbar">
       <button class="icon-btn" onclick="toggleSidebar()" style="display:none" id="menu-btn">☰</button>
       <div class="topbar-title" id="topbar-title">
-        Dashboard
+        Beranda
         <span>Selamat datang kembali, Admin 👋</span>
       </div>
       <div class="topbar-actions">
@@ -989,15 +989,15 @@
       <div class="page active" id="page-dashboard">
         <div class="page-header">
           <div>
-            <h2>Dashboard</h2>
-            <div class="breadcrumb">🏠 Home <span>›</span> <span>Dashboard</span></div>
+            <h2>Beranda</h2>
+            <div class="breadcrumb">🏠 Beranda <span>›</span> <span>Beranda</span></div>
           </div>
           <div style="display:flex;gap:8px;align-items:center">
             <select style="width:auto;padding:8px 12px;font-size:13px">
               <option>Tahun 2025</option>
               <option>Tahun 2024</option>
             </select>
-            <button class="btn btn-outline"><span>📥</span> Export</button>
+            <button class="btn btn-outline"><span>📥</span> Ekspor</button>
           </div>
         </div>
 
@@ -1069,7 +1069,7 @@
                       <div class="tbl-sub">Berita Pendidikan</div>
                     </td>
                     <td><span class="badge badge-amber">Pendidikan</span></td>
-                    <td><span class="badge badge-green">Publish</span></td>
+                    <td><span class="badge badge-green">Terbit</span></td>
                     <td style="color:var(--text-light)">10 Jun 2025</td>
                   </tr>
                   <tr>
@@ -1089,7 +1089,7 @@
                       <div class="tbl-sub">Berita Kesehatan</div>
                     </td>
                     <td><span class="badge badge-green">Kesehatan</span></td>
-                    <td><span class="badge badge-green">Publish</span></td>
+                    <td><span class="badge badge-green">Terbit</span></td>
                     <td style="color:var(--text-light)">07 Jun 2025</td>
                   </tr>
                   <tr>
@@ -1121,7 +1121,7 @@
                 </div>
                 <div class="mini-stat">
                   <div>
-                    <div class="mini-stat-label">Berita Publish</div>
+                    <div class="mini-stat-label">Berita Terbit</div>
                     <div class="mini-stat-bar" style="width:120px"><div class="mini-stat-fill" style="width:88%;background:var(--info)"></div></div>
                   </div>
                   <div class="mini-stat-value">137</div>
@@ -1710,8 +1710,8 @@
               </select>
               <select style="width:130px;padding:8px 12px;font-size:13px">
                 <option>Semua Status</option>
-                <option>Draft</option>
-                <option>Publish</option>
+                <option>Draf</option>
+                <option>Terbit</option>
               </select>
             </div>
           </div>
@@ -1724,7 +1724,7 @@
                   <th>Judul Berita</th>
                   <th>Kategori</th>
                   <th>Status</th>
-                  <th>Publish</th>
+                  <th>Terbit</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -1737,7 +1737,7 @@
                     <div class="tbl-sub">Pendaftaran siswa baru dibuka mulai Juni 2025...</div>
                   </td>
                   <td><span class="badge badge-blue">Pendidikan</span></td>
-                  <td><span class="badge badge-green">Publish</span></td>
+                  <td><span class="badge badge-green">Terbit</span></td>
                   <td style="color:var(--text-light)">10 Jun 2025</td>
                   <td>
                     <div class="table-actions">
@@ -1754,7 +1754,7 @@
                     <div class="tbl-sub">Kegiatan posyandu rutin bulanan untuk balita...</div>
                   </td>
                   <td><span class="badge badge-green">Kesehatan</span></td>
-                  <td><span class="badge badge-green">Publish</span></td>
+                  <td><span class="badge badge-green">Terbit</span></td>
                   <td style="color:var(--text-light)">07 Jun 2025</td>
                   <td>
                     <div class="table-actions">
@@ -2180,7 +2180,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('modal-staf-edit')">Batal</button>
-      <button class="btn btn-primary">💾 Update Data Staf</button>
+      <button class="btn btn-primary">💾 Perbarui Data Staf</button>
     </div>
   </div>
 </div>
@@ -2265,7 +2265,7 @@
         <div class="form-group full">
           <label>Tanggal Publish</label>
           <input type="date">
-          <span class="hint">Kosongkan jika ingin publish sekarang saat status diubah ke Publish.</span>
+          <span class="hint">Kosongkan jika ingin terbitkan sekarang saat status diubah ke Terbit.</span>
         </div>
         <div class="form-group full">
           <label>Excerpt / Ringkasan</label>
@@ -2312,7 +2312,7 @@
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('modal-berita-create')">Batal</button>
       <button class="btn btn-success">📝 Simpan Draft</button>
-      <button class="btn btn-primary">🚀 Publish Sekarang</button>
+      <button class="btn btn-primary">🚀 Terbitkan Sekarang</button>
     </div>
   </div>
 </div>
@@ -2409,7 +2409,7 @@ Persyaratan umum pendaftaran meliputi: fotokopi akta kelahiran, kartu keluarga, 
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal('modal-berita-edit')">Batal</button>
       <button class="btn btn-success">📝 Simpan Draft</button>
-      <button class="btn btn-primary">💾 Update Berita</button>
+      <button class="btn btn-primary">💾 Perbarui Berita</button>
     </div>
   </div>
 </div>
@@ -2444,7 +2444,7 @@ Persyaratan umum pendaftaran meliputi: fotokopi akta kelahiran, kartu keluarga, 
     if (el) el.classList.add('active');
 
     const titles = {
-      'dashboard': ['Dashboard', 'Selamat datang kembali, Admin 👋'],
+      'dashboard': ['Beranda', 'Selamat datang kembali, Admin 👋'],
       'layanan-kategori': ['Kategori Layanan', 'Layanan › Kategori'],
       'layanan-list': ['Daftar Layanan', 'Layanan › Semua Data'],
       'staf-list': ['Data Staf', 'Manajemen Staf'],

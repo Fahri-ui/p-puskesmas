@@ -19,7 +19,7 @@ class MessageController extends Controller
         $message->delete();
 
         return redirect()
-            ->route('pages.admin.messages.index')
+            ->route('admin.message')
             ->with('success', 'Pesan berhasil dihapus.');
     }
 }

@@ -4,7 +4,7 @@
         <div class="container-fluid p-0">
             <div class="hero-wrapper">
                 <div class="hero-image">
-                    <img src="{{ asset('MediTrust/assets/img/health/showcase-1.webp') }}"
+                    <img src="{{ asset('MediTrust/assets/img/pus.jpeg') }}"
                         alt="Layanan Kesehatan Primer di Puskesmas Binong" class="img-fluid">
                 </div>
 

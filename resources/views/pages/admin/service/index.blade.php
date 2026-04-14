@@ -34,14 +34,16 @@
         {{-- ===================== PAGE HEADER ===================== --}}
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-                <h1 class="text-2xl font-black text-slate-900 dark:text-slate-50 tracking-tight">Services</h1>
-                <p class="text-slate-500 text-sm">Manage your platform's service catalog and offerings.</p>
+                <h1 class="text-2xl font-black text-slate-900 dark:text-slate-50 tracking-tight">Layanan</h1>
+                <p class="text-slate-500 text-sm">
+                    Kelola katalog layanan dan penawaran platform Anda.
+                </p>
             </div>
             <div class="flex items-center gap-3">
                 <button onclick="showForm()"
                     class="flex items-center gap-2 px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 text-sm">
                     <span class="material-symbols-outlined text-lg">add</span>
-                    Add Service
+                    Tambah Layanan
                 </button>
             </div>
         </div>
@@ -52,17 +54,18 @@
                 <table class="w-full text-left">
                     <thead>
                         <tr class="bg-primary/5 border-b border-primary/10">
-                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Image</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Service Name
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Gambar</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Nama Layanan
                             </th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Excerpt</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Open Days
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Deskripsi</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Hari Buka
                             </th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Jam
                                 Operasional</th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
-                                Actions</th>
+                                Aksi
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-primary/5">
@@ -107,7 +110,7 @@
                                     @elseif($service->jam_tutup)
                                         {{ $service->jam_tutup }}
                                     @else
-                                        -   
+                                        -
                                     @endif
                                 </td>
 
@@ -117,16 +120,16 @@
                                         method="POST" class="inline">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" title="Toggle status">
+                                        <button type="submit" title="Ubah status">
                                             @if ($service->is_active)
                                                 <span
                                                     class="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:opacity-70 transition-opacity">
-                                                    <span class="size-1.5 rounded-full bg-emerald-500"></span>Active
+                                                    <span class="size-1.5 rounded-full bg-emerald-500"></span>Aktif
                                                 </span>
                                             @else
                                                 <span
                                                     class="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:opacity-70 transition-opacity">
-                                                    <span class="size-1.5 rounded-full bg-slate-400"></span>Inactive
+                                                    <span class="size-1.5 rounded-full bg-slate-400"></span>Tidak Aktif
                                                 </span>
                                             @endif
                                         </button>
@@ -171,7 +174,7 @@
                                 <td colspan="6" class="px-6 py-16 text-center">
                                     <span
                                         class="material-symbols-outlined text-[48px] text-slate-200 block mb-2">category</span>
-                                    <p class="text-slate-400 text-sm">Belum ada layanan. Klik "Add Service" untuk
+                                    <p class="text-slate-400 text-sm">Belum ada layanan. Klik "Tambah Layanan" untuk
                                         menambah.</p>
                                 </td>
                             </tr>
@@ -195,7 +198,7 @@
             {{-- Panel Header --}}
             <div class="flex items-center justify-between px-6 py-5 border-b border-primary/10">
                 <div>
-                    <h2 id="form-title" class="text-lg font-bold text-slate-900 dark:text-slate-50">Add Service</h2>
+                    <h2 id="form-title" class="text-lg font-bold text-slate-900 dark:text-slate-50">Tambah Layanan</h2>
                     <p id="form-subtitle" class="text-xs text-slate-400 mt-0.5">Isi data layanan baru</p>
                 </div>
                 <button onclick="hideForm()"
@@ -227,7 +230,7 @@
                     {{-- Image Upload --}}
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                            Image
+                            Gambar
                             <span class="font-normal text-slate-400">(jpg, jpeg, png, webp — maks. 2MB)</span>
                         </label>
                         <div id="create-dropzone" onclick="document.getElementById('create-image-input').click()"
@@ -243,7 +246,7 @@
                                     gambar</p>
                             </div>
                             {{-- Preview --}}
-                            <img id="create-image-preview" src="" alt="Preview"
+                            <img id="create-image-preview" src="" alt="Pratinjau"
                                 class="hidden absolute inset-0 w-full h-full object-cover rounded-lg">
                         </div>
                         <input type="file" name="image" id="create-image-input"
@@ -254,7 +257,7 @@
                     {{-- Excerpt --}}
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                            Excerpt
+                            Ringkasan
                             <span class="font-normal text-slate-400">(ringkasan singkat)</span>
                         </label>
                         <input type="text" name="excerpt" value="{{ old('excerpt') }}"
@@ -288,7 +291,7 @@
 
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                            Open Days
+                            Hari Buka
                             <span class="font-normal text-slate-400">(Contoh: Senin–Jumat atau Senin, Rabu,
                                 Jumat)</span>
                         </label>
@@ -324,7 +327,7 @@
                                     class="absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5">
                                 </div>
                             </div>
-                            <span class="text-sm text-slate-600 dark:text-slate-400">Active</span>
+                            <span class="text-sm text-slate-600 dark:text-slate-400">Aktif</span>
                         </label>
                     </div>
 
@@ -361,7 +364,7 @@
                     {{-- Image Upload --}}
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                            Image
+                            Gambar
                             <span class="font-normal text-slate-400">(jpg, jpeg, png, webp — maks. 2MB)</span>
                         </label>
                         <div id="edit-dropzone" onclick="document.getElementById('edit-image-input').click()"
@@ -387,7 +390,7 @@
                     {{-- Excerpt --}}
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                            Excerpt
+                            Ringkasan
                             <span class="font-normal text-slate-400">(ringkasan singkat)</span>
                         </label>
                         <input type="text" name="excerpt" id="edit-excerpt"
@@ -420,7 +423,7 @@
 
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                            Open Days
+                            Hari Buka
                             <span class="font-normal text-slate-400">(Contoh: Senin–Jumat atau Senin, Rabu,
                                 Jumat)</span>
                         </label>
@@ -455,7 +458,7 @@
                                     class="absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5">
                                 </div>
                             </div>
-                            <span class="text-sm text-slate-600 dark:text-slate-400">Active</span>
+                            <span class="text-sm text-slate-600 dark:text-slate-400">Aktif</span>
                         </label>
                     </div>
 
@@ -484,7 +487,7 @@
         function showForm() {
             document.getElementById('form-create').classList.remove('hidden');
             document.getElementById('form-edit').classList.add('hidden');
-            document.getElementById('form-title').textContent = 'Add Service';
+            document.getElementById('form-title').textContent = 'Tambah Layanan';
             document.getElementById('form-subtitle').textContent = 'Isi data layanan baru';
 
             overlay.classList.remove('hidden');
@@ -554,7 +557,7 @@
 
             document.getElementById('form-create').classList.add('hidden');
             document.getElementById('form-edit').classList.remove('hidden');
-            document.getElementById('form-title').textContent = 'Edit Service';
+            document.getElementById('form-title').textContent = 'Ubah Layanan';
             document.getElementById('form-subtitle').textContent = 'Perbarui data layanan';
 
             overlay.classList.remove('hidden');

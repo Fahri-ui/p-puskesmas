@@ -10,13 +10,13 @@
 
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
-                <h3 class="text-2xl font-bold text-slate-900">Daftar Certificate</h3>
+                <h3 class="text-2xl font-bold text-slate-900">Daftar Sertifikat</h3>
                 <p class="text-slate-500 mt-1">Kelola sertifikat dan penghargaan yang ditampilkan di halaman publik.</p>
             </div>
             <button onclick="openModal('modalCreate')"
                 class="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg font-semibold text-sm transition-all shadow-md shadow-primary/20">
                 <span class="material-symbols-outlined">add_circle</span>
-                Tambah Certificate
+                Tambah Sertifikat
             </button>
         </div>
 
@@ -26,9 +26,9 @@
                     <thead>
                         <tr class="bg-slate-50 border-b border-slate-200">
                             <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-16">NO</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-32">IMAGE</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">TITLE</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right w-32">ACTIONS</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-32">GAMBAR</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">JUDUL</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right w-32">AKSI</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
@@ -105,7 +105,7 @@
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal('modalCreate')"></div>
         <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg">
             <div class="flex items-center justify-between px-6 py-5 border-b border-slate-200">
-                <h4 class="text-lg font-bold text-slate-900">Tambah Certificate Baru</h4>
+                <h4 class="text-lg font-bold text-slate-900">Tambah Sertifikat Baru</h4>
                 <button onclick="closeModal('modalCreate')" class="p-1 text-slate-400 hover:text-slate-600 transition-colors">
                     <span class="material-symbols-outlined">close</span>
                 </button>

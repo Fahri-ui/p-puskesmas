@@ -14,6 +14,7 @@ class HomeController extends Controller
         $profil = Profil::first();
         $services = Service::where('is_active', true)
             ->orderBy('id')
+            ->limit(6)
             ->get();
         $stafs = Staf::orderBy('nama')->limit(6)->get();
         return view('pages.landing.home', compact('profil', 'services', 'stafs'));
